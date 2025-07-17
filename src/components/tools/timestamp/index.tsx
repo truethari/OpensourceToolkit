@@ -338,9 +338,18 @@ export default function Timestamp() {
       </div>
 
       <Tabs defaultValue="current" className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
           <TabsTrigger value="current">Current Time</TabsTrigger>
           <TabsTrigger value="custom">Custom Date/Time</TabsTrigger>
+          <TabsTrigger value="solve" className="hidden md:block">
+            Solve Timestamp
+          </TabsTrigger>
+          <TabsTrigger value="batch" className="hidden md:block">
+            Batch Convert
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsList className="mt-2 grid w-full grid-cols-2 md:hidden md:grid-cols-4">
           <TabsTrigger value="solve">Solve Timestamp</TabsTrigger>
           <TabsTrigger value="batch">Batch Convert</TabsTrigger>
         </TabsList>

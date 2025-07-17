@@ -368,10 +368,16 @@ export default function ImageConverter() {
       </div>
 
       <Tabs defaultValue="convert" className="w-full">
-        <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="convert">Convert Images</TabsTrigger>
-          <TabsTrigger value="settings">Settings</TabsTrigger>
-          <TabsTrigger value="info">Format Info</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-3 gap-1 md:gap-2">
+          <TabsTrigger value="convert" className="text-xs sm:text-sm">
+            Convert Images
+          </TabsTrigger>
+          <TabsTrigger value="settings" className="text-xs sm:text-sm">
+            Settings
+          </TabsTrigger>
+          <TabsTrigger value="info" className="text-xs sm:text-sm">
+            Format Info
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="convert" className="space-y-6">

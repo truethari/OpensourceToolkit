@@ -333,11 +333,19 @@ export default function JWTComponent() {
       </div>
 
       <Tabs defaultValue="generate" className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="generate">Generate JWT</TabsTrigger>
-          <TabsTrigger value="decode">Decode JWT</TabsTrigger>
-          <TabsTrigger value="verify">Verify JWT</TabsTrigger>
-          <TabsTrigger value="analyze">Analyze JWT</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-4 gap-1 md:gap-2">
+          <TabsTrigger value="generate" className="text-xs sm:text-sm">
+            Generate
+          </TabsTrigger>
+          <TabsTrigger value="decode" className="text-xs sm:text-sm">
+            Decode
+          </TabsTrigger>
+          <TabsTrigger value="verify" className="text-xs sm:text-sm">
+            Verify
+          </TabsTrigger>
+          <TabsTrigger value="analyze" className="text-xs sm:text-sm">
+            Analyze
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="generate" className="space-y-4">
