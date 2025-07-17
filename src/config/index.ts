@@ -94,7 +94,7 @@ export const tools: ITool[] = [
       "Resize and Optimize",
       "Download Converted Images",
     ],
-    popular: false,
+    popular: true,
     href: "/image-converter",
     seo: {
       title: "Image Format Converter - Convert Images Easily",

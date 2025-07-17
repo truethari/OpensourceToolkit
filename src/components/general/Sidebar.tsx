@@ -40,7 +40,7 @@ export default function AppSidebar() {
   return (
     <Sidebar>
       <SidebarContent>
-        <div className="flex h-16 items-center justify-center bg-green-700 text-white">
+        <div className="flex h-16 items-center justify-center bg-blue-700 text-white">
           <ToolCase className="mr-2 h-8 w-8" />
           <span className="text-lg font-semibold">OpenSource Toolkit</span>
         </div>
@@ -54,7 +54,11 @@ export default function AppSidebar() {
                   <SidebarMenuButton asChild>
                     <Link
                       href={item.url}
-                      className={item.url === pathname ? "bg-green-700" : ""}
+                      className={
+                        item.url === pathname
+                          ? "bg-blue-700 hover:bg-blue-600"
+                          : ""
+                      }
                       prefetch={true}
                     >
                       <item.icon />

@@ -74,7 +74,7 @@ export default function Home() {
   };
 
   const quickActions = useMemo(() => {
-    return tools.slice(0, 2).map((tool) => ({
+    return tools.slice(0, 4).map((tool) => ({
       title: `Quick ${tool.title}`,
       description: tool.description,
       action: () => handleToolClick(tool),
@@ -86,7 +86,7 @@ export default function Home() {
     <div className="mx-auto max-w-7xl p-2 md:space-y-6 md:p-6">
       {/* Hero Section */}
       <div className="border-b">
-        <div className="mx-auto max-w-7xl px-6 py-8 md:py-16">
+        <div className="mx-auto mb-4 max-w-7xl px-6 py-8">
           <div className="space-y-6 text-center">
             <div className="mb-4 flex flex-col items-center justify-center gap-5 space-x-2 md:flex-row md:gap-0">
               <div className="rounded-2xl border bg-slate-700 p-3">
@@ -115,19 +115,15 @@ export default function Home() {
 
       <div className="mx-auto max-w-7xl space-y-8 px-2 py-8 md:px-6">
         {/* Search Bar */}
-        <Card className="border shadow-sm transition-shadow hover:shadow-md">
-          <CardContent className="p-6">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 transform text-muted-foreground" />
-              <Input
-                placeholder="Search tools, features, or categories..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="h-12 border-slate-700 pl-12 text-sm focus-visible:ring-2 focus-visible:ring-slate-100 md:text-lg"
-              />
-            </div>
-          </CardContent>
-        </Card>
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 transform text-muted-foreground" />
+          <Input
+            placeholder="Search tools, features, or categories..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="md:text-md h-12 border-slate-700 pl-12 text-sm focus-visible:ring-1 focus-visible:ring-slate-600"
+          />
+        </div>
 
         {/* Quick Actions */}
         <div className="space-y-4">
@@ -136,7 +132,7 @@ export default function Home() {
             {quickActions.map((action, index) => (
               <Card
                 key={index}
-                className="cursor-pointer border transition-all duration-300 hover:border-slate-600 hover:shadow-md"
+                className="cursor-pointer border transition-all duration-300 hover:border-slate-600 hover:bg-slate-900 hover:shadow-md"
                 onClick={action.action}
               >
                 <CardContent className="p-4 md:p-6">
@@ -168,6 +164,7 @@ export default function Home() {
                 Quick Access
               </Badge>
             </div>
+
             <div className="flex flex-wrap gap-3">
               {recentlyUsed.map((toolId) => {
                 const tool = tools.find((t) => t.id === toolId);
@@ -177,9 +174,9 @@ export default function Home() {
                     key={toolId}
                     variant="outline"
                     onClick={() => handleToolClick(tool)}
-                    className="h-auto p-4 transition-colors hover:border-slate-600 hover:bg-slate-800"
+                    className="h-auto p-2 transition-colors hover:border-slate-600 hover:bg-slate-900"
                   >
-                    <tool.icon className="mr-2 h-4 w-4" />
+                    <tool.icon className="h-4 w-4" />
                     {tool.title}
                   </Button>
                 );
@@ -196,7 +193,7 @@ export default function Home() {
               <Badge
                 key={index}
                 variant="outline"
-                className="cursor-pointer px-4 py-2 text-sm transition-colors hover:border-slate-600 hover:bg-slate-800"
+                className="cursor-pointer px-4 py-2 text-sm transition-colors hover:border-slate-600 hover:bg-slate-900"
               >
                 {category.name} ({category.count})
               </Badge>
@@ -224,9 +221,7 @@ export default function Home() {
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
-                      <div
-                        className={`p-3 ${tool.color} rounded-xl border transition-transform group-hover:scale-110`}
-                      >
+                      <div className={`p-3 ${tool.color} rounded-xl border`}>
                         <tool.icon className="h-6 w-6 text-white" />
                       </div>
                       <div>
