@@ -1,4 +1,4 @@
-import { Hash, Clock } from "lucide-react";
+import { Hash, Clock, Fingerprint } from "lucide-react";
 
 import type { ITool } from "@/types";
 
@@ -51,6 +51,31 @@ export const tools: ITool[] = [
       description:
         "Convert timestamps to various formats, generate current time, and batch process dates. Ideal for developers and data analysts.",
       keywords: "timestamp, unix, date, time, convert, generator",
+    },
+  },
+  {
+    id: "jwt",
+    title: "JWT Decoder/Encoder",
+    shortTitle: "JWT",
+    description:
+      "Decode, encode, and verify JSON Web Tokens with support for multiple algorithms",
+    icon: Fingerprint,
+    color: "bg-purple-500",
+    category: "Security",
+    tags: ["jwt", "token", "authentication", "security"],
+    features: [
+      "Decode JWTs",
+      "Encode JWTs",
+      "Verify Signatures",
+      "Support for Multiple Algorithms",
+    ],
+    popular: true,
+    href: "/jwt",
+    seo: {
+      title: "JWT Decoder/Encoder - Manage JSON Web Tokens",
+      description:
+        "Decode, encode, and verify JWTs with support for various algorithms. Essential for secure web applications.",
+      keywords: "jwt, token, authentication, security, decoder, encoder",
     },
   },
 ];
