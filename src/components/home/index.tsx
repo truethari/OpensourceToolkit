@@ -78,12 +78,12 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="mx-auto max-w-7xl space-y-6 p-6">
+    <div className="mx-auto max-w-7xl space-y-6 p-2 md:p-6">
       {/* Hero Section */}
       <div className="border-b">
         <div className="mx-auto max-w-7xl px-6 py-16">
           <div className="space-y-6 text-center">
-            <div className="mb-4 flex items-center justify-center space-x-2">
+            <div className="mb-4 flex flex-col items-center justify-center gap-5 space-x-2 md:flex-row md:gap-0">
               <div className="rounded-2xl border bg-slate-700 p-3">
                 <Code className="h-8 w-8 text-white" />
               </div>
@@ -108,7 +108,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl space-y-8 px-6 py-8">
+      <div className="mx-auto max-w-7xl space-y-8 px-2 py-8 md:px-6">
         {/* Search Bar */}
         <Card className="border shadow-sm transition-shadow hover:shadow-md">
           <CardContent className="p-6">
@@ -118,7 +118,7 @@ export default function Home() {
                 placeholder="Search tools, features, or categories..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="h-12 border-slate-700 pl-12 text-lg focus-visible:ring-2 focus-visible:ring-slate-100"
+                className="h-12 border-slate-700 pl-12 text-sm focus-visible:ring-2 focus-visible:ring-slate-100 md:text-lg"
               />
             </div>
           </CardContent>
@@ -134,14 +134,14 @@ export default function Home() {
                 className="cursor-pointer border transition-all duration-300 hover:border-slate-600 hover:shadow-md"
                 onClick={action.action}
               >
-                <CardContent className="p-6">
+                <CardContent className="p-4 md:p-6">
                   <div className="flex items-center space-x-4">
                     <div className="rounded-xl border bg-slate-700 p-3">
                       <action.icon className="h-6 w-6 text-white" />
                     </div>
                     <div className="flex-1">
                       <h3 className="text-lg font-semibold">{action.title}</h3>
-                      <p className="text-muted-foreground">
+                      <p className="md:text-md text-sm text-muted-foreground">
                         {action.description}
                       </p>
                     </div>
@@ -247,7 +247,7 @@ export default function Home() {
                 </CardHeader>
 
                 <CardContent className="space-y-4">
-                  <CardDescription className="text-base leading-relaxed">
+                  <CardDescription className="md:text-md text-base text-sm leading-relaxed">
                     {tool.description}
                   </CardDescription>
 
