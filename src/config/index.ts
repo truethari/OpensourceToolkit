@@ -1,4 +1,4 @@
-import { Hash, Clock, Fingerprint } from "lucide-react";
+import { Hash, Clock, Fingerprint, Image } from "lucide-react";
 
 import type { ITool } from "@/types";
 
@@ -76,6 +76,31 @@ export const tools: ITool[] = [
       description:
         "Decode, encode, and verify JWTs with support for various algorithms. Essential for secure web applications.",
       keywords: "jwt, token, authentication, security, decoder, encoder",
+    },
+  },
+  {
+    id: "image-format-converter",
+    title: "Image Format Converter",
+    shortTitle: "Image Converter",
+    description:
+      "Convert images between formats like PNG, JPEG, GIF, and WebP with batch processing",
+    icon: Image,
+    color: "bg-orange-500",
+    category: "Converters",
+    tags: ["image", "converter", "png", "jpeg", "gif", "webp"],
+    features: [
+      "Batch Conversion",
+      "Multiple Formats",
+      "Resize and Optimize",
+      "Download Converted Images",
+    ],
+    popular: false,
+    href: "/image-converter",
+    seo: {
+      title: "Image Format Converter - Convert Images Easily",
+      description:
+        "Convert images between various formats like PNG, JPEG, GIF, and WebP. Supports batch processing and optimization.",
+      keywords: "image, converter, png, jpeg, gif, webp, batch",
     },
   },
 ];
