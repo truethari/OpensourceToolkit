@@ -217,7 +217,7 @@ export default function Home() {
                 onClick={() => handleToolClick(tool)}
               >
                 <CardHeader className="pb-4">
-                  <div className="flex items-start justify-between">
+                  <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
                       <div
                         className={`p-3 ${tool.color} rounded-xl border transition-transform group-hover:scale-110`}
@@ -226,7 +226,7 @@ export default function Home() {
                       </div>
                       <div>
                         <CardTitle className="flex items-center space-x-2">
-                          <span>{tool.title}</span>
+                          <span className="leading-normal">{tool.title}</span>
                           {tool.popular && (
                             <Badge
                               variant="secondary"
@@ -242,12 +242,13 @@ export default function Home() {
                         </Badge>
                       </div>
                     </div>
+
                     <ArrowRight className="h-5 w-5 text-muted-foreground transition-transform group-hover:translate-x-1" />
                   </div>
                 </CardHeader>
 
                 <CardContent className="space-y-4">
-                  <CardDescription className="md:text-md text-base text-sm leading-relaxed">
+                  <CardDescription className="md:text-md text-sm leading-relaxed">
                     {tool.description}
                   </CardDescription>
 
