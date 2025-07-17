@@ -14,4 +14,9 @@ export interface ITool {
   features: string[];
   popular?: boolean;
   href: string;
+  seo: {
+    title: string;
+    description: string;
+    keywords: string;
+  };
 }

@@ -21,6 +21,12 @@ export const tools: ITool[] = [
     ],
     popular: true,
     href: "/uuid",
+    seo: {
+      title: "UUID Generator - Generate Unique Identifiers",
+      description:
+        "Create UUIDs with various versions and batch options. Perfect for developers needing unique identifiers.",
+      keywords: "uuid, guid, identifier, unique, generator",
+    },
   },
   {
     id: "timestamp",
@@ -40,5 +46,11 @@ export const tools: ITool[] = [
     ],
     popular: true,
     href: "/timestamp",
+    seo: {
+      title: "Timestamp Converter - Convert and Generate Timestamps",
+      description:
+        "Convert timestamps to various formats, generate current time, and batch process dates. Ideal for developers and data analysts.",
+      keywords: "timestamp, unix, date, time, convert, generator",
+    },
   },
 ];
