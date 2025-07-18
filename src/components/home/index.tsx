@@ -16,6 +16,7 @@ import {
   GitFork,
   Scale,
   ExternalLink,
+  Coffee,
 } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
@@ -439,6 +440,19 @@ export default function Home() {
               </div>
             </CardContent>
           </Card>
+        </div>
+
+        {/* Buy Me a Coffee */}
+        <div className="flex justify-center py-8">
+          <Button
+            variant="outline"
+            className="flex items-center space-x-2 border-yellow-300 bg-yellow-50 text-yellow-800 hover:border-yellow-400 hover:bg-yellow-100 dark:border-yellow-800 dark:bg-yellow-950 dark:text-yellow-200 dark:hover:bg-yellow-900"
+            onClick={() => window.open("https://coff.ee/truethari", "_blank")}
+          >
+            <Coffee className="h-4 w-4" />
+            <span>Buy me a coffee</span>
+            <ExternalLink className="h-3 w-3" />
+          </Button>
         </div>
 
         {/* Footer */}
