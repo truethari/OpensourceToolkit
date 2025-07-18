@@ -74,8 +74,13 @@ export default function Home() {
   };
 
   const quickActions = useMemo(() => {
-    return tools.slice(0, 4).map((tool) => ({
-      title: `Quick ${tool.title}`,
+    const allPopularTools = tools.filter((tool) => tool.popular);
+    // get random 6 popular tools
+    const randomPopularTools = allPopularTools
+      .sort(() => 0.5 - Math.random())
+      .slice(0, 6);
+    return randomPopularTools.map((tool) => ({
+      title: tool.title,
       description: tool.description,
       action: () => handleToolClick(tool),
       icon: tool.icon,
@@ -137,7 +142,7 @@ export default function Home() {
               >
                 <CardContent className="p-4 md:p-6">
                   <div className="flex items-center space-x-4">
-                    <div className="rounded-xl border bg-slate-700 p-3">
+                    <div className="rounded-xl border p-3">
                       <action.icon className="h-6 w-6 text-white" />
                     </div>
                     <div className="flex-1">

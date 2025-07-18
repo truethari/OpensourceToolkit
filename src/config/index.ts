@@ -1,4 +1,11 @@
-import { Hash, Clock, Fingerprint, Image, Text } from "lucide-react";
+import {
+  Text,
+  Hash,
+  Clock,
+  Image,
+  FolderOpen,
+  Fingerprint,
+} from "lucide-react";
 
 import type { ITool } from "@/types";
 
@@ -121,6 +128,40 @@ export const tools: ITool[] = [
       description:
         "Convert text between different cases like uppercase, lowercase, title case, and more. Perfect for writers and developers.",
       keywords: "text, converter, case, uppercase, lowercase, title case",
+    },
+  },
+  {
+    id: "folder-analyzer",
+    title: "Folder Structure Analyzer",
+    shortTitle: "Folder Analyzer",
+    description:
+      "Analyze, visualize, and export folder structures with advanced filtering, statistics, and multi-format export options",
+    icon: FolderOpen,
+    color: "bg-blue-500",
+    category: "File Tools",
+    tags: [
+      "folder",
+      "directory",
+      "structure",
+      "tree",
+      "export",
+      "analyze",
+      "files",
+    ],
+    features: [
+      "Interactive Tree View",
+      "Smart File Filtering",
+      "Multi-Format Export",
+      "Detailed Statistics",
+    ],
+    popular: false,
+    href: "/folder-analyzer",
+    seo: {
+      title: "Folder Structure Analyzer - Visualize and Export Directory Trees",
+      description:
+        "Analyze folder structures, visualize directory trees, filter files by type and size, and export in JSON, CSV, XML formats. Perfect for developers and system administrators.",
+      keywords:
+        "folder structure, directory tree, file analyzer, export folder, file organization, directory mapping",
     },
   },
 ];
