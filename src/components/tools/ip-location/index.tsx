@@ -55,13 +55,29 @@ export default function IPLocation() {
     setError("");
 
     try {
-      const response = await fetch(
-        `http://ip-api.com/json/${ip}?fields=status,message,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,org,as,query`,
-      );
+      const response = await fetch(`https://ipwho.is/${ip}`);
       const data = await response.json();
 
-      if (data.status === "success") {
-        setLocationData(data);
+      if (data.success !== false) {
+        // Map ipwho.is response to our interface
+        const mappedData: IIPLocation = {
+          ip: data.ip,
+          country: data.country,
+          countryCode: data.country_code,
+          region: data.region_code || data.region,
+          regionName: data.region,
+          city: data.city,
+          zip: data.postal || "",
+          lat: data.latitude,
+          lon: data.longitude,
+          timezone: data.timezone?.id || data.timezone?.utc || "",
+          isp: data.connection?.isp || "Unknown",
+          org: data.connection?.org || "Unknown",
+          as: data.connection?.asn ? `AS${data.connection.asn} ${data.connection.org}` : "Unknown",
+          status: "success",
+          query: data.ip,
+        };
+        setLocationData(mappedData);
         setCurrentIP(ip);
       } else {
         setError(data.message || "Failed to fetch location data");
@@ -434,7 +450,7 @@ export default function IPLocation() {
             <div>
               <h4 className="mb-2 font-semibold">Privacy Notice</h4>
               <p className="text-sm text-muted-foreground">
-                This tool uses the ip-api.com service to retrieve location data.
+                This tool uses the ipwho.is service to retrieve location data.
                 No IP addresses are stored or logged by this application.
               </p>
             </div>
