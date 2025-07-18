@@ -398,10 +398,16 @@ export default function PasswordGenerator() {
       selectedWords.push(word);
     }
 
-    const separator =
-      passphraseOptions.separator === "custom"
-        ? passphraseOptions.customSeparator
-        : passphraseOptions.separator;
+    let separator = "";
+    if (passphraseOptions.separator === "custom") {
+      separator = passphraseOptions.customSeparator;
+    } else if (passphraseOptions.separator === "space") {
+      separator = " ";
+    } else if (passphraseOptions.separator === "none") {
+      separator = "";
+    } else {
+      separator = passphraseOptions.separator;
+    }
 
     return selectedWords.join(separator);
   }, [passphraseOptions]);
@@ -974,9 +980,9 @@ export default function PasswordGenerator() {
                     <SelectContent>
                       <SelectItem value="-">Hyphen (-)</SelectItem>
                       <SelectItem value="_">Underscore (_)</SelectItem>
-                      <SelectItem value=" ">Space ( )</SelectItem>
+                      <SelectItem value="space">Space ( )</SelectItem>
                       <SelectItem value=".">Dot (.)</SelectItem>
-                      <SelectItem value="">No Separator</SelectItem>
+                      <SelectItem value="none">No Separator</SelectItem>
                       <SelectItem value="custom">Custom</SelectItem>
                     </SelectContent>
                   </Select>
@@ -1097,8 +1103,8 @@ export default function PasswordGenerator() {
               )}
 
               <Alert>
-                <Info className="h-4 w-4" />
-                <AlertDescription>
+                <AlertDescription className="flex items-center gap-2">
+                  <Info className="h-4 w-4" />
                   Passphrases are easier to remember and type while maintaining
                   good security. Consider using them for accounts you access
                   frequently.
@@ -1184,8 +1190,8 @@ export default function PasswordGenerator() {
               )}
 
               <Alert>
-                <Info className="h-4 w-4" />
-                <AlertDescription>
+                <AlertDescription className="flex items-center gap-2">
+                  <Info className="h-4 w-4" />
                   Use longer PINs for better security. Avoid sequential numbers,
                   repeated digits, or personally significant dates.
                 </AlertDescription>
@@ -1275,7 +1281,7 @@ export default function PasswordGenerator() {
                           </Button>
                         </div>
 
-                        <div className="grid grid-cols-3 gap-4 text-xs text-muted-foreground">
+                        <div className="mt-4 grid grid-cols-3 gap-4 text-xs text-muted-foreground">
                           <div className="flex items-center gap-1">
                             <span className={getStrengthColor(pwd.strength)}>
                               {getStrengthIcon(pwd.strength)}
