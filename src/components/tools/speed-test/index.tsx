@@ -23,12 +23,14 @@ export default function SpeedTest() {
   }
 
   const [isRunning, setIsRunning] = useState(false);
-  const [currentTest, setCurrentTest] = useState<"ping" | "download" | "upload" | "complete" | null>(null);
+  const [currentTest, setCurrentTest] = useState<
+    "ping" | "download" | "upload" | "complete" | null
+  >(null);
   const [progress, setProgress] = useState(0);
   const [results, setResults] = useState<ISpeedTestResult | null>(null);
   const [history, setHistory] = useState<ISpeedTestResult[]>([]);
   const [error, setError] = useState("");
-  
+
   const pingRef = useRef<number>(0);
   const downloadRef = useRef<number>(0);
   const uploadRef = useRef<number>(0);
@@ -47,7 +49,7 @@ export default function SpeedTest() {
   const measurePing = async (): Promise<number> => {
     const iterations = 5;
     const pings: number[] = [];
-    
+
     for (let i = 0; i < iterations; i++) {
       const start = performance.now();
       try {
@@ -62,61 +64,61 @@ export default function SpeedTest() {
       }
       setProgress((i + 1) * 20);
     }
-    
+
     return pings.reduce((a, b) => a + b, 0) / pings.length;
   };
 
   const measureDownload = async (): Promise<number> => {
     const testSizes = [1, 2, 5, 10]; // MB
     const results: number[] = [];
-    
+
     for (let i = 0; i < testSizes.length; i++) {
       const size = testSizes[i];
       const start = performance.now();
-      
+
       try {
         const response = await fetch(
           `https://httpbin.org/bytes/${size * 1024 * 1024}`,
           {
             method: "GET",
             cache: "no-cache",
-          }
+          },
         );
-        
+
         if (!response.ok) throw new Error("Download failed");
-        
+
         const reader = response.body?.getReader();
         let receivedLength = 0;
-        
+
         while (reader) {
           const { done, value } = await reader.read();
           if (done) break;
           receivedLength += value?.length || 0;
         }
-        
+
         const end = performance.now();
         const duration = (end - start) / 1000;
         const speedMbps = (receivedLength * 8) / (duration * 1024 * 1024);
         results.push(speedMbps);
-        
+
         setProgress(20 + (i + 1) * 20);
       } catch {
         results.push(0);
       }
     }
-    
+
     return results.reduce((a, b) => a + b, 0) / results.length;
   };
 
   const measureUpload = async (): Promise<number> => {
     const testSizes = [0.5, 1, 2]; // MB
     const results: number[] = [];
-    
+
     for (let i = 0; i < testSizes.length; i++) {
       const size = testSizes[i];
       const data = new ArrayBuffer(size * 1024 * 1024);
       const start = performance.now();
-      
+
       try {
         const response = await fetch("https://httpbin.org/post", {
           method: "POST",
@@ -125,20 +127,20 @@ export default function SpeedTest() {
             "Content-Type": "application/octet-stream",
           },
         });
-        
+
         if (!response.ok) throw new Error("Upload failed");
-        
+
         const end = performance.now();
         const duration = (end - start) / 1000;
         const speedMbps = (size * 8) / duration;
         results.push(speedMbps);
-        
+
         setProgress(40 + (i + 1) * 20);
       } catch {
         results.push(0);
       }
     }
-    
+
     return results.reduce((a, b) => a + b, 0) / results.length;
   };
 
@@ -147,37 +149,36 @@ export default function SpeedTest() {
     setError("");
     setProgress(0);
     setResults(null);
-    
+
     try {
       // Ping test
       setCurrentTest("ping");
       const ping = await measurePing();
       pingRef.current = ping;
-      
+
       // Download test
       setCurrentTest("download");
       const download = await measureDownload();
       downloadRef.current = download;
-      
+
       // Upload test
       setCurrentTest("upload");
       const upload = await measureUpload();
       uploadRef.current = upload;
-      
+
       // Complete
       setCurrentTest("complete");
       setProgress(100);
-      
+
       const result: ISpeedTestResult = {
         download,
         upload,
         ping,
         timestamp: new Date().toLocaleString(),
       };
-      
+
       setResults(result);
-      setHistory(prev => [result, ...prev.slice(0, 9)]);
-      
+      setHistory((prev) => [result, ...prev.slice(0, 9)]);
     } catch (err) {
       setError("Speed test failed. Please try again.");
       console.error("Speed test error:", err);
@@ -215,7 +216,8 @@ export default function SpeedTest() {
       <div className="space-y-2 text-center">
         <h1 className="text-3xl font-bold">Internet Speed Test</h1>
         <p className="text-muted-foreground">
-          Test your internet connection speed with download, upload, and ping measurements
+          Test your internet connection speed with download, upload, and ping
+          measurements
         </p>
       </div>
 
@@ -247,13 +249,9 @@ export default function SpeedTest() {
                   </>
                 )}
               </Button>
-              
+
               {isRunning && (
-                <Button
-                  onClick={stopTest}
-                  variant="outline"
-                  size="lg"
-                >
+                <Button onClick={stopTest} variant="outline" size="lg">
                   <Square className="mr-2 h-4 w-4" />
                   Stop
                 </Button>
@@ -274,10 +272,10 @@ export default function SpeedTest() {
                   Progress: {progress}%
                 </div>
               </div>
-              
-              <div className="w-full bg-gray-200 rounded-full h-2">
+
+              <div className="h-2 w-full rounded-full bg-gray-200">
                 <div
-                  className="bg-blue-600 h-2 rounded-full transition-all duration-500"
+                  className="h-2 rounded-full bg-blue-600 transition-all duration-500"
                   style={{ width: `${progress}%` }}
                 />
               </div>
@@ -303,10 +301,12 @@ export default function SpeedTest() {
             </CardHeader>
             <CardContent>
               <div className="text-center">
-                <div className={`text-4xl font-bold ${getPingColor(results.ping)}`}>
+                <div
+                  className={`text-4xl font-bold ${getPingColor(results.ping)}`}
+                >
                   {formatPing(results.ping)}
                 </div>
-                <div className="text-sm text-muted-foreground mt-2">
+                <div className="mt-2 text-sm text-muted-foreground">
                   Latency
                 </div>
               </div>
@@ -322,10 +322,12 @@ export default function SpeedTest() {
             </CardHeader>
             <CardContent>
               <div className="text-center">
-                <div className={`text-4xl font-bold ${getSpeedColor(results.download, "download")}`}>
+                <div
+                  className={`text-4xl font-bold ${getSpeedColor(results.download, "download")}`}
+                >
                   {formatSpeed(results.download)}
                 </div>
-                <div className="text-sm text-muted-foreground mt-2">
+                <div className="mt-2 text-sm text-muted-foreground">
                   Download Speed
                 </div>
               </div>
@@ -341,10 +343,12 @@ export default function SpeedTest() {
             </CardHeader>
             <CardContent>
               <div className="text-center">
-                <div className={`text-4xl font-bold ${getSpeedColor(results.upload, "upload")}`}>
+                <div
+                  className={`text-4xl font-bold ${getSpeedColor(results.upload, "upload")}`}
+                >
                   {formatSpeed(results.upload)}
                 </div>
-                <div className="text-sm text-muted-foreground mt-2">
+                <div className="mt-2 text-sm text-muted-foreground">
                   Upload Speed
                 </div>
               </div>
@@ -358,15 +362,9 @@ export default function SpeedTest() {
           <CardHeader className="flex flex-row items-center justify-between">
             <div>
               <CardTitle>Test History</CardTitle>
-              <CardDescription>
-                Recent speed test results
-              </CardDescription>
+              <CardDescription>Recent speed test results</CardDescription>
             </div>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={clearHistory}
-            >
+            <Button variant="outline" size="sm" onClick={clearHistory}>
               <RotateCcw className="mr-2 h-4 w-4" />
               Clear History
             </Button>
@@ -383,19 +381,25 @@ export default function SpeedTest() {
                   </div>
                   <div className="flex items-center gap-4">
                     <div className="text-center">
-                      <div className={`font-semibold ${getPingColor(test.ping)}`}>
+                      <div
+                        className={`font-semibold ${getPingColor(test.ping)}`}
+                      >
                         {formatPing(test.ping)}
                       </div>
                       <div className="text-xs text-muted-foreground">Ping</div>
                     </div>
                     <div className="text-center">
-                      <div className={`font-semibold ${getSpeedColor(test.download, "download")}`}>
+                      <div
+                        className={`font-semibold ${getSpeedColor(test.download, "download")}`}
+                      >
                         {formatSpeed(test.download)}
                       </div>
                       <div className="text-xs text-muted-foreground">Down</div>
                     </div>
                     <div className="text-center">
-                      <div className={`font-semibold ${getSpeedColor(test.upload, "upload")}`}>
+                      <div
+                        className={`font-semibold ${getSpeedColor(test.upload, "upload")}`}
+                      >
                         {formatSpeed(test.upload)}
                       </div>
                       <div className="text-xs text-muted-foreground">Up</div>
@@ -417,22 +421,25 @@ export default function SpeedTest() {
             <div>
               <h4 className="mb-2 font-semibold">How it works</h4>
               <p className="text-sm text-muted-foreground">
-                This speed test measures your internet connection by downloading and uploading 
-                test data to remote servers. Ping is measured by sending small packets to test latency.
+                This speed test measures your internet connection by downloading
+                and uploading test data to remote servers. Ping is measured by
+                sending small packets to test latency.
               </p>
             </div>
             <div>
               <h4 className="mb-2 font-semibold">Test Services</h4>
               <p className="text-sm text-muted-foreground">
-                Uses <strong>httpbin.org</strong> for download/upload testing and ping measurements. 
-                Test files range from 1MB to 10MB for download, 0.5MB to 2MB for upload.
+                Uses <strong>httpbin.org</strong> for download/upload testing
+                and ping measurements. Test files range from 1MB to 10MB for
+                download, 0.5MB to 2MB for upload.
               </p>
             </div>
             <div>
               <h4 className="mb-2 font-semibold">Accuracy</h4>
               <p className="text-sm text-muted-foreground">
-                Results may vary based on network conditions, server location, and other factors. 
-                For best results, close other applications using internet during the test.
+                Results may vary based on network conditions, server location,
+                and other factors. For best results, close other applications
+                using internet during the test.
               </p>
             </div>
           </div>
