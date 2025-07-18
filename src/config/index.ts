@@ -1,4 +1,4 @@
-import { Hash, Clock, Fingerprint, Image } from "lucide-react";
+import { Hash, Clock, Fingerprint, Image, Text } from "lucide-react";
 
 import type { ITool } from "@/types";
 
@@ -101,6 +101,26 @@ export const tools: ITool[] = [
       description:
         "Convert images between various formats like PNG, JPEG, GIF, and WebP. Supports batch processing and optimization.",
       keywords: "image, converter, png, jpeg, gif, webp, batch",
+    },
+  },
+  {
+    id: "text-case-converter",
+    title: "Text Case Converter",
+    shortTitle: "Text Converter",
+    description:
+      "Convert text between different cases like uppercase, lowercase, title case, and more",
+    icon: Text,
+    color: "bg-teal-500",
+    category: "Converters",
+    tags: ["text", "converter", "case", "uppercase", "lowercase", "title case"],
+    features: ["Uppercase", "Lowercase", "Title Case", "Sentence Case"],
+    popular: false,
+    href: "/text-converter",
+    seo: {
+      title: "Text Case Converter - Convert Text Cases Easily",
+      description:
+        "Convert text between different cases like uppercase, lowercase, title case, and more. Perfect for writers and developers.",
+      keywords: "text, converter, case, uppercase, lowercase, title case",
     },
   },
 ];
