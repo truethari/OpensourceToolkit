@@ -7,6 +7,7 @@ import {
   Fingerprint,
   Key,
   MapPin,
+  Wifi,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -234,6 +235,42 @@ export const tools: ITool[] = [
         "Check IP address location, ISP information, country, region, city, and timezone. Support for both IPv4 and IPv6 addresses with batch processing.",
       keywords:
         "ip location, geolocation, ip address, country, region, city, isp, timezone, network tools",
+    },
+  },
+  {
+    id: "speed-test",
+    title: "Internet Speed Test",
+    shortTitle: "Speed Test",
+    description:
+      "Test your internet connection speed with download, upload, and ping measurements",
+    icon: Wifi,
+    color: "bg-cyan-500",
+    category: "Network Tools",
+    tags: [
+      "speed",
+      "test",
+      "internet",
+      "download",
+      "upload",
+      "ping",
+      "bandwidth",
+      "connection",
+    ],
+    features: [
+      "Download Speed Test",
+      "Upload Speed Test",
+      "Ping Latency Test",
+      "Real-time Progress",
+      "Speed History",
+    ],
+    popular: true,
+    href: "/speed-test",
+    seo: {
+      title: "Internet Speed Test - Test Your Connection Speed",
+      description:
+        "Test your internet connection speed with accurate download, upload, and ping measurements. Real-time testing with detailed results and history.",
+      keywords:
+        "internet speed test, bandwidth test, download speed, upload speed, ping test, connection test, network speed",
     },
   },
 ];
