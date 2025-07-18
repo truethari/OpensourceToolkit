@@ -223,11 +223,7 @@ export const tools: ITool[] = [
     color: "bg-blue-500", // Choose appropriate color
     category: "Appropriate Category", // Security, Generators, Converters, File Tools
     tags: ["tag1", "tag2", "tag3"],
-    features: [
-      "Feature 1",
-      "Feature 2",
-      "Feature 3",
-    ],
+    features: ["Feature 1", "Feature 2", "Feature 3"],
     popular: false, // Set to true if it should be featured
     href: "/your-tool-name",
     seo: {
@@ -314,7 +310,7 @@ export default function YourTool() {
 // Good
 interface ToolOptions {
   input: string;
-  format: 'json' | 'xml' | 'csv';
+  format: "json" | "xml" | "csv";
   validate: boolean;
 }
 
@@ -366,7 +362,7 @@ interface ComponentProps {
 }
 
 // 5. Component implementation
-export default function Component({ }: ComponentProps) {
+export default function Component({}: ComponentProps) {
   // component logic
 }
 ```
@@ -411,6 +407,7 @@ Before submitting your changes:
 ### Browser Testing
 
 Test your tool in:
+
 - **Chrome** (latest)
 - **Firefox** (latest)
 - **Safari** (latest)
@@ -453,6 +450,7 @@ refactor(utils): optimize text processing functions
 ### Pull Request Process
 
 1. **Sync with upstream**:
+
    ```bash
    git fetch upstream
    git checkout main
@@ -460,6 +458,7 @@ refactor(utils): optimize text processing functions
    ```
 
 2. **Create a feature branch**:
+
    ```bash
    git checkout -b feature/your-feature-name
    ```
@@ -469,12 +468,14 @@ refactor(utils): optimize text processing functions
 4. **Test thoroughly** using the testing guidelines
 
 5. **Commit your changes**:
+
    ```bash
    git add .
    git commit -m "feat(tools): add your new tool"
    ```
 
 6. **Push to your fork**:
+
    ```bash
    git push origin feature/your-feature-name
    ```
@@ -487,9 +488,11 @@ When creating a PR, please include:
 
 ```markdown
 ## Description
+
 Brief description of changes
 
 ## Type of Change
+
 - [ ] Bug fix
 - [ ] New feature
 - [ ] Documentation update
@@ -497,15 +500,18 @@ Brief description of changes
 - [ ] Code refactoring
 
 ## Testing
+
 - [ ] Manual testing completed
 - [ ] Responsive design tested
 - [ ] Browser compatibility tested
 - [ ] Edge cases tested
 
 ## Screenshots (if applicable)
+
 Add screenshots of your changes
 
 ## Checklist
+
 - [ ] Code follows style guidelines
 - [ ] Self-review completed
 - [ ] Documentation updated
@@ -548,6 +554,7 @@ Add screenshots of your changes
 ### Recognition
 
 Contributors are recognized in:
+
 - **README.md**: Contributors section
 - **Release Notes**: Major contributions
 - **Hall of Fame**: Outstanding contributors
@@ -555,6 +562,7 @@ Contributors are recognized in:
 ### Becoming a Maintainer
 
 Regular contributors may be invited to become maintainers with:
+
 - **Review permissions**
 - **Direct commit access**
 - **Release management** responsibilities
@@ -562,6 +570,7 @@ Regular contributors may be invited to become maintainers with:
 ## 📚 Additional Resources
 
 ### Documentation
+
 - [Next.js Documentation](https://nextjs.org/docs)
 - [React Documentation](https://react.dev/)
 - [TypeScript Documentation](https://www.typescriptlang.org/docs/)
@@ -569,6 +578,7 @@ Regular contributors may be invited to become maintainers with:
 - [Radix UI Documentation](https://www.radix-ui.com/docs)
 
 ### Tools & Extensions
+
 - [ES7+ React/Redux/React-Native snippets](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets)
 - [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
 - [TypeScript Importer](https://marketplace.visualstudio.com/items?itemName=pmneo.tsimporter)
