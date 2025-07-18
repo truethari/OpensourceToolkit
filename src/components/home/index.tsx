@@ -368,7 +368,7 @@ export default function Home() {
                           className="w-full"
                           onClick={() =>
                             window.open(
-                              "https://github.com/truethari/OpensourceToolkit/blob/main/CONTRIBUTING.md",
+                              "https://github.com/truethari/OpensourceToolkit/blob/master/CONTRIBUTING.md",
                               "_blank",
                             )
                           }
@@ -398,7 +398,7 @@ export default function Home() {
                           className="w-full"
                           onClick={() =>
                             window.open(
-                              "https://github.com/truethari/OpensourceToolkit/blob/main/LICENSE",
+                              "https://github.com/truethari/OpensourceToolkit/blob/master/LICENSE",
                               "_blank",
                             )
                           }
