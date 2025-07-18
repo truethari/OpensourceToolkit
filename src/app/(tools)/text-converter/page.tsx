@@ -1,5 +1,5 @@
 import TextCaseConverter from "@/components/tools/text-converter";
-import { getTitle, getKeywords, getDescription } from "@/utils/SEO";
+import { getTitle, getKeywords, getDescription, getHref } from "@/utils/SEO";
 
 import type { Metadata } from "next";
 
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: getTitle("text-case-converter"),
     description: getDescription("text-case-converter"),
     type: "website",
-    url: "/text-converter",
+    url: getHref("text-case-converter"),
     siteName: "OpensourceToolkit",
     images: [
       {

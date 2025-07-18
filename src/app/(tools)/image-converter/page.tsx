@@ -1,5 +1,5 @@
 import ImageConverter from "@/components/tools/image-converter";
-import { getTitle, getKeywords, getDescription } from "@/utils/SEO";
+import { getTitle, getKeywords, getDescription, getHref } from "@/utils/SEO";
 
 import type { Metadata } from "next";
 
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: getTitle("image-format-converter"),
     description: getDescription("image-format-converter"),
     type: "website",
-    url: "/image-converter",
+    url: getHref("image-format-converter"),
     siteName: "OpensourceToolkit",
     images: [
       {

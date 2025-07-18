@@ -16,3 +16,8 @@ export const getDescription = (toolId: string): string => {
     ? tool.seo.description
     : "OpenSource Toolkit - Your go-to source for open-source tools.";
 };
+
+export const getHref = (toolId: string): string => {
+  const tool = tools.find((t) => t.id === toolId);
+  return tool ? tool.href : "/";
+};

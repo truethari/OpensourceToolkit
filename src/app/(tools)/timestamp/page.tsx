@@ -1,5 +1,5 @@
 import Timestamp from "@/components/tools/timestamp";
-import { getTitle, getKeywords, getDescription } from "@/utils/SEO";
+import { getTitle, getKeywords, getDescription, getHref } from "@/utils/SEO";
 
 import type { Metadata } from "next";
 
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: getTitle("timestamp"),
     description: getDescription("timestamp"),
     type: "website",
-    url: "/timestamp",
+    url: getHref("timestamp"),
     siteName: "OpensourceToolkit",
     images: [
       {

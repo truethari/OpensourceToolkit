@@ -1,5 +1,5 @@
 import JWT from "@/components/tools/jwt";
-import { getTitle, getKeywords, getDescription } from "@/utils/SEO";
+import { getTitle, getKeywords, getDescription, getHref } from "@/utils/SEO";
 
 import type { Metadata } from "next";
 
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: getTitle("jwt"),
     description: getDescription("jwt"),
     type: "website",
-    url: "/jwt",
+    url: getHref("jwt"),
     siteName: "OpensourceToolkit",
     images: [
       {

@@ -1,5 +1,5 @@
 import UUID from "@/components/tools/uuid";
-import { getTitle, getKeywords, getDescription } from "@/utils/SEO";
+import { getTitle, getKeywords, getDescription, getHref } from "@/utils/SEO";
 
 import type { Metadata } from "next";
 
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: getTitle("uuid"),
     description: getDescription("uuid"),
     type: "website",
-    url: "/uuid",
+    url: getHref("uuid"),
     siteName: "OpensourceToolkit",
     images: [
       {

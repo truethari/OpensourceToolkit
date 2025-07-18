@@ -5,6 +5,7 @@ import {
   Image,
   FolderOpen,
   Fingerprint,
+  Key,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -162,6 +163,40 @@ export const tools: ITool[] = [
         "Analyze folder structures, visualize directory trees, filter files by type and size, and export in JSON, CSV, XML formats. Perfect for developers and system administrators.",
       keywords:
         "folder structure, directory tree, file analyzer, export folder, file organization, directory mapping",
+    },
+  },
+  {
+    id: "password-generator",
+    title: "Password Generator",
+    shortTitle: "Password",
+    description:
+      "Generate secure passwords, passphrases, and PINs with advanced customization and security analysis",
+    icon: Key,
+    color: "bg-red-500",
+    category: "Security",
+    tags: [
+      "password",
+      "generator",
+      "security",
+      "passphrase",
+      "pin",
+      "encryption",
+    ],
+    features: [
+      "Advanced Password Generation",
+      "Passphrase Generator",
+      "PIN & Code Generator",
+      "Batch Generation",
+      "Security Analysis",
+    ],
+    popular: true,
+    href: "/password-generator",
+    seo: {
+      title: "Password Generator - Create Secure Passwords",
+      description:
+        "Generate strong passwords, memorable passphrases, and secure PINs with real-time security analysis. Features batch generation, custom presets, and entropy calculation.",
+      keywords:
+        "password generator, secure password, passphrase, PIN generator, security, encryption, strong password",
     },
   },
 ];
