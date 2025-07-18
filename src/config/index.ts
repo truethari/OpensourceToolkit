@@ -6,6 +6,7 @@ import {
   FolderOpen,
   Fingerprint,
   Key,
+  MapPin,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -197,6 +198,42 @@ export const tools: ITool[] = [
         "Generate strong passwords, memorable passphrases, and secure PINs with real-time security analysis. Features batch generation, custom presets, and entropy calculation.",
       keywords:
         "password generator, secure password, passphrase, PIN generator, security, encryption, strong password",
+    },
+  },
+  {
+    id: "ip-location",
+    title: "IP Location Checker",
+    shortTitle: "IP Location",
+    description:
+      "Check IP address geolocation information including country, region, city, ISP, and more",
+    icon: MapPin,
+    color: "bg-indigo-500",
+    category: "Network Tools",
+    tags: [
+      "ip",
+      "location",
+      "geolocation",
+      "network",
+      "country",
+      "region",
+      "city",
+      "isp",
+    ],
+    features: [
+      "IP Geolocation Lookup",
+      "ISP Information",
+      "Country & Region Details",
+      "Timezone Detection",
+      "Batch IP Processing",
+    ],
+    popular: false,
+    href: "/ip-location",
+    seo: {
+      title: "IP Location Checker - Find IP Address Geolocation",
+      description:
+        "Check IP address location, ISP information, country, region, city, and timezone. Support for both IPv4 and IPv6 addresses with batch processing.",
+      keywords:
+        "ip location, geolocation, ip address, country, region, city, isp, timezone, network tools",
     },
   },
 ];
