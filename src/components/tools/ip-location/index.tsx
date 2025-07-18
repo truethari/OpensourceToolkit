@@ -73,7 +73,9 @@ export default function IPLocation() {
           timezone: data.timezone?.id || data.timezone?.utc || "",
           isp: data.connection?.isp || "Unknown",
           org: data.connection?.org || "Unknown",
-          as: data.connection?.asn ? `AS${data.connection.asn} ${data.connection.org}` : "Unknown",
+          as: data.connection?.asn
+            ? `AS${data.connection.asn} ${data.connection.org}`
+            : "Unknown",
           status: "success",
           query: data.ip,
         };
