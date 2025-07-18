@@ -8,6 +8,9 @@ import {
   Key,
   MapPin,
   Wifi,
+  Binary,
+  FileText,
+  Globe,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -36,6 +39,32 @@ export const tools: ITool[] = [
       description:
         "Create UUIDs with various versions and batch options. Perfect for developers needing unique identifiers.",
       keywords: "uuid, guid, identifier, unique, generator",
+    },
+  },
+  {
+    id: "lorem-ipsum",
+    title: "Lorem Ipsum Generator",
+    shortTitle: "Lorem Ipsum",
+    description:
+      "Generate placeholder text in various formats including words, sentences, and paragraphs with customization options",
+    icon: FileText,
+    color: "bg-amber-500",
+    category: "Generators",
+    tags: ["lorem", "ipsum", "placeholder", "text", "generator", "dummy"],
+    features: [
+      "Words, Sentences & Paragraphs",
+      "Multiple Languages",
+      "Custom Length",
+      "HTML Formatting",
+      "Copy to Clipboard",
+    ],
+    popular: true,
+    href: "/lorem-ipsum",
+    seo: {
+      title: "Lorem Ipsum Generator - Generate Placeholder Text",
+      description:
+        "Generate Lorem Ipsum placeholder text with custom length options. Perfect for designers and developers needing dummy content.",
+      keywords: "lorem ipsum, placeholder text, dummy text, generator, content",
     },
   },
   {
@@ -131,6 +160,33 @@ export const tools: ITool[] = [
       description:
         "Convert text between different cases like uppercase, lowercase, title case, and more. Perfect for writers and developers.",
       keywords: "text, converter, case, uppercase, lowercase, title case",
+    },
+  },
+  {
+    id: "base64",
+    title: "Base64 Encoder/Decoder",
+    shortTitle: "Base64",
+    description:
+      "Encode and decode text, files, and URLs to/from Base64 format with support for different encodings",
+    icon: Binary,
+    color: "bg-purple-500",
+    category: "Converters",
+    tags: ["base64", "encode", "decode", "converter", "encoding", "binary"],
+    features: [
+      "Text to Base64",
+      "Base64 to Text",
+      "File Encoding",
+      "URL Safe Base64",
+      "Multiple Character Sets",
+    ],
+    popular: true,
+    href: "/base64",
+    seo: {
+      title: "Base64 Encoder/Decoder - Convert Text and Files",
+      description:
+        "Encode and decode text, files, and URLs to/from Base64 format. Supports URL-safe encoding and multiple character sets.",
+      keywords:
+        "base64, encode, decode, converter, encoding, binary, text, file",
     },
   },
   {
@@ -271,6 +327,43 @@ export const tools: ITool[] = [
         "Test your internet connection speed with accurate download, upload, and ping measurements. Real-time testing with detailed results and history.",
       keywords:
         "internet speed test, bandwidth test, download speed, upload speed, ping test, connection test, network speed",
+    },
+  },
+  {
+    id: "dns-lookup",
+    title: "DNS Lookup Tool",
+    shortTitle: "DNS Lookup",
+    description:
+      "Query DNS records including A, AAAA, MX, CNAME, TXT, NS, and more with detailed results",
+    icon: Globe,
+    color: "bg-cyan-500",
+    category: "Network Tools",
+    tags: [
+      "dns",
+      "lookup",
+      "domain",
+      "records",
+      "nameserver",
+      "mx",
+      "cname",
+      "txt",
+      "network",
+    ],
+    features: [
+      "Multiple Record Types",
+      "A, AAAA, MX, CNAME, TXT, NS",
+      "Batch Domain Lookup",
+      "Response Time Display",
+      "Export Results",
+    ],
+    popular: true,
+    href: "/dns-lookup",
+    seo: {
+      title: "DNS Lookup Tool - Query Domain Name System Records",
+      description:
+        "Perform DNS lookups for domains with support for A, AAAA, MX, CNAME, TXT, NS, and other record types. Get detailed DNS information with response times.",
+      keywords:
+        "dns lookup, domain records, nameserver, mx records, cname, txt records, dns query, network tools",
     },
   },
 ];
