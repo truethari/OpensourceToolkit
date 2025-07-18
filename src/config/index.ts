@@ -70,7 +70,7 @@ export const tools: ITool[] = [
     description:
       "Decode, encode, and verify JSON Web Tokens with support for multiple algorithms",
     icon: Fingerprint,
-    color: "bg-purple-500",
+    color: "bg-red-500",
     category: "Security",
     tags: ["jwt", "token", "authentication", "security"],
     features: [
@@ -244,7 +244,7 @@ export const tools: ITool[] = [
     description:
       "Test your internet connection speed with download, upload, and ping measurements",
     icon: Wifi,
-    color: "bg-cyan-500",
+    color: "bg-green-500",
     category: "Network Tools",
     tags: [
       "speed",

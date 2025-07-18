@@ -1,17 +1,18 @@
 import "./globals.css";
 
 import React from "react";
-import { Poppins } from "next/font/google";
+import { Fira_Sans } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
 import MainLayout from "@/components/wrappers/Main";
 import QueryProvider from "@/providers/QueryProvider";
+import DataProvider from "@/providers/DataProvider";
 
 import type { Metadata } from "next";
 
-const poppins = Poppins({
+const firaSans = Fira_Sans({
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -58,9 +59,11 @@ export default function RootLayout({
     <html lang="en">
       <GoogleAnalytics gaId="G-6Q3EJCYDZ6" />
 
-      <body className={`${poppins.className} dark antialiased`}>
+      <body className={`${firaSans.className} dark antialiased`}>
         <QueryProvider>
-          <MainLayout>{children}</MainLayout>
+          <DataProvider>
+            <MainLayout>{children}</MainLayout>
+          </DataProvider>
         </QueryProvider>
       </body>
     </html>

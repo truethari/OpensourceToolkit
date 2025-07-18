@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import {
   Star,
   Code,
@@ -30,14 +30,15 @@ import {
 } from "@/components/ui/card";
 
 import { tools } from "@/config";
+import { useData } from "@/providers/DataProvider";
 
 import type { ITool } from "@/types";
 
 export default function Home() {
   const router = useRouter();
+  const { recentTools, addRecentTool } = useData();
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [recentlyUsed, setRecentlyUsed] = useState(["uuid", "timestamp"]);
 
   const categories = [
     { name: "All Tools", count: tools.length },
@@ -60,18 +61,15 @@ export default function Home() {
       ),
   );
 
-  const handleToolClick = (tool: ITool) => {
-    // Update recently used
-    setRecentlyUsed((prev) => {
-      const updated = [tool.id, ...prev.filter((id) => id !== tool.id)].slice(
-        0,
-        3,
-      );
-      return updated;
-    });
+  const handleToolClick = useCallback(
+    (tool: ITool) => {
+      // Update recently used
+      addRecentTool(tool);
 
-    router.push(tool.href);
-  };
+      router.push(tool.href);
+    },
+    [addRecentTool, router],
+  );
 
   const quickActions = useMemo(() => {
     const allPopularTools = tools.filter((tool) => tool.popular);
@@ -84,8 +82,9 @@ export default function Home() {
       description: tool.description,
       action: () => handleToolClick(tool),
       icon: tool.icon,
+      iconColor: tool.color,
     }));
-  }, []);
+  }, [handleToolClick]);
 
   return (
     <div className="mx-auto max-w-7xl p-2 md:space-y-6 md:p-6">
@@ -142,7 +141,9 @@ export default function Home() {
               >
                 <CardContent className="p-4 md:p-6">
                   <div className="flex items-center space-x-4">
-                    <div className="rounded-xl border p-3">
+                    <div
+                      className={`rounded-xl ${action.iconColor} border p-3`}
+                    >
                       <action.icon className="h-6 w-6 text-white" />
                     </div>
                     <div className="flex-1">
@@ -160,7 +161,7 @@ export default function Home() {
         </div>
 
         {/* Recently Used */}
-        {recentlyUsed.length > 0 && (
+        {recentTools.length > 0 && (
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <h2 className="text-2xl font-bold">Recently Used</h2>
@@ -171,12 +172,12 @@ export default function Home() {
             </div>
 
             <div className="flex flex-wrap gap-3">
-              {recentlyUsed.map((toolId) => {
-                const tool = tools.find((t) => t.id === toolId);
+              {recentTools.map((recentTool) => {
+                const tool = tools.find((t) => t.id === recentTool.id);
                 if (!tool) return null;
                 return (
                   <Button
-                    key={toolId}
+                    key={recentTool.id}
                     variant="outline"
                     onClick={() => handleToolClick(tool)}
                     className="h-auto p-2 transition-colors hover:border-slate-600 hover:bg-slate-900"
