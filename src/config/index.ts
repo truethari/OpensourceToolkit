@@ -12,6 +12,7 @@ import {
   FileText,
   Globe,
   File,
+  Database,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -442,6 +443,46 @@ export const tools: ITool[] = [
         "Split, merge, rotate PDFs, add watermarks, insert text, and more. All processing happens in your browser for privacy and security. Perfect for document management.",
       keywords:
         "pdf tools, pdf split, pdf merge, pdf rotate, pdf watermark, pdf text, document manipulation, pdf toolkit, file processing",
+    },
+  },
+  {
+    id: "mock-data-generator",
+    title: "Mock Data Generator",
+    shortTitle: "Mock Data",
+    description:
+      "Generate realistic fake user data, addresses, and emails using Faker.js for testing and development",
+    icon: Database,
+    color: "bg-emerald-500",
+    category: "Generators",
+    tags: [
+      "mock",
+      "fake",
+      "data",
+      "generator",
+      "users",
+      "addresses",
+      "emails",
+      "faker",
+      "testing",
+      "development",
+    ],
+    features: [
+      "Generate User Profiles",
+      "Generate Addresses",
+      "Generate Email Data",
+      "Multiple Locales",
+      "JSON Export",
+      "Batch Generation",
+      "Customizable Options",
+    ],
+    popular: true,
+    href: "/mock-data-generator",
+    seo: {
+      title: "Mock Data Generator - Generate Fake Data for Testing",
+      description:
+        "Generate realistic fake user data, addresses, and emails using Faker.js. Perfect for testing, development, and prototyping with multiple locales and export options.",
+      keywords:
+        "mock data, fake data, generator, users, addresses, emails, faker, testing, development, prototyping, json",
     },
   },
 ];
