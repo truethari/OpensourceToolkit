@@ -20,13 +20,20 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
 export default function Footer() {
-  const [copied, setCopied] = useState(false);
+  const [copiedEVM, setCopiedEVM] = useState(false);
+  const [copiedTRX, setCopiedTRX] = useState(false);
 
-  const copyToClipboard = async (address: string) => {
+  const copyToClipboard = async (address: string, type: "EVM" | "TRX") => {
     try {
       await navigator.clipboard.writeText(address);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+
+      if (type === "EVM") {
+        setCopiedEVM(true);
+        setTimeout(() => setCopiedEVM(false), 2000);
+      } else if (type === "TRX") {
+        setCopiedTRX(true);
+        setTimeout(() => setCopiedTRX(false), 2000);
+      }
     } catch (err) {
       console.error("Failed to copy:", err);
     }
@@ -193,12 +200,46 @@ export default function Footer() {
 
               <button
                 onClick={() =>
-                  copyToClipboard("0x04F92fFd52373D40956f656DD72Fcb302c000000")
+                  copyToClipboard(
+                    "0x04F92fFd52373D40956f656DD72Fcb302c000000",
+                    "EVM",
+                  )
                 }
                 className="ml-3 flex-shrink-0 rounded-md p-2 transition-colors hover:bg-muted"
-                title={copied ? "Copied!" : "Copy address"}
+                title={copiedEVM ? "Copied!" : "Copy address"}
               >
-                {copied ? (
+                {copiedEVM ? (
+                  <Check className="h-4 w-4 text-green-600" />
+                ) : (
+                  <Copy className="h-4 w-4 text-muted-foreground" />
+                )}
+              </button>
+            </div>
+
+            <p className="text-center text-xs text-muted-foreground">
+              Supports any EVM chain (Ethereum, Polygon, etc.)
+            </p>
+          </div>
+
+          <div className="w-full max-w-md space-y-3">
+            <div className="flex items-center justify-between rounded-md border border-border bg-background p-3">
+              <div className="flex min-w-0 flex-1 flex-col gap-1">
+                <span className="text-xs font-medium text-muted-foreground">
+                  USDT: TRX - Tron (TRC20)
+                </span>
+                <code className="truncate font-mono text-xs md:text-sm">
+                  TKRy3Dxj8LmVea8krF7UkjUcKpVn3EXtns
+                </code>
+              </div>
+
+              <button
+                onClick={() =>
+                  copyToClipboard("TKRy3Dxj8LmVea8krF7UkjUcKpVn3EXtns", "TRX")
+                }
+                className="ml-3 flex-shrink-0 rounded-md p-2 transition-colors hover:bg-muted"
+                title={copiedTRX ? "Copied!" : "Copy address"}
+              >
+                {copiedTRX ? (
                   <Check className="h-4 w-4 text-green-600" />
                 ) : (
                   <Copy className="h-4 w-4 text-muted-foreground" />
