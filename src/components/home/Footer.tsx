@@ -246,10 +246,6 @@ export default function Footer() {
                 )}
               </button>
             </div>
-
-            <p className="text-center text-xs text-muted-foreground">
-              Supports any EVM chain (Ethereum, Polygon, etc.)
-            </p>
           </div>
         </div>
 
