@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  opensourcetoolkit:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: opensourcetoolkit-app
+    ports:
+      - "5001:5001"
+    environment:
+      - NODE_ENV=production
+      - PORT=5001
+    restart: unless-stopped
+    # Uncomment below to add volume for persistent data if needed
+    # volumes:
+    #   - ./data:/app/data
+    networks:
+      - opensourcetoolkit-network
+
+networks:
+  opensourcetoolkit-network:
+    driver: bridge
