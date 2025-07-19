@@ -117,7 +117,7 @@ export default function AppSidebar() {
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.length === 1 && searchQuery ? (
+              {items.length === 0 && searchQuery ? (
                 <div className="px-2 py-4 text-center text-sm text-muted-foreground">
                   No tools found matching &quot;{searchQuery}&quot;
                 </div>
