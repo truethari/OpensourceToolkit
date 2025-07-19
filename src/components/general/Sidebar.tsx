@@ -25,9 +25,7 @@ export default function AppSidebar() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredTools = useMemo(() => {
-    if (!searchQuery.trim()) {
-      return tools;
-    }
+    if (!searchQuery.trim()) return tools;
 
     const query = searchQuery.toLowerCase();
     return tools.filter((tool) => {
@@ -42,32 +40,29 @@ export default function AppSidebar() {
   }, [searchQuery]);
 
   const items = useMemo(() => {
-    const home = {
-      title: "Home",
-      url: "/",
-      icon: Home,
-    };
-
-    const more = filteredTools.map((tool) => ({
+    const tools = filteredTools.map((tool) => ({
       title: tool.shortTitle,
       url: tool.href,
       icon: tool.icon,
     }));
 
-    return [home, ...more];
+    // sort tools alphabetically by title
+    tools.sort((a, b) => a.title.localeCompare(b.title));
+    return tools;
   }, [filteredTools]);
 
-  const clearSearch = () => {
-    setSearchQuery("");
-  };
+  const clearSearch = () => setSearchQuery("");
 
   return (
     <Sidebar>
       <SidebarContent>
-        <div className="flex h-16 items-center justify-center bg-blue-700 text-white">
+        <Link
+          href="/"
+          className="flex h-16 cursor-pointer items-center justify-center bg-blue-700 text-white"
+        >
           <ToolCase className="mr-2 h-8 w-8" />
           <span className="text-lg font-semibold">OpenSource Toolkit</span>
-        </div>
+        </Link>
 
         <SidebarGroup>
           <SidebarGroupLabel>Search Tools</SidebarGroupLabel>
@@ -91,6 +86,27 @@ export default function AppSidebar() {
                 </Button>
               )}
             </div>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        <SidebarGroup>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <Link
+                    href="/"
+                    className={
+                      pathname === "/" ? "bg-blue-700 hover:bg-blue-600" : ""
+                    }
+                    prefetch={true}
+                  >
+                    <Home />
+                    <span>Home</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
 
