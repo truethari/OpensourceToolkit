@@ -11,6 +11,7 @@ import {
   Binary,
   FileText,
   Globe,
+  File,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -400,6 +401,47 @@ export const tools: ITool[] = [
         "Schedule API calls and webhooks using cron expressions. Features real-time dashboard, execution logs, and job management. Perfect for automation and monitoring.",
       keywords:
         "cron scheduler, api automation, webhook scheduler, job scheduler, cron jobs, task automation, api monitoring",
+    },
+  },
+  {
+    id: "pdf-toolkit",
+    title: "PDF Toolkit",
+    shortTitle: "PDF Tools",
+    description:
+      "Comprehensive PDF manipulation tools - split, merge, rotate, add watermarks, insert text, and extract information",
+    icon: File,
+    color: "bg-red-600",
+    category: "File Tools",
+    tags: [
+      "pdf",
+      "split",
+      "merge",
+      "rotate",
+      "watermark",
+      "text",
+      "toolkit",
+      "documents",
+      "manipulation",
+      "extract",
+    ],
+    features: [
+      "Split PDFs by Pages/Chunks",
+      "Merge Multiple PDFs",
+      "Rotate Pages",
+      "Add Watermarks",
+      "Insert Text",
+      "Extract Information",
+      "Create New PDFs",
+      "Browser-based Processing",
+    ],
+    popular: true,
+    href: "/pdf-toolkit",
+    seo: {
+      title: "PDF Toolkit - Comprehensive PDF Manipulation Tools",
+      description:
+        "Split, merge, rotate PDFs, add watermarks, insert text, and more. All processing happens in your browser for privacy and security. Perfect for document management.",
+      keywords:
+        "pdf tools, pdf split, pdf merge, pdf rotate, pdf watermark, pdf text, document manipulation, pdf toolkit, file processing",
     },
   },
 ];
