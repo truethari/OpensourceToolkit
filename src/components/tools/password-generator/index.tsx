@@ -558,13 +558,24 @@ export default function PasswordGenerator() {
       </div>
 
       <Tabs defaultValue="generator" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 md:grid-cols-5">
-          <TabsTrigger value="generator">Generator</TabsTrigger>
-          <TabsTrigger value="passphrase">Passphrase</TabsTrigger>
-          <TabsTrigger value="pin">PIN/Code</TabsTrigger>
-          <TabsTrigger value="batch">Batch</TabsTrigger>
-          <TabsTrigger value="history">History</TabsTrigger>
-        </TabsList>
+        <div className="flex flex-col gap-2">
+          <TabsList className="grid w-full grid-cols-3 md:grid-cols-5">
+            <TabsTrigger value="generator">Generator</TabsTrigger>
+            <TabsTrigger value="passphrase">Passphrase</TabsTrigger>
+            <TabsTrigger value="pin">PIN/Code</TabsTrigger>
+            <TabsTrigger value="batch" className="hidden md:block">
+              Batch
+            </TabsTrigger>
+            <TabsTrigger value="history" className="hidden md:block">
+              History
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsList className="grid w-full grid-cols-2 md:hidden">
+            <TabsTrigger value="batch">Batch</TabsTrigger>
+            <TabsTrigger value="history">History</TabsTrigger>
+          </TabsList>
+        </div>
 
         <TabsContent value="generator" className="space-y-4">
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">

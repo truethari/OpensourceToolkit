@@ -11,6 +11,7 @@ import {
   Binary,
   FileText,
   Globe,
+  File,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -364,6 +365,83 @@ export const tools: ITool[] = [
         "Perform DNS lookups for domains with support for A, AAAA, MX, CNAME, TXT, NS, and other record types. Get detailed DNS information with response times.",
       keywords:
         "dns lookup, domain records, nameserver, mx records, cname, txt records, dns query, network tools",
+    },
+  },
+  {
+    id: "cron-scheduler",
+    title: "API Cron Job Scheduler",
+    shortTitle: "API Cron Scheduler",
+    description:
+      "Schedule and manage API calls with cron expressions. Run automated tasks with a visual dashboard and detailed logging",
+    icon: Clock,
+    color: "bg-purple-500",
+    category: "Development Tools",
+    tags: [
+      "cron",
+      "scheduler",
+      "api",
+      "automation",
+      "jobs",
+      "tasks",
+      "webhook",
+      "monitoring",
+    ],
+    features: [
+      "Cron Expression Builder",
+      "API Call Scheduling",
+      "Real-time Dashboard",
+      "Execution Logs",
+      "Job Management",
+    ],
+    popular: true,
+    href: "/cron-scheduler",
+    seo: {
+      title: "Cron Job Scheduler - Schedule Automated API Calls",
+      description:
+        "Schedule API calls and webhooks using cron expressions. Features real-time dashboard, execution logs, and job management. Perfect for automation and monitoring.",
+      keywords:
+        "cron scheduler, api automation, webhook scheduler, job scheduler, cron jobs, task automation, api monitoring",
+    },
+  },
+  {
+    id: "pdf-toolkit",
+    title: "PDF Toolkit",
+    shortTitle: "PDF Tools",
+    description:
+      "Comprehensive PDF manipulation tools - split, merge, rotate, add watermarks, insert text, and extract information",
+    icon: File,
+    color: "bg-red-600",
+    category: "File Tools",
+    tags: [
+      "pdf",
+      "split",
+      "merge",
+      "rotate",
+      "watermark",
+      "text",
+      "toolkit",
+      "documents",
+      "manipulation",
+      "extract",
+    ],
+    features: [
+      "Split PDFs by Pages/Chunks",
+      "Merge Multiple PDFs",
+      "Rotate Pages",
+      "Add Watermarks",
+      "Insert Text",
+      "Extract Information",
+      "Create New PDFs",
+      "Browser-based Processing",
+    ],
+    popular: true,
+    href: "/pdf-toolkit",
+    seo: {
+      title: "PDF Toolkit - Comprehensive PDF Manipulation Tools",
+      description:
+        "Split, merge, rotate PDFs, add watermarks, insert text, and more. All processing happens in your browser for privacy and security. Perfect for document management.",
+      keywords:
+        "pdf tools, pdf split, pdf merge, pdf rotate, pdf watermark, pdf text, document manipulation, pdf toolkit, file processing",
     },
   },
 ];

@@ -2,22 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import React, { useState, useMemo, useCallback } from "react";
-import {
-  Star,
-  Code,
-  Users,
-  Search,
-  Palette,
-  Sparkles,
-  Bookmark,
-  ArrowRight,
-  Github,
-  Heart,
-  GitFork,
-  Scale,
-  ExternalLink,
-  Coffee,
-} from "lucide-react";
+import { Star, Search, Sparkles, Bookmark, ArrowRight } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -30,6 +15,10 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 
+import Hero from "./Hero";
+import Footer from "./Footer";
+import QuickActions from "./QuickActions";
+
 import { tools } from "@/config";
 import { useData } from "@/providers/DataProvider";
 
@@ -41,17 +30,26 @@ export default function Home() {
 
   const [searchQuery, setSearchQuery] = useState("");
 
-  const categories = [
-    { name: "All Tools", count: tools.length },
-    {
-      name: "Generators",
-      count: tools.filter((t) => t.category === "Generators").length,
-    },
-    {
-      name: "Converters",
-      count: tools.filter((t) => t.category === "Converters").length,
-    },
-  ];
+  interface ICategory {
+    name: string;
+    count: number;
+  }
+
+  const categories: ICategory[] = useMemo(() => {
+    const categoryMap: Record<string, number> = {};
+
+    tools.forEach((tool) => {
+      if (!categoryMap[tool.category]) categoryMap[tool.category] = 0;
+      categoryMap[tool.category]++;
+    });
+
+    const result = Object.entries(categoryMap).map(([name, count]) => ({
+      name,
+      count,
+    }));
+
+    return [{ name: "All Tools", count: tools.length }, ...result];
+  }, []);
 
   const filteredTools = tools.filter(
     (tool) =>
@@ -66,7 +64,6 @@ export default function Home() {
     (tool: ITool) => {
       // Update recently used
       addRecentTool(tool);
-
       router.push(tool.href);
     },
     [addRecentTool, router],
@@ -74,10 +71,10 @@ export default function Home() {
 
   const quickActions = useMemo(() => {
     const allPopularTools = tools.filter((tool) => tool.popular);
-    // get random 6 popular tools
+    // get random 4 popular tools
     const randomPopularTools = allPopularTools
       .sort(() => 0.5 - Math.random())
-      .slice(0, 6);
+      .slice(0, 4);
     return randomPopularTools.map((tool) => ({
       title: tool.title,
       description: tool.description,
@@ -90,33 +87,7 @@ export default function Home() {
   return (
     <div className="mx-auto max-w-7xl p-2 md:space-y-6 md:p-6">
       {/* Hero Section */}
-      <div className="border-b">
-        <div className="mx-auto mb-4 max-w-7xl px-6 py-8">
-          <div className="space-y-6 text-center">
-            <div className="mb-4 flex flex-col items-center justify-center gap-5 space-x-2 md:flex-row md:gap-0">
-              <div className="rounded-2xl border bg-slate-700 p-3">
-                <Code className="h-8 w-8 text-white" />
-              </div>
-              <h1 className="animated-gradient-text text-4xl font-bold md:text-5xl">
-                OpenSource Toolkit
-              </h1>
-            </div>
-            <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-              Open source collection of useful daily utilities. Built by the
-              community for developers and users. Contribute your own tools and
-              components.
-            </p>
-
-            {/* Live Stats */}
-            <div className="flex items-center justify-center space-x-8 text-sm text-muted-foreground">
-              <div className="flex items-center space-x-2">
-                <Users className="h-4 w-4" />
-                <span>{tools.length} Tools Available</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Hero />
 
       <div className="mx-auto max-w-7xl space-y-8 px-2 py-8 md:px-6">
         {/* Search Bar */}
@@ -130,83 +101,58 @@ export default function Home() {
           />
         </div>
 
-        {/* Quick Actions */}
-        <div className="space-y-4">
-          <h2 className="text-2xl font-bold">Quick Actions</h2>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {quickActions.map((action, index) => (
-              <Card
-                key={index}
-                className="cursor-pointer border transition-all duration-300 hover:border-slate-600 hover:bg-slate-900 hover:shadow-md"
-                onClick={action.action}
-              >
-                <CardContent className="p-4 md:p-6">
-                  <div className="flex items-center space-x-4">
-                    <div
-                      className={`rounded-xl ${action.iconColor} border p-3`}
-                    >
-                      <action.icon className="h-6 w-6 text-white" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-lg font-semibold">{action.title}</h3>
-                      <p className="md:text-md text-sm text-muted-foreground">
-                        {action.description}
-                      </p>
-                    </div>
-                    <ArrowRight className="h-5 w-5 text-muted-foreground" />
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
+        {searchQuery.length === 0 && (
+          <>
+            <QuickActions quickActions={quickActions} />
 
-        {/* Recently Used */}
-        {recentTools.length > 0 && (
-          <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <h2 className="text-2xl font-bold">Recently Used</h2>
-              <Badge variant="secondary" className="text-slate-300">
-                <Bookmark className="mr-1 h-3 w-3" />
-                Quick Access
-              </Badge>
-            </div>
+            {/* Recently Used */}
+            {recentTools.length > 0 && (
+              <div className="space-y-4">
+                <div className="flex items-center space-x-2">
+                  <h2 className="text-2xl font-bold">Recently Used</h2>
+                  <Badge variant="secondary" className="text-slate-300">
+                    <Bookmark className="mr-1 h-3 w-3" />
+                    Quick Access
+                  </Badge>
+                </div>
 
-            <div className="flex flex-wrap gap-3">
-              {recentTools.map((recentTool) => {
-                const tool = tools.find((t) => t.id === recentTool.id);
-                if (!tool) return null;
-                return (
-                  <Button
-                    key={recentTool.id}
+                <div className="flex flex-wrap gap-3">
+                  {recentTools.map((recentTool) => {
+                    const tool = tools.find((t) => t.id === recentTool.id);
+                    if (!tool) return null;
+                    return (
+                      <Button
+                        key={recentTool.id}
+                        variant="outline"
+                        onClick={() => handleToolClick(tool)}
+                        className="md:text-md h-auto p-2 text-xs transition-colors hover:border-slate-600 hover:bg-slate-900 md:text-sm"
+                      >
+                        <tool.icon className="h-4 w-4" />
+                        {tool.title}
+                      </Button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* Categories */}
+            <div className="space-y-4">
+              <h2 className="text-2xl font-bold">Browse by Category</h2>
+              <div className="flex flex-wrap gap-3">
+                {categories.map((category, index) => (
+                  <Badge
+                    key={index}
                     variant="outline"
-                    onClick={() => handleToolClick(tool)}
-                    className="h-auto p-2 transition-colors hover:border-slate-600 hover:bg-slate-900"
+                    className="cursor-pointer px-4 py-2 text-xs transition-colors hover:border-slate-600 hover:bg-slate-900 md:text-sm"
                   >
-                    <tool.icon className="h-4 w-4" />
-                    {tool.title}
-                  </Button>
-                );
-              })}
+                    {category.name} ({category.count})
+                  </Badge>
+                ))}
+              </div>
             </div>
-          </div>
+          </>
         )}
-
-        {/* Categories */}
-        <div className="space-y-4">
-          <h2 className="text-2xl font-bold">Browse by Category</h2>
-          <div className="flex flex-wrap gap-3">
-            {categories.map((category, index) => (
-              <Badge
-                key={index}
-                variant="outline"
-                className="cursor-pointer px-4 py-2 text-sm transition-colors hover:border-slate-600 hover:bg-slate-900"
-              >
-                {category.name} ({category.count})
-              </Badge>
-            ))}
-          </div>
-        </div>
 
         {/* Tools Grid */}
         <div className="space-y-4">
@@ -218,7 +164,7 @@ export default function Home() {
             </Badge>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-2 md:grid-cols-2 md:gap-6">
             {filteredTools.map((tool) => (
               <Card
                 key={tool.id}
@@ -227,30 +173,45 @@ export default function Home() {
               >
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <div className={`p-3 ${tool.color} rounded-xl border`}>
+                    <div className="flex w-full space-x-3">
+                      <div
+                        className={`p-3 ${tool.color} h-fit rounded-xl border`}
+                      >
                         <tool.icon className="h-6 w-6 text-white" />
                       </div>
-                      <div>
-                        <CardTitle className="flex items-center space-x-2">
+
+                      <div className="w-full">
+                        <CardTitle className="flex w-full items-center justify-between space-x-2 md:justify-start">
                           <span className="leading-normal">{tool.title}</span>
-                          {tool.popular && (
+                          <div className="flex flex-col">
+                            {tool.popular && (
+                              <Badge
+                                variant="secondary"
+                                className="w-fit bg-slate-800 text-slate-300"
+                              >
+                                <Star className="mr-1 h-3 w-3" />
+                                Popular
+                              </Badge>
+                            )}
                             <Badge
-                              variant="secondary"
-                              className="bg-slate-800 text-slate-300"
+                              variant="outline"
+                              className="mt-1 block w-fit text-nowrap text-xs md:hidden"
                             >
-                              <Star className="mr-1 h-3 w-3" />
-                              Popular
+                              {tool.category}
                             </Badge>
-                          )}
+                          </div>
                         </CardTitle>
-                        <Badge variant="outline" className="mt-1 text-xs">
+
+                        <Badge
+                          variant="outline"
+                          className="mt-1 hidden w-fit text-xs md:block"
+                        >
                           {tool.category}
                         </Badge>
                       </div>
                     </div>
 
-                    <ArrowRight className="h-5 w-5 text-muted-foreground transition-transform group-hover:translate-x-1" />
+                    <ArrowRight className="hidden h-5 w-5 text-muted-foreground transition-transform group-hover:translate-x-1 md:block" />
                   </div>
                 </CardHeader>
 
@@ -264,17 +225,11 @@ export default function Home() {
                       <Sparkles className="mr-1 h-4 w-4" />
                       Key Features
                     </h4>
-                    <div className="grid grid-cols-2 gap-1">
+                    <ul className="grid list-outside list-disc grid-cols-1 gap-1 pl-4 text-sm text-muted-foreground marker:text-blue-500 md:grid-cols-2">
                       {tool.features.map((feature, index) => (
-                        <div
-                          key={index}
-                          className="flex items-center text-sm text-muted-foreground"
-                        >
-                          <div className="mr-2 h-1.5 w-1.5 rounded-full bg-blue-500"></div>
-                          {feature}
-                        </div>
+                        <li key={index}>{feature}</li>
                       ))}
-                    </div>
+                    </ul>
                   </div>
 
                   <div className="flex flex-wrap gap-1 pt-2">
@@ -302,175 +257,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Open Source Section */}
-        <div className="space-y-6">
-          <Card className="border-2 border-dashed border-slate-300 bg-slate-50 dark:border-slate-600 dark:bg-slate-800/50">
-            <CardContent className="p-8">
-              <div className="space-y-6 text-center">
-                <div className="flex flex-col items-center justify-center gap-2 space-x-3 md:flex-row md:gap-1">
-                  <div className="rounded-full bg-slate-700 p-3">
-                    <Github className="h-8 w-8 text-white" />
-                  </div>
-                  <h2 className="text-3xl font-bold">
-                    Open Source & Community
-                  </h2>
-                </div>
-
-                <p className="mx-auto max-w-2xl text-sm text-muted-foreground md:text-lg">
-                  OpenSource Toolkit is built by developers, for developers.
-                  Join our community and help us create the best collection of
-                  developer utilities.
-                </p>
-
-                <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
-                  {/* GitHub */}
-                  <Card className="border transition-colors hover:border-slate-600">
-                    <CardContent className="space-y-4 p-6 text-center">
-                      <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-black dark:bg-white">
-                        <Github className="h-6 w-6 text-white dark:text-black" />
-                      </div>
-                      <div>
-                        <h3 className="mb-2 font-semibold">View Source Code</h3>
-                        <p className="mb-4 text-sm text-muted-foreground">
-                          Explore the codebase, report issues, and contribute to
-                          the project on GitHub.
-                        </p>
-                        <Button
-                          variant="outline"
-                          className="w-full"
-                          onClick={() =>
-                            window.open(
-                              "https://github.com/truethari/OpensourceToolkit",
-                              "_blank",
-                            )
-                          }
-                        >
-                          <Github className="mr-2 h-4 w-4" />
-                          GitHub Repository
-                          <ExternalLink className="ml-2 h-4 w-4" />
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  {/* Contribute */}
-                  <Card className="border transition-colors hover:border-slate-600">
-                    <CardContent className="space-y-4 p-6 text-center">
-                      <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-blue-600">
-                        <GitFork className="h-6 w-6 text-white" />
-                      </div>
-                      <div>
-                        <h3 className="mb-2 font-semibold">Contribute</h3>
-                        <p className="mb-4 text-sm text-muted-foreground">
-                          Add new tools, fix bugs, improve documentation, or
-                          suggest features.
-                        </p>
-                        <Button
-                          variant="outline"
-                          className="w-full"
-                          onClick={() =>
-                            window.open(
-                              "https://github.com/truethari/OpensourceToolkit/blob/master/CONTRIBUTING.md",
-                              "_blank",
-                            )
-                          }
-                        >
-                          <Heart className="mr-2 h-4 w-4" />
-                          How to Contribute
-                          <ExternalLink className="ml-2 h-4 w-4" />
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  {/* License */}
-                  <Card className="border transition-colors hover:border-slate-600">
-                    <CardContent className="space-y-4 p-6 text-center">
-                      <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-green-600">
-                        <Scale className="h-6 w-6 text-white" />
-                      </div>
-                      <div>
-                        <h3 className="mb-2 font-semibold">MIT License</h3>
-                        <p className="mb-4 text-sm text-muted-foreground">
-                          Free to use, modify, and distribute. Open source
-                          software for everyone.
-                        </p>
-                        <Button
-                          variant="outline"
-                          className="w-full"
-                          onClick={() =>
-                            window.open(
-                              "https://github.com/truethari/OpensourceToolkit/blob/master/LICENSE",
-                              "_blank",
-                            )
-                          }
-                        >
-                          <Scale className="mr-2 h-4 w-4" />
-                          View License
-                          <ExternalLink className="ml-2 h-4 w-4" />
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-
-                <div className="flex flex-wrap items-center justify-center gap-4 border-t pt-6">
-                  <Badge
-                    variant="secondary"
-                    className="flex items-center space-x-1"
-                  >
-                    <Star className="h-3 w-3" />
-                    <span>Star on GitHub</span>
-                  </Badge>
-                  <Badge
-                    variant="secondary"
-                    className="flex items-center space-x-1"
-                  >
-                    <GitFork className="h-3 w-3" />
-                    <span>Fork & Contribute</span>
-                  </Badge>
-                  <Badge
-                    variant="secondary"
-                    className="flex items-center space-x-1"
-                  >
-                    <Heart className="h-3 w-3" />
-                    <span>Made with ❤️ by Community</span>
-                  </Badge>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Buy Me a Coffee */}
-        <div className="flex justify-center py-8">
-          <Button
-            variant="outline"
-            className="flex items-center space-x-2 border-yellow-300 bg-yellow-50 text-yellow-800 hover:border-yellow-400 hover:bg-yellow-100 dark:border-yellow-800 dark:bg-yellow-950 dark:text-yellow-200 dark:hover:bg-yellow-900"
-            onClick={() => window.open("https://coff.ee/truethari", "_blank")}
-          >
-            <Coffee className="h-4 w-4" />
-            <span>Buy me a coffee</span>
-            <ExternalLink className="h-3 w-3" />
-          </Button>
-        </div>
-
-        {/* Footer */}
-        <div className="rounded-lg border-t py-8 text-center">
-          <div className="space-y-2">
-            <h3 className="text-lg font-semibold">More Tools Coming Soon</h3>
-            <p className="text-muted-foreground">
-              We&apos;re constantly adding new developer utilities. Stay tuned
-              for more powerful tools!
-            </p>
-            <div className="mt-4 flex items-center justify-center space-x-2">
-              <Palette className="h-4 w-4 text-slate-400" />
-              <span className="text-sm text-muted-foreground">
-                Built with modern design principles
-              </span>
-            </div>
-          </div>
-        </div>
+        <Footer />
       </div>
     </div>
   );

@@ -111,15 +111,49 @@ opensourcetoolkit/
 
 ## 🎯 Available Tools
 
-| Tool                    | Description                                    | Route                 | Features                                            |
-| ----------------------- | ---------------------------------------------- | --------------------- | --------------------------------------------------- |
-| **Password Generator**  | Advanced password, passphrase & PIN generation | `/password-generator` | Security analysis, batch generation, custom presets |
-| **JWT Tool**            | JWT encoding, decoding & verification          | `/jwt`                | Multi-algorithm support, security validation        |
-| **UUID Generator**      | Generate unique identifiers                    | `/uuid`               | V1 & V4 UUIDs, batch generation                     |
-| **Timestamp Converter** | Convert between timestamp formats              | `/timestamp`          | Live time, batch conversion, multiple formats       |
-| **Text Case Converter** | Transform text cases                           | `/text-converter`     | 10+ case types, batch processing                    |
-| **Image Converter**     | Convert image formats                          | `/image-converter`    | PNG/JPEG/GIF/WebP, optimization                     |
-| **Folder Analyzer**     | Analyze directory structures                   | `/folder-analyzer`    | Tree visualization, multi-format export             |
+### **Generators**
+
+| Tool                      | Description                                    | Route                 | Features                                            |
+| ------------------------- | ---------------------------------------------- | --------------------- | --------------------------------------------------- |
+| **UUID Generator**        | Generate universally unique identifiers        | `/uuid`               | V1 & V4 UUIDs, batch generation                     |
+| **Lorem Ipsum Generator** | Generate placeholder text                      | `/lorem-ipsum`        | Words/sentences/paragraphs, multiple languages      |
+| **Password Generator**    | Advanced password, passphrase & PIN generation | `/password-generator` | Security analysis, batch generation, custom presets |
+
+### **Converters**
+
+| Tool                       | Description                       | Route              | Features                                        |
+| -------------------------- | --------------------------------- | ------------------ | ----------------------------------------------- |
+| **Timestamp Converter**    | Convert between timestamp formats | `/timestamp`       | Live time, batch conversion, multiple formats   |
+| **Image Format Converter** | Convert image formats             | `/image-converter` | PNG/JPEG/GIF/WebP, optimization                 |
+| **Text Case Converter**    | Transform text cases              | `/text-converter`  | 10+ case types, batch processing                |
+| **Base64 Encoder/Decoder** | Encode/decode Base64 format       | `/base64`          | Text/file encoding, URL safe, multiple charsets |
+
+### **Security**
+
+| Tool                    | Description                           | Route  | Features                                     |
+| ----------------------- | ------------------------------------- | ------ | -------------------------------------------- |
+| **JWT Decoder/Encoder** | JWT encoding, decoding & verification | `/jwt` | Multi-algorithm support, security validation |
+
+### **Network Tools**
+
+| Tool                    | Description                    | Route          | Features                                  |
+| ----------------------- | ------------------------------ | -------------- | ----------------------------------------- |
+| **IP Location Checker** | Check IP address geolocation   | `/ip-location` | Geolocation, ISP info, timezone detection |
+| **Internet Speed Test** | Test internet connection speed | `/speed-test`  | Download/upload speed, ping latency       |
+| **DNS Lookup Tool**     | Query DNS records              | `/dns-lookup`  | Multiple record types, batch lookup       |
+
+### **Development Tools**
+
+| Tool                       | Description                   | Route             | Features                              |
+| -------------------------- | ----------------------------- | ----------------- | ------------------------------------- |
+| **API Cron Job Scheduler** | Schedule and manage API calls | `/cron-scheduler` | Cron expressions, real-time dashboard |
+
+### **File Tools**
+
+| Tool                          | Description                    | Route              | Features                                        |
+| ----------------------------- | ------------------------------ | ------------------ | ----------------------------------------------- |
+| **Folder Structure Analyzer** | Analyze directory structures   | `/folder-analyzer` | Tree visualization, multi-format export         |
+| **PDF Toolkit**               | Comprehensive PDF manipulation | `/pdf-toolkit`     | Split/merge, rotate, watermarks, text insertion |
 
 ## 🔧 Scripts
 
@@ -202,7 +236,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ## 📊 Project Stats
 
-- **7 Tools** currently available
+- **15 Tools** currently available
 - **16 UI Components** in the design system
 - **100% TypeScript** codebase
 - **SEO optimized** for all tools

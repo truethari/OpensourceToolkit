@@ -154,7 +154,7 @@ export default function IPLocation() {
   }, []);
 
   return (
-    <div className="mx-auto max-w-7xl space-y-6 p-6">
+    <div className="mx-auto max-w-7xl space-y-4 p-4 sm:space-y-6 sm:p-6">
       <div className="space-y-2 text-center">
         <h1 className="text-3xl font-bold">IP Location Checker</h1>
         <p className="text-muted-foreground">
@@ -171,8 +171,8 @@ export default function IPLocation() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="flex gap-2">
-            <div className="flex-1">
+          <div className="space-y-3">
+            <div>
               <Label htmlFor="ip">IP Address</Label>
               <Input
                 id="ip"
@@ -182,8 +182,12 @@ export default function IPLocation() {
                 onKeyPress={(e) => e.key === "Enter" && handleSearch()}
               />
             </div>
-            <div className="flex items-end gap-2">
-              <Button onClick={handleSearch} disabled={loading}>
+            <div className="flex flex-col gap-2 sm:flex-row">
+              <Button
+                onClick={handleSearch}
+                disabled={loading}
+                className="flex-1 sm:flex-initial"
+              >
                 <Search className="mr-2 h-4 w-4" />
                 {loading ? "Searching..." : "Search"}
               </Button>
@@ -191,6 +195,7 @@ export default function IPLocation() {
                 variant="outline"
                 onClick={getCurrentIP}
                 disabled={loading}
+                className="flex-1 sm:flex-initial"
               >
                 <Globe className="mr-2 h-4 w-4" />
                 My IP
