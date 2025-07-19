@@ -13,6 +13,7 @@ import {
   Globe,
   File,
   Database,
+  Shield,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -483,6 +484,45 @@ export const tools: ITool[] = [
         "Generate realistic fake user data, addresses, and emails using Faker.js. Perfect for testing, development, and prototyping with multiple locales and export options.",
       keywords:
         "mock data, fake data, generator, users, addresses, emails, faker, testing, development, prototyping, json",
+    },
+  },
+  {
+    id: "hmac-generator",
+    title: "HMAC Generator & Verifier",
+    shortTitle: "HMAC",
+    description:
+      "Generate and verify Hash-based Message Authentication Codes using various algorithms for secure authentication and data integrity verification",
+    icon: Shield,
+    color: "bg-slate-500",
+    category: "Security",
+    tags: [
+      "hmac",
+      "hash",
+      "authentication",
+      "security",
+      "integrity",
+      "cryptography",
+      "verification",
+      "sha256",
+      "sha512",
+    ],
+    features: [
+      "Generate HMAC Signatures",
+      "Verify HMAC Authenticity",
+      "Multiple Hash Algorithms",
+      "SHA-1, SHA-256, SHA-384, SHA-512",
+      "Secure Key Input",
+      "Copy to Clipboard",
+    ],
+    popular: true,
+    href: "/hmac-generator",
+    seo: {
+      title:
+        "HMAC Generator & Verifier - Generate and Verify Message Authentication Codes",
+      description:
+        "Generate and verify secure HMAC codes using SHA-256, SHA-512, and other algorithms. Perfect for API authentication, data integrity verification, and secure token validation.",
+      keywords:
+        "hmac generator, hmac verifier, hash authentication, message authentication code, sha256, sha512, api security, data integrity, cryptography, verification",
     },
   },
 ];
