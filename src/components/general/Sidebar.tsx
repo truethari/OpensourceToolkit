@@ -74,6 +74,7 @@ export default function AppSidebar() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-8 pr-8"
+                autoFocus={false}
               />
               {searchQuery && (
                 <Button
