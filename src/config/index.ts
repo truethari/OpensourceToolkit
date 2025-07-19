@@ -366,4 +366,40 @@ export const tools: ITool[] = [
         "dns lookup, domain records, nameserver, mx records, cname, txt records, dns query, network tools",
     },
   },
+  {
+    id: "cron-scheduler",
+    title: "API Cron Job Scheduler",
+    shortTitle: "API Cron Scheduler",
+    description:
+      "Schedule and manage API calls with cron expressions. Run automated tasks with a visual dashboard and detailed logging",
+    icon: Clock,
+    color: "bg-purple-500",
+    category: "Development Tools",
+    tags: [
+      "cron",
+      "scheduler",
+      "api",
+      "automation",
+      "jobs",
+      "tasks",
+      "webhook",
+      "monitoring",
+    ],
+    features: [
+      "Cron Expression Builder",
+      "API Call Scheduling",
+      "Real-time Dashboard",
+      "Execution Logs",
+      "Job Management",
+    ],
+    popular: true,
+    href: "/cron-scheduler",
+    seo: {
+      title: "Cron Job Scheduler - Schedule Automated API Calls",
+      description:
+        "Schedule API calls and webhooks using cron expressions. Features real-time dashboard, execution logs, and job management. Perfect for automation and monitoring.",
+      keywords:
+        "cron scheduler, api automation, webhook scheduler, job scheduler, cron jobs, task automation, api monitoring",
+    },
+  },
 ];
