@@ -7,6 +7,12 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  safelist: [
+    {
+      pattern:
+        /bg-(amber|red|green|blue|yellow|purple|pink|indigo|gray|slate|zinc|neutral|stone|orange|lime|emerald|teal|cyan|sky|violet|fuchsia|rose)-(50|100|200|300|400|500|600|700|800|900|950)/,
+    },
+  ],
   plugins: [require("tailwindcss-animate")],
   theme: {
     extend: {
