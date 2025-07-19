@@ -30,17 +30,26 @@ export default function Home() {
 
   const [searchQuery, setSearchQuery] = useState("");
 
-  const categories = [
-    { name: "All Tools", count: tools.length },
-    {
-      name: "Generators",
-      count: tools.filter((t) => t.category === "Generators").length,
-    },
-    {
-      name: "Converters",
-      count: tools.filter((t) => t.category === "Converters").length,
-    },
-  ];
+  interface ICategory {
+    name: string;
+    count: number;
+  }
+
+  const categories: ICategory[] = useMemo(() => {
+    const categoryMap: Record<string, number> = {};
+
+    tools.forEach((tool) => {
+      if (!categoryMap[tool.category]) categoryMap[tool.category] = 0;
+      categoryMap[tool.category]++;
+    });
+
+    const result = Object.entries(categoryMap).map(([name, count]) => ({
+      name,
+      count,
+    }));
+
+    return [{ name: "All Tools", count: tools.length }, ...result];
+  }, []);
 
   const filteredTools = tools.filter(
     (tool) =>
@@ -55,7 +64,6 @@ export default function Home() {
     (tool: ITool) => {
       // Update recently used
       addRecentTool(tool);
-
       router.push(tool.href);
     },
     [addRecentTool, router],
@@ -63,10 +71,10 @@ export default function Home() {
 
   const quickActions = useMemo(() => {
     const allPopularTools = tools.filter((tool) => tool.popular);
-    // get random 6 popular tools
+    // get random 4 popular tools
     const randomPopularTools = allPopularTools
       .sort(() => 0.5 - Math.random())
-      .slice(0, 6);
+      .slice(0, 4);
     return randomPopularTools.map((tool) => ({
       title: tool.title,
       description: tool.description,
@@ -93,8 +101,6 @@ export default function Home() {
           />
         </div>
 
-        {/* Quick Actions */}
-
         {searchQuery.length === 0 && (
           <>
             <QuickActions quickActions={quickActions} />
@@ -119,7 +125,7 @@ export default function Home() {
                         key={recentTool.id}
                         variant="outline"
                         onClick={() => handleToolClick(tool)}
-                        className="h-auto p-2 transition-colors hover:border-slate-600 hover:bg-slate-900"
+                        className="md:text-md h-auto p-2 text-xs transition-colors hover:border-slate-600 hover:bg-slate-900 md:text-sm"
                       >
                         <tool.icon className="h-4 w-4" />
                         {tool.title}
@@ -138,7 +144,7 @@ export default function Home() {
                   <Badge
                     key={index}
                     variant="outline"
-                    className="cursor-pointer px-4 py-2 text-sm transition-colors hover:border-slate-600 hover:bg-slate-900"
+                    className="cursor-pointer px-4 py-2 text-xs transition-colors hover:border-slate-600 hover:bg-slate-900 md:text-sm"
                   >
                     {category.name} ({category.count})
                   </Badge>
@@ -158,7 +164,7 @@ export default function Home() {
             </Badge>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-2 md:grid-cols-2 md:gap-6">
             {filteredTools.map((tool) => (
               <Card
                 key={tool.id}
@@ -167,30 +173,45 @@ export default function Home() {
               >
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <div className={`p-3 ${tool.color} rounded-xl border`}>
+                    <div className="flex w-full space-x-3">
+                      <div
+                        className={`p-3 ${tool.color} h-fit rounded-xl border`}
+                      >
                         <tool.icon className="h-6 w-6 text-white" />
                       </div>
-                      <div>
-                        <CardTitle className="flex items-center space-x-2">
+
+                      <div className="w-full">
+                        <CardTitle className="flex w-full items-center justify-between space-x-2 md:justify-start">
                           <span className="leading-normal">{tool.title}</span>
-                          {tool.popular && (
+                          <div className="flex flex-col">
+                            {tool.popular && (
+                              <Badge
+                                variant="secondary"
+                                className="w-fit bg-slate-800 text-slate-300"
+                              >
+                                <Star className="mr-1 h-3 w-3" />
+                                Popular
+                              </Badge>
+                            )}
                             <Badge
-                              variant="secondary"
-                              className="bg-slate-800 text-slate-300"
+                              variant="outline"
+                              className="mt-1 block w-fit text-nowrap text-xs md:hidden"
                             >
-                              <Star className="mr-1 h-3 w-3" />
-                              Popular
+                              {tool.category}
                             </Badge>
-                          )}
+                          </div>
                         </CardTitle>
-                        <Badge variant="outline" className="mt-1 text-xs">
+
+                        <Badge
+                          variant="outline"
+                          className="mt-1 hidden w-fit text-xs md:block"
+                        >
                           {tool.category}
                         </Badge>
                       </div>
                     </div>
 
-                    <ArrowRight className="h-5 w-5 text-muted-foreground transition-transform group-hover:translate-x-1" />
+                    <ArrowRight className="hidden h-5 w-5 text-muted-foreground transition-transform group-hover:translate-x-1 md:block" />
                   </div>
                 </CardHeader>
 
@@ -204,17 +225,11 @@ export default function Home() {
                       <Sparkles className="mr-1 h-4 w-4" />
                       Key Features
                     </h4>
-                    <div className="grid grid-cols-2 gap-1">
+                    <ul className="grid list-outside list-disc grid-cols-1 gap-1 pl-4 text-sm text-muted-foreground marker:text-blue-500 md:grid-cols-2">
                       {tool.features.map((feature, index) => (
-                        <div
-                          key={index}
-                          className="flex items-center text-sm text-muted-foreground"
-                        >
-                          <div className="mr-2 h-1.5 w-1.5 rounded-full bg-blue-500"></div>
-                          {feature}
-                        </div>
+                        <li key={index}>{feature}</li>
                       ))}
-                    </div>
+                    </ul>
                   </div>
 
                   <div className="flex flex-wrap gap-1 pt-2">

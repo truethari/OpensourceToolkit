@@ -20,10 +20,10 @@ export default function Footer() {
       <div className="space-y-6">
         <Card className="border-2 border-dashed border-slate-300 bg-slate-50 dark:border-slate-600 dark:bg-slate-800/50">
           <CardContent className="p-8">
-            <div className="space-y-6 text-center">
+            <div className="space-y-4 text-center md:space-y-6">
               <div className="flex flex-col items-center justify-center gap-2 space-x-3 md:flex-row md:gap-1">
                 <div className="rounded-full bg-slate-700 p-3">
-                  <Github className="h-8 w-8 text-white" />
+                  <Github className="aspect-square h-6 text-white md:h-8" />
                 </div>
                 <h2 className="text-3xl font-bold">Open Source & Community</h2>
               </div>
@@ -34,7 +34,7 @@ export default function Footer() {
                 developer utilities.
               </p>
 
-              <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
+              <div className="mt-8 grid grid-cols-1 gap-2 md:grid-cols-3 md:gap-6">
                 {/* GitHub */}
                 <Card className="border transition-colors hover:border-slate-600">
                   <CardContent className="space-y-4 p-6 text-center">
@@ -168,7 +168,7 @@ export default function Footer() {
       </div>
 
       {/* Footer */}
-      <div className="rounded-lg border-t py-8 text-center">
+      <div className="rounded-lg border-t pb-4 pt-8 text-center md:pb-0">
         <div className="space-y-2">
           <h3 className="text-lg font-semibold">More Tools Coming Soon</h3>
           <p className="text-muted-foreground">

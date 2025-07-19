@@ -31,7 +31,7 @@ export default function QuickActions({ quickActions }: Props) {
                 </div>
                 <div className="flex-1">
                   <h3 className="text-lg font-semibold">{action.title}</h3>
-                  <p className="md:text-md text-sm text-muted-foreground">
+                  <p className="md:text-md text-xs text-muted-foreground">
                     {action.description}
                   </p>
                 </div>
