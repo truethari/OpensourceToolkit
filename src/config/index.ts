@@ -14,6 +14,7 @@ import {
   File,
   Database,
   Shield,
+  Send,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -523,6 +524,47 @@ export const tools: ITool[] = [
         "Generate and verify secure HMAC codes using SHA-256, SHA-512, and other algorithms. Perfect for API authentication, data integrity verification, and secure token validation.",
       keywords:
         "hmac generator, hmac verifier, hash authentication, message authentication code, sha256, sha512, api security, data integrity, cryptography, verification",
+    },
+  },
+  {
+    id: "api-tester",
+    title: "API Testing Tool",
+    shortTitle: "API Tester",
+    description:
+      "Professional API testing tool with request builder, response viewer, history tracking, and collection management - your Postman alternative",
+    icon: Send,
+    color: "bg-violet-500",
+    category: "Development Tools",
+    tags: [
+      "api",
+      "rest",
+      "http",
+      "testing",
+      "postman",
+      "requests",
+      "client",
+      "endpoint",
+      "development",
+      "debugging",
+    ],
+    features: [
+      "HTTP Request Builder",
+      "Response Viewer with Formatting",
+      "Request History & Collections",
+      "Environment Variables",
+      "Authentication Support",
+      "Response Time & Status Tracking",
+      "Export/Import Collections",
+      "Batch Testing",
+    ],
+    popular: true,
+    href: "/api-tester",
+    seo: {
+      title: "API Testing Tool - Professional REST API Client & Tester",
+      description:
+        "Professional API testing tool with request builder, response viewer, and collection management. Perfect Postman alternative for developers with history tracking and environment variables.",
+      keywords:
+        "api testing, rest api client, postman alternative, http client, api tool, request builder, api debugging, endpoint testing, development tools",
     },
   },
 ];
