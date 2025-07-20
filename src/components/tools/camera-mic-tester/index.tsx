@@ -901,13 +901,13 @@ export default function CameraMicTester() {
       </div>
 
       {/* Privacy & Security Notice */}
-      <Card className="border-green-200 bg-yellow-300">
+      <Card className="border-2 border-green-600 bg-green-600/5">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-green-800">
+          <CardTitle className="flex items-center gap-2 text-white">
             <Shield className="h-5 w-5" />
             Privacy & Security
           </CardTitle>
-          <CardDescription className="text-green-600">
+          <CardDescription className="text-white">
             Your privacy is fully protected - all processing happens locally in
             your browser
           </CardDescription>
@@ -916,36 +916,32 @@ export default function CameraMicTester() {
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div className="space-y-3">
               <div className="flex items-start gap-2">
-                <CheckCircle className="mt-0.5 h-4 w-4 text-green-600" />
+                <CheckCircle className="mt-0.5 h-4 w-4 text-white" />
                 <div>
-                  <h4 className="font-medium text-green-800">
+                  <h4 className="font-medium text-white">
                     100% Local Processing
                   </h4>
-                  <p className="text-sm text-green-700">
+                  <p className="text-sm text-white">
                     All camera and microphone data is processed entirely in your
                     browser. Nothing is uploaded to any server.
                   </p>
                 </div>
               </div>
               <div className="flex items-start gap-2">
-                <CheckCircle className="mt-0.5 h-4 w-4 text-green-600" />
+                <CheckCircle className="mt-0.5 h-4 w-4 text-white" />
                 <div>
-                  <h4 className="font-medium text-green-800">
-                    No Data Collection
-                  </h4>
-                  <p className="text-sm text-green-700">
+                  <h4 className="font-medium text-white">No Data Collection</h4>
+                  <p className="text-sm text-white">
                     We don&apos;t collect, store, or analyze any of your audio
                     or video content. Your data stays on your device.
                   </p>
                 </div>
               </div>
               <div className="flex items-start gap-2">
-                <CheckCircle className="mt-0.5 h-4 w-4 text-green-600" />
+                <CheckCircle className="mt-0.5 h-4 w-4 text-white" />
                 <div>
-                  <h4 className="font-medium text-green-800">
-                    No Cloud Storage
-                  </h4>
-                  <p className="text-sm text-green-700">
+                  <h4 className="font-medium text-white">No Cloud Storage</h4>
+                  <p className="text-sm text-white">
                     Recordings are stored temporarily in your browser&apos;s
                     memory only. Nothing is saved to external servers.
                   </p>
@@ -954,36 +950,36 @@ export default function CameraMicTester() {
             </div>
             <div className="space-y-3">
               <div className="flex items-start gap-2">
-                <CheckCircle className="mt-0.5 h-4 w-4 text-green-600" />
+                <CheckCircle className="mt-0.5 h-4 w-4 text-white" />
                 <div>
-                  <h4 className="font-medium text-green-800">
+                  <h4 className="font-medium text-white">
                     You Control Downloads
                   </h4>
-                  <p className="text-sm text-green-700">
+                  <p className="text-sm text-white">
                     Only you decide what recordings to download to your
                     computer. We never automatically save anything.
                   </p>
                 </div>
               </div>
               <div className="flex items-start gap-2">
-                <CheckCircle className="mt-0.5 h-4 w-4 text-green-600" />
+                <CheckCircle className="mt-0.5 h-4 w-4 text-white" />
                 <div>
-                  <h4 className="font-medium text-green-800">
+                  <h4 className="font-medium text-white">
                     Standard Browser Security
                   </h4>
-                  <p className="text-sm text-green-700">
+                  <p className="text-sm text-white">
                     Uses secure WebRTC APIs. Your browser controls all
                     permissions and access to your devices.
                   </p>
                 </div>
               </div>
               <div className="flex items-start gap-2">
-                <CheckCircle className="mt-0.5 h-4 w-4 text-green-600" />
+                <CheckCircle className="mt-0.5 h-4 w-4 text-white" />
                 <div>
-                  <h4 className="font-medium text-green-800">
+                  <h4 className="font-medium text-white">
                     Open Source & Transparent
                   </h4>
-                  <p className="text-sm text-green-700">
+                  <p className="text-sm text-white">
                     This tool is open source - you can inspect the code to
                     verify our privacy claims.
                   </p>
