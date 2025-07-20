@@ -20,6 +20,7 @@ import {
   Palette,
   Keyboard,
   Camera,
+  QrCode,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -789,6 +790,84 @@ export const tools: ITool[] = [
         "Comprehensive camera and microphone testing tool with real-time monitoring, recording capabilities, and device management. Perfect for testing media devices and debugging issues.",
       keywords:
         "camera tester, microphone tester, media device testing, audio recording, video recording, device permissions, audio levels, media debugging, webcam test, mic test",
+    },
+  },
+  {
+    id: "qr-generator",
+    title: "QR Code Generator",
+    shortTitle: "QR Code",
+    description:
+      "Generate QR codes for text, URLs, contacts, WiFi, and more with customizable styling options",
+    icon: QrCode,
+    color: "bg-slate-600",
+    category: "Text & Data Generators",
+    tags: [
+      "qr",
+      "qrcode",
+      "generator",
+      "url",
+      "wifi",
+      "contact",
+      "vcard",
+      "text",
+      "barcode",
+      "mobile",
+    ],
+    features: [
+      "Text, URL, Email QR Codes",
+      "WiFi & Contact Cards",
+      "Customizable Colors & Size",
+      "Error Correction Levels",
+      "PNG Download",
+      "Real-time Generation",
+    ],
+    popular: true,
+    href: "/qr-generator",
+    seo: {
+      title: "QR Code Generator - Create Custom QR Codes",
+      description:
+        "Generate QR codes for text, URLs, WiFi, contacts, and more. Customize colors, size, and error correction. Download as PNG with real-time preview.",
+      keywords:
+        "qr code generator, qr code, barcode, wifi qr, contact qr, url qr, vcard, mobile qr, custom qr code",
+    },
+  },
+  {
+    id: "hash-generator",
+    title: "Hash Generator",
+    shortTitle: "Hash Generator",
+    description:
+      "Generate MD5, SHA-1, SHA-256, SHA-384, and SHA-512 hashes for text and files with security analysis",
+    icon: Shield,
+    color: "bg-emerald-600",
+    category: "Security Tools",
+    tags: [
+      "hash",
+      "md5",
+      "sha1",
+      "sha256",
+      "sha512",
+      "checksum",
+      "integrity",
+      "security",
+      "cryptography",
+      "verification",
+    ],
+    features: [
+      "Multiple Hash Algorithms",
+      "Text & File Support",
+      "Batch Hash Generation",
+      "Security Recommendations",
+      "Copy & Download Results",
+      "Client-side Processing",
+    ],
+    popular: true,
+    href: "/hash-generator",
+    seo: {
+      title: "Hash Generator - MD5, SHA-256, SHA-512 Hash Calculator",
+      description:
+        "Generate secure hashes using MD5, SHA-1, SHA-256, SHA-384, and SHA-512 algorithms. Support for text and file input with security recommendations.",
+      keywords:
+        "hash generator, md5, sha256, sha512, checksum, file hash, text hash, cryptographic hash, integrity verification, security hash",
     },
   },
 ];
