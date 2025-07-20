@@ -19,6 +19,7 @@ import {
   Type,
   Palette,
   Keyboard,
+  Camera,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -744,6 +745,50 @@ export const tools: ITool[] = [
         "Comprehensive keyboard testing tool with real-time monitoring, typing speed tests, key response analysis, and detailed analytics. Perfect for testing keyboard functionality and debugging input issues.",
       keywords:
         "keyboard tester, key testing, typing speed test, wpm test, keyboard monitoring, key response time, input debugging, keyboard analytics, key events, typing test",
+    },
+  },
+  {
+    id: "camera-mic-tester",
+    title: "Camera & Microphone Tester",
+    shortTitle: "Camera & Mic",
+    description:
+      "Test camera and microphone functionality, monitor audio levels, record media, and verify device permissions with comprehensive controls",
+    icon: Camera,
+    color: "bg-purple-500",
+    category: "Development Tools",
+    tags: [
+      "camera",
+      "microphone",
+      "testing",
+      "recording",
+      "audio",
+      "video",
+      "media",
+      "devices",
+      "permissions",
+      "monitoring",
+      "levels",
+      "quality",
+      "debugging",
+    ],
+    features: [
+      "Camera Device Testing",
+      "Microphone Audio Monitoring",
+      "Real-time Audio Level Display",
+      "Video & Audio Recording",
+      "Device Permission Status",
+      "Quality Settings Control",
+      "Media File Download",
+      "Multiple Device Support",
+    ],
+    popular: true,
+    href: "/camera-mic-tester",
+    seo: {
+      title: "Camera & Microphone Tester - Test Media Devices & Record",
+      description:
+        "Comprehensive camera and microphone testing tool with real-time monitoring, recording capabilities, and device management. Perfect for testing media devices and debugging issues.",
+      keywords:
+        "camera tester, microphone tester, media device testing, audio recording, video recording, device permissions, audio levels, media debugging, webcam test, mic test",
     },
   },
 ];
