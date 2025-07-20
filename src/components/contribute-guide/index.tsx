@@ -119,7 +119,7 @@ export default function ContributeGuide() {
   ];
 
   return (
-    <div className="mx-auto mt-2 max-w-7xl space-y-8 p-6 pb-12 md:mt-10">
+    <div className="mx-auto max-w-7xl space-y-8 p-6 pb-12">
       {/* Hero Section */}
       <div className="space-y-4 text-center">
         <div className="mb-4 flex items-center justify-center space-x-2">

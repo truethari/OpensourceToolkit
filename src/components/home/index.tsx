@@ -94,7 +94,7 @@ export default function Home() {
   }, [handleToolClick]);
 
   return (
-    <div className="mx-auto mt-2 max-w-7xl p-2 md:mt-10 md:space-y-6 md:p-6">
+    <div className="mx-auto max-w-7xl p-2 md:space-y-6 md:p-6">
       {/* Hero Section */}
       <Hero />
 

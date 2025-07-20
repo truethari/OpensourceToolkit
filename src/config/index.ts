@@ -17,6 +17,7 @@ import {
   Send,
   Activity,
   Type,
+  Palette,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -653,6 +654,52 @@ export const tools: ITool[] = [
         "Create stunning ASCII art from text and images. Features multiple fonts, density controls, export options, and real-time preview. Perfect for terminal art, banners, and creative projects.",
       keywords:
         "ascii art generator, text to ascii, image to ascii, ascii converter, ascii fonts, terminal art, ascii banner, text art, ascii characters, monospace art",
+    },
+  },
+  {
+    id: "colors",
+    title: "Colors Toolkit",
+    shortTitle: "Colors",
+    description:
+      "Comprehensive color tools with picker, format converter, palette generator, gradients, and accessibility checker",
+    icon: Palette,
+    color: "bg-pink-500",
+    category: "Converters",
+    tags: [
+      "color",
+      "picker",
+      "converter",
+      "palette",
+      "gradient",
+      "hex",
+      "rgb",
+      "hsl",
+      "hsv",
+      "accessibility",
+      "contrast",
+      "tailwind",
+      "css",
+      "design",
+      "harmony",
+    ],
+    features: [
+      "Interactive Color Picker",
+      "Format Converter (HEX, RGB, HSL, HSV, LAB, CMYK)",
+      "Color Harmony Generator",
+      "CSS & Tailwind Gradient Generator",
+      "Accessibility Contrast Checker",
+      "Shades & Tints Generator",
+      "Real-time Color Adjustment",
+      "Copy in Multiple Formats",
+    ],
+    popular: true,
+    href: "/colors",
+    seo: {
+      title: "Colors Toolkit - Color Picker, Converter & Palette Generator",
+      description:
+        "Comprehensive color tools including picker, format converter, palette generator, gradients, and accessibility checker. Perfect for designers and developers.",
+      keywords:
+        "color picker, color converter, palette generator, hex to rgb, color harmony, accessibility, contrast checker, gradients, tailwind css, design tools",
     },
   },
 ];
