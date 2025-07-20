@@ -33,7 +33,7 @@ export const tools: ITool[] = [
       "Generate universally unique identifiers with multiple versions and batch options",
     icon: Hash,
     color: "bg-blue-500",
-    category: "Generators",
+    category: "Text & Data Generators",
     tags: ["uuid", "guid", "identifier", "unique"],
     features: [
       "Version 4 (Random)",
@@ -58,7 +58,7 @@ export const tools: ITool[] = [
       "Generate placeholder text in various formats including words, sentences, and paragraphs with customization options",
     icon: FileText,
     color: "bg-amber-500",
-    category: "Generators",
+    category: "Text & Data Generators",
     tags: ["lorem", "ipsum", "placeholder", "text", "generator", "dummy"],
     features: [
       "Words, Sentences & Paragraphs",
@@ -84,7 +84,7 @@ export const tools: ITool[] = [
       "Convert, generate, and solve timestamps in various formats with batch processing",
     icon: Clock,
     color: "bg-green-500",
-    category: "Converters",
+    category: "Format Converters",
     tags: ["timestamp", "unix", "date", "time", "convert"],
     features: [
       "Live Current Time",
@@ -109,7 +109,7 @@ export const tools: ITool[] = [
       "Decode, encode, and verify JSON Web Tokens with support for multiple algorithms",
     icon: Fingerprint,
     color: "bg-red-500",
-    category: "Security",
+    category: "Security Tools",
     tags: ["jwt", "token", "authentication", "security"],
     features: [
       "Decode JWTs",
@@ -134,7 +134,7 @@ export const tools: ITool[] = [
       "Convert images between formats like PNG, JPEG, GIF, and WebP with batch processing",
     icon: Image,
     color: "bg-orange-500",
-    category: "Converters",
+    category: "Format Converters",
     tags: ["image", "converter", "png", "jpeg", "gif", "webp"],
     features: [
       "Batch Conversion",
@@ -159,7 +159,7 @@ export const tools: ITool[] = [
       "Convert text between different cases like uppercase, lowercase, title case, and more",
     icon: Text,
     color: "bg-teal-500",
-    category: "Converters",
+    category: "Format Converters",
     tags: ["text", "converter", "case", "uppercase", "lowercase", "title case"],
     features: ["Uppercase", "Lowercase", "Title Case", "Sentence Case"],
     popular: false,
@@ -179,7 +179,7 @@ export const tools: ITool[] = [
       "Encode and decode text, files, and URLs to/from Base64 format with support for different encodings",
     icon: Binary,
     color: "bg-purple-500",
-    category: "Converters",
+    category: "Format Converters",
     tags: ["base64", "encode", "decode", "converter", "encoding", "binary"],
     features: [
       "Text to Base64",
@@ -206,7 +206,7 @@ export const tools: ITool[] = [
       "Analyze, visualize, and export folder structures with advanced filtering, statistics, and multi-format export options",
     icon: FolderOpen,
     color: "bg-blue-500",
-    category: "File Tools",
+    category: "File & Document Tools",
     tags: [
       "folder",
       "directory",
@@ -240,7 +240,7 @@ export const tools: ITool[] = [
       "Generate secure passwords, passphrases, and PINs with advanced customization and security analysis",
     icon: Key,
     color: "bg-red-500",
-    category: "Security",
+    category: "Security Tools",
     tags: [
       "password",
       "generator",
@@ -274,7 +274,7 @@ export const tools: ITool[] = [
       "Check IP address geolocation information including country, region, city, ISP, and more",
     icon: MapPin,
     color: "bg-indigo-500",
-    category: "Network Tools",
+    category: "Network & Monitoring",
     tags: [
       "ip",
       "location",
@@ -310,7 +310,7 @@ export const tools: ITool[] = [
       "Test your internet connection speed with download, upload, and ping measurements",
     icon: Wifi,
     color: "bg-green-500",
-    category: "Network Tools",
+    category: "Network & Monitoring",
     tags: [
       "speed",
       "test",
@@ -346,7 +346,7 @@ export const tools: ITool[] = [
       "Query DNS records including A, AAAA, MX, CNAME, TXT, NS, and more with detailed results",
     icon: Globe,
     color: "bg-cyan-500",
-    category: "Network Tools",
+    category: "Network & Monitoring",
     tags: [
       "dns",
       "lookup",
@@ -383,7 +383,7 @@ export const tools: ITool[] = [
       "Schedule and manage API calls with cron expressions. Run automated tasks with a visual dashboard and detailed logging",
     icon: Clock,
     color: "bg-purple-500",
-    category: "Development Tools",
+    category: "Development & API",
     tags: [
       "cron",
       "scheduler",
@@ -419,7 +419,7 @@ export const tools: ITool[] = [
       "Comprehensive PDF manipulation tools - split, merge, rotate, add watermarks, insert text, and extract information",
     icon: File,
     color: "bg-red-600",
-    category: "File Tools",
+    category: "File & Document Tools",
     tags: [
       "pdf",
       "split",
@@ -460,7 +460,7 @@ export const tools: ITool[] = [
       "Generate realistic fake user data, addresses, and emails using Faker.js for testing and development",
     icon: Database,
     color: "bg-emerald-500",
-    category: "Generators",
+    category: "Text & Data Generators",
     tags: [
       "mock",
       "fake",
@@ -500,7 +500,7 @@ export const tools: ITool[] = [
       "Generate and verify Hash-based Message Authentication Codes using various algorithms for secure authentication and data integrity verification",
     icon: Shield,
     color: "bg-slate-500",
-    category: "Security",
+    category: "Security Tools",
     tags: [
       "hmac",
       "hash",
@@ -539,7 +539,7 @@ export const tools: ITool[] = [
       "Professional API testing tool with request builder, response viewer, history tracking, and collection management - your Postman alternative",
     icon: Send,
     color: "bg-violet-500",
-    category: "Development Tools",
+    category: "Development & API",
     tags: [
       "api",
       "rest",
@@ -580,7 +580,7 @@ export const tools: ITool[] = [
       "Monitor website uptime, response times, and availability with real-time status tracking and command-line style visualization",
     icon: Activity,
     color: "bg-blue-600",
-    category: "Network Tools",
+    category: "Network & Monitoring",
     tags: [
       "uptime",
       "monitor",
@@ -621,7 +621,7 @@ export const tools: ITool[] = [
       "Convert text and images to ASCII art with customizable fonts, styles, density controls, and export options",
     icon: Type,
     color: "bg-purple-600",
-    category: "Generators",
+    category: "Design & Creative",
     tags: [
       "ascii",
       "art",
@@ -666,7 +666,7 @@ export const tools: ITool[] = [
       "Comprehensive color tools with picker, format converter, palette generator, gradients, and accessibility checker",
     icon: Palette,
     color: "bg-pink-500",
-    category: "Converters",
+    category: "Design & Creative",
     tags: [
       "color",
       "picker",
@@ -712,7 +712,7 @@ export const tools: ITool[] = [
       "Test keyboard functionality, monitor key presses, typing speed, and key response times with comprehensive analytics",
     icon: Keyboard,
     color: "bg-indigo-500",
-    category: "Development Tools",
+    category: "Hardware Testing",
     tags: [
       "keyboard",
       "testing",
@@ -755,7 +755,7 @@ export const tools: ITool[] = [
       "Test camera and microphone functionality, monitor audio levels, record media, and verify device permissions with comprehensive controls",
     icon: Camera,
     color: "bg-purple-500",
-    category: "Development Tools",
+    category: "Hardware Testing",
     tags: [
       "camera",
       "microphone",
