@@ -15,6 +15,7 @@ import {
   Database,
   Shield,
   Send,
+  Activity,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -565,6 +566,47 @@ export const tools: ITool[] = [
         "Professional API testing tool with request builder, response viewer, and collection management. Perfect Postman alternative for developers with history tracking and environment variables.",
       keywords:
         "api testing, rest api client, postman alternative, http client, api tool, request builder, api debugging, endpoint testing, development tools",
+    },
+  },
+  {
+    id: "uptime-monitor",
+    title: "Uptime Monitor",
+    shortTitle: "Uptime Monitor",
+    description:
+      "Monitor website uptime, response times, and availability with real-time status tracking and command-line style visualization",
+    icon: Activity,
+    color: "bg-blue-600",
+    category: "Network Tools",
+    tags: [
+      "uptime",
+      "monitor",
+      "website",
+      "status",
+      "availability",
+      "performance",
+      "response time",
+      "monitoring",
+      "health check",
+      "downtime",
+    ],
+    features: [
+      "Real-time Website Monitoring",
+      "Command-line Style Visualization",
+      "Response Time Tracking",
+      "Status History Charts",
+      "Multiple Site Management",
+      "Export Monitoring Data",
+      "Uptime Statistics",
+      "Customizable Check Intervals",
+    ],
+    popular: true,
+    href: "/uptime-monitor",
+    seo: {
+      title: "Uptime Monitor - Monitor Website Status & Performance",
+      description:
+        "Monitor website uptime, response times, and availability with real-time status tracking. Features command-line style visualization, historical data, and comprehensive monitoring tools.",
+      keywords:
+        "uptime monitor, website monitoring, status tracking, response time, availability, performance monitoring, site health, downtime detection, uptime statistics",
     },
   },
 ];
