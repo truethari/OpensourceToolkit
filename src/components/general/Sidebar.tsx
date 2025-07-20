@@ -1,9 +1,11 @@
 "use client";
 
-import { ProgressLink } from "@/components/ui/progress-link";
 import { useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Home, ToolCase, Search, X, PlusSquare } from "lucide-react";
+
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { ProgressLink } from "@/components/ui/progress-link";
 
 import { tools } from "@/config";
 
@@ -86,7 +88,7 @@ export default function AppSidebar() {
           <span className="text-lg font-semibold">OpenSource Toolkit</span>
         </ProgressLink>
 
-        <div className="flex-1 overflow-y-auto pb-4">
+        <ScrollArea>
           <SidebarGroup>
             <SidebarGroupContent>
               <SidebarMenu>
@@ -118,6 +120,7 @@ export default function AppSidebar() {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-8 pr-8"
                   autoFocus={false}
+                  tabIndex={-1}
                 />
                 {searchQuery && (
                   <Button
@@ -181,7 +184,7 @@ export default function AppSidebar() {
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
-        </div>
+        </ScrollArea>
       </SidebarContent>
     </Sidebar>
   );
