@@ -21,6 +21,7 @@ import {
   Keyboard,
   Camera,
   QrCode,
+  ScrollText,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -868,6 +869,45 @@ export const tools: ITool[] = [
         "Generate secure hashes using MD5, SHA-1, SHA-256, SHA-384, and SHA-512 algorithms. Support for text and file input with security recommendations.",
       keywords:
         "hash generator, md5, sha256, sha512, checksum, file hash, text hash, cryptographic hash, integrity verification, security hash",
+    },
+  },
+  {
+    id: "privacy-policy-generator",
+    title: "Privacy Policy Generator",
+    shortTitle: "Privacy Policy",
+    description:
+      "Generate comprehensive privacy policies for your website or application with GDPR and CCPA compliance options",
+    icon: ScrollText,
+    color: "bg-violet-600",
+    category: "Text & Data Generators",
+    tags: [
+      "privacy",
+      "policy",
+      "gdpr",
+      "ccpa",
+      "legal",
+      "compliance",
+      "data protection",
+      "website",
+      "terms",
+      "generator",
+    ],
+    features: [
+      "GDPR & CCPA Compliance",
+      "Customizable Data Practices",
+      "Company Information Forms",
+      "Legal Templates",
+      "Markdown Export",
+      "Privacy Rights Coverage",
+    ],
+    popular: true,
+    href: "/privacy-policy-generator",
+    seo: {
+      title: "Privacy Policy Generator - Create GDPR & CCPA Compliant Policies",
+      description:
+        "Generate comprehensive privacy policies with GDPR and CCPA compliance. Customize data practices, user rights, and legal requirements for your website or application.",
+      keywords:
+        "privacy policy generator, gdpr compliance, ccpa compliance, privacy policy template, data protection, legal generator, website privacy policy, privacy rights",
     },
   },
 ];
