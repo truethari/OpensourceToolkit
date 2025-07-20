@@ -1,9 +1,13 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { localStorage, IRecentTool } from "@/utils/localStorage";
+import React, { createContext, useContext, useEffect, useState } from "react";
+
+import { Toaster } from "@/components/ui/sonner";
+
 import { tools } from "@/config";
+import { localStorage, IRecentTool } from "@/utils/localStorage";
+
 import type { ITool } from "@/types";
 
 interface DataContextType {
@@ -85,6 +89,9 @@ export default function DataProvider({
   };
 
   return (
-    <DataContext.Provider value={contextValue}>{children}</DataContext.Provider>
+    <DataContext.Provider value={contextValue}>
+      {children}
+      <Toaster />
+    </DataContext.Provider>
   );
 }

@@ -12,6 +12,10 @@ import {
   FileText,
   Globe,
   File,
+  Database,
+  Shield,
+  Send,
+  Activity,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -442,6 +446,167 @@ export const tools: ITool[] = [
         "Split, merge, rotate PDFs, add watermarks, insert text, and more. All processing happens in your browser for privacy and security. Perfect for document management.",
       keywords:
         "pdf tools, pdf split, pdf merge, pdf rotate, pdf watermark, pdf text, document manipulation, pdf toolkit, file processing",
+    },
+  },
+  {
+    id: "mock-data-generator",
+    title: "Mock Data Generator",
+    shortTitle: "Mock Data",
+    description:
+      "Generate realistic fake user data, addresses, and emails using Faker.js for testing and development",
+    icon: Database,
+    color: "bg-emerald-500",
+    category: "Generators",
+    tags: [
+      "mock",
+      "fake",
+      "data",
+      "generator",
+      "users",
+      "addresses",
+      "emails",
+      "faker",
+      "testing",
+      "development",
+    ],
+    features: [
+      "Generate User Profiles",
+      "Generate Addresses",
+      "Generate Email Data",
+      "Multiple Locales",
+      "JSON Export",
+      "Batch Generation",
+      "Customizable Options",
+    ],
+    popular: true,
+    href: "/mock-data-generator",
+    seo: {
+      title: "Mock Data Generator - Generate Fake Data for Testing",
+      description:
+        "Generate realistic fake user data, addresses, and emails using Faker.js. Perfect for testing, development, and prototyping with multiple locales and export options.",
+      keywords:
+        "mock data, fake data, generator, users, addresses, emails, faker, testing, development, prototyping, json",
+    },
+  },
+  {
+    id: "hmac-generator",
+    title: "HMAC Generator & Verifier",
+    shortTitle: "HMAC",
+    description:
+      "Generate and verify Hash-based Message Authentication Codes using various algorithms for secure authentication and data integrity verification",
+    icon: Shield,
+    color: "bg-slate-500",
+    category: "Security",
+    tags: [
+      "hmac",
+      "hash",
+      "authentication",
+      "security",
+      "integrity",
+      "cryptography",
+      "verification",
+      "sha256",
+      "sha512",
+    ],
+    features: [
+      "Generate HMAC Signatures",
+      "Verify HMAC Authenticity",
+      "Multiple Hash Algorithms",
+      "SHA-1, SHA-256, SHA-384, SHA-512",
+      "Secure Key Input",
+      "Copy to Clipboard",
+    ],
+    popular: true,
+    href: "/hmac-generator",
+    seo: {
+      title:
+        "HMAC Generator & Verifier - Generate and Verify Message Authentication Codes",
+      description:
+        "Generate and verify secure HMAC codes using SHA-256, SHA-512, and other algorithms. Perfect for API authentication, data integrity verification, and secure token validation.",
+      keywords:
+        "hmac generator, hmac verifier, hash authentication, message authentication code, sha256, sha512, api security, data integrity, cryptography, verification",
+    },
+  },
+  {
+    id: "api-tester",
+    title: "API Testing Tool",
+    shortTitle: "API Tester",
+    description:
+      "Professional API testing tool with request builder, response viewer, history tracking, and collection management - your Postman alternative",
+    icon: Send,
+    color: "bg-violet-500",
+    category: "Development Tools",
+    tags: [
+      "api",
+      "rest",
+      "http",
+      "testing",
+      "postman",
+      "requests",
+      "client",
+      "endpoint",
+      "development",
+      "debugging",
+    ],
+    features: [
+      "HTTP Request Builder",
+      "Response Viewer with Formatting",
+      "Request History & Collections",
+      "Environment Variables",
+      "Authentication Support",
+      "Response Time & Status Tracking",
+      "Export/Import Collections",
+      "Batch Testing",
+    ],
+    popular: true,
+    href: "/api-tester",
+    seo: {
+      title: "API Testing Tool - Professional REST API Client & Tester",
+      description:
+        "Professional API testing tool with request builder, response viewer, and collection management. Perfect Postman alternative for developers with history tracking and environment variables.",
+      keywords:
+        "api testing, rest api client, postman alternative, http client, api tool, request builder, api debugging, endpoint testing, development tools",
+    },
+  },
+  {
+    id: "uptime-monitor",
+    title: "Uptime Monitor",
+    shortTitle: "Uptime Monitor",
+    description:
+      "Monitor website uptime, response times, and availability with real-time status tracking and command-line style visualization",
+    icon: Activity,
+    color: "bg-blue-600",
+    category: "Network Tools",
+    tags: [
+      "uptime",
+      "monitor",
+      "website",
+      "status",
+      "availability",
+      "performance",
+      "response time",
+      "monitoring",
+      "health check",
+      "downtime",
+    ],
+    features: [
+      "Real-time Website Monitoring",
+      "Command-line Style Visualization",
+      "Response Time Tracking",
+      "Status History Charts",
+      "Multiple Site Management",
+      "Export Monitoring Data",
+      "Uptime Statistics",
+      "Customizable Check Intervals",
+    ],
+    popular: true,
+    href: "/uptime-monitor",
+    seo: {
+      title: "Uptime Monitor - Monitor Website Status & Performance",
+      description:
+        "Monitor website uptime, response times, and availability with real-time status tracking. Features command-line style visualization, historical data, and comprehensive monitoring tools.",
+      keywords:
+        "uptime monitor, website monitoring, status tracking, response time, availability, performance monitoring, site health, downtime detection, uptime statistics",
     },
   },
 ];
