@@ -18,6 +18,7 @@ import {
   Activity,
   Type,
   Palette,
+  Keyboard,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -700,6 +701,49 @@ export const tools: ITool[] = [
         "Comprehensive color tools including picker, format converter, palette generator, gradients, and accessibility checker. Perfect for designers and developers.",
       keywords:
         "color picker, color converter, palette generator, hex to rgb, color harmony, accessibility, contrast checker, gradients, tailwind css, design tools",
+    },
+  },
+  {
+    id: "keyboard-tester",
+    title: "Keyboard Tester",
+    shortTitle: "Keyboard",
+    description:
+      "Test keyboard functionality, monitor key presses, typing speed, and key response times with comprehensive analytics",
+    icon: Keyboard,
+    color: "bg-indigo-500",
+    category: "Development Tools",
+    tags: [
+      "keyboard",
+      "testing",
+      "keys",
+      "typing",
+      "speed",
+      "monitoring",
+      "wpm",
+      "response",
+      "analytics",
+      "events",
+      "input",
+      "debugging",
+    ],
+    features: [
+      "Real-time Key Monitoring",
+      "Typing Speed Testing",
+      "Key Event Logging",
+      "Response Time Analysis",
+      "Sound Feedback",
+      "Export Analytics Data",
+      "Multiple Test Texts",
+      "Comprehensive Statistics",
+    ],
+    popular: true,
+    href: "/keyboard-tester",
+    seo: {
+      title: "Keyboard Tester - Test Keys, Typing Speed & Response Times",
+      description:
+        "Comprehensive keyboard testing tool with real-time monitoring, typing speed tests, key response analysis, and detailed analytics. Perfect for testing keyboard functionality and debugging input issues.",
+      keywords:
+        "keyboard tester, key testing, typing speed test, wpm test, keyboard monitoring, key response time, input debugging, keyboard analytics, key events, typing test",
     },
   },
 ];
