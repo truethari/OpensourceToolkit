@@ -47,8 +47,8 @@ export default function Footer() {
           <CardContent className="p-8">
             <div className="space-y-4 text-center md:space-y-6">
               <div className="flex flex-col items-center justify-center gap-2 space-x-3 md:flex-row md:gap-1">
-                <div className="rounded-full bg-slate-700 p-3">
-                  <Github className="aspect-square h-6 text-white md:h-8" />
+                <div className="aspect-square rounded-full bg-slate-700 p-3">
+                  <Github className="aspect-square h-6 w-fit text-white md:h-8" />
                 </div>
                 <h2 className="text-3xl font-bold">Open Source & Community</h2>
               </div>
@@ -105,11 +105,9 @@ export default function Footer() {
                       <Button
                         variant="outline"
                         className="w-full"
+                        // open in same page
                         onClick={() =>
-                          window.open(
-                            "https://github.com/truethari/OpensourceToolkit/blob/master/CONTRIBUTING.md",
-                            "_blank",
-                          )
+                          window.open("/contribute-guide", "_self")
                         }
                       >
                         <Heart className="mr-2 h-4 w-4" />
@@ -187,64 +185,66 @@ export default function Footer() {
             <span className="text-sm font-medium">Support with crypto</span>
           </div>
 
-          <div className="w-full max-w-md space-y-3">
-            <div className="flex items-center justify-between rounded-md border border-border bg-background p-3">
-              <div className="flex min-w-0 flex-1 flex-col gap-1">
-                <span className="text-xs font-medium text-muted-foreground">
-                  EVM Address
-                </span>
-                <code className="truncate font-mono text-xs md:text-sm">
-                  0x04F92fFd52373D40956f656DD72Fcb302c000000
-                </code>
+          <div className="flex flex-col items-center gap-2 md:flex-row md:items-start">
+            <div className="w-full max-w-md space-y-1">
+              <div className="flex items-center justify-between rounded-md border border-border bg-background p-3">
+                <div className="flex min-w-0 flex-1 flex-col gap-1">
+                  <span className="text-xs font-medium text-muted-foreground">
+                    EVM Address
+                  </span>
+                  <code className="truncate font-mono text-[10px] md:text-sm">
+                    0x04F92fFd52373D40956f656DD72Fcb302c000000
+                  </code>
+                </div>
+
+                <button
+                  onClick={() =>
+                    copyToClipboard(
+                      "0x04F92fFd52373D40956f656DD72Fcb302c000000",
+                      "EVM",
+                    )
+                  }
+                  className="ml-3 flex-shrink-0 rounded-md p-2 transition-colors hover:bg-muted"
+                  title={copiedEVM ? "Copied!" : "Copy address"}
+                >
+                  {copiedEVM ? (
+                    <Check className="h-4 w-4 text-green-600" />
+                  ) : (
+                    <Copy className="h-4 w-4 text-muted-foreground" />
+                  )}
+                </button>
               </div>
 
-              <button
-                onClick={() =>
-                  copyToClipboard(
-                    "0x04F92fFd52373D40956f656DD72Fcb302c000000",
-                    "EVM",
-                  )
-                }
-                className="ml-3 flex-shrink-0 rounded-md p-2 transition-colors hover:bg-muted"
-                title={copiedEVM ? "Copied!" : "Copy address"}
-              >
-                {copiedEVM ? (
-                  <Check className="h-4 w-4 text-green-600" />
-                ) : (
-                  <Copy className="h-4 w-4 text-muted-foreground" />
-                )}
-              </button>
+              <p className="text-center text-xs text-muted-foreground">
+                Supports any EVM chain (Ethereum, Polygon, etc.)
+              </p>
             </div>
 
-            <p className="text-center text-xs text-muted-foreground">
-              Supports any EVM chain (Ethereum, Polygon, etc.)
-            </p>
-          </div>
+            <div className="mt-2 w-full max-w-md md:mt-0">
+              <div className="flex items-center justify-between rounded-md border border-border bg-background p-3">
+                <div className="flex min-w-0 flex-1 flex-col gap-1">
+                  <span className="text-xs font-medium text-muted-foreground">
+                    USDT: TRX - Tron (TRC20)
+                  </span>
+                  <code className="truncate font-mono text-[10px] md:text-sm">
+                    TKRy3Dxj8LmVea8krF7UkjUcKpVn3EXtns
+                  </code>
+                </div>
 
-          <div className="w-full max-w-md space-y-3">
-            <div className="flex items-center justify-between rounded-md border border-border bg-background p-3">
-              <div className="flex min-w-0 flex-1 flex-col gap-1">
-                <span className="text-xs font-medium text-muted-foreground">
-                  USDT: TRX - Tron (TRC20)
-                </span>
-                <code className="truncate font-mono text-xs md:text-sm">
-                  TKRy3Dxj8LmVea8krF7UkjUcKpVn3EXtns
-                </code>
+                <button
+                  onClick={() =>
+                    copyToClipboard("TKRy3Dxj8LmVea8krF7UkjUcKpVn3EXtns", "TRX")
+                  }
+                  className="ml-3 flex-shrink-0 rounded-md p-2 transition-colors hover:bg-muted"
+                  title={copiedTRX ? "Copied!" : "Copy address"}
+                >
+                  {copiedTRX ? (
+                    <Check className="h-4 w-4 text-green-600" />
+                  ) : (
+                    <Copy className="h-4 w-4 text-muted-foreground" />
+                  )}
+                </button>
               </div>
-
-              <button
-                onClick={() =>
-                  copyToClipboard("TKRy3Dxj8LmVea8krF7UkjUcKpVn3EXtns", "TRX")
-                }
-                className="ml-3 flex-shrink-0 rounded-md p-2 transition-colors hover:bg-muted"
-                title={copiedTRX ? "Copied!" : "Copy address"}
-              >
-                {copiedTRX ? (
-                  <Check className="h-4 w-4 text-green-600" />
-                ) : (
-                  <Copy className="h-4 w-4 text-muted-foreground" />
-                )}
-              </button>
             </div>
           </div>
         </div>

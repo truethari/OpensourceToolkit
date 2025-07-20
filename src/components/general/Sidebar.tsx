@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
-import { Home, ToolCase, Search, X } from "lucide-react";
+import { Home, ToolCase, Search, X, PlusSquare } from "lucide-react";
 
 import { tools } from "@/config";
 
@@ -88,6 +88,27 @@ export default function AppSidebar() {
 
         <div className="flex-1 overflow-y-auto pb-4">
           <SidebarGroup>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild>
+                    <Link
+                      href="/"
+                      className={
+                        pathname === "/" ? "bg-blue-700 hover:bg-blue-600" : ""
+                      }
+                      prefetch={true}
+                    >
+                      <Home />
+                      <span>Home</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+
+          <SidebarGroup>
             <SidebarGroupLabel>Search Tools</SidebarGroupLabel>
             <SidebarGroupContent>
               <div className="relative">
@@ -110,27 +131,6 @@ export default function AppSidebar() {
                   </Button>
                 )}
               </div>
-            </SidebarGroupContent>
-          </SidebarGroup>
-
-          <SidebarGroup>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                <SidebarMenuItem>
-                  <SidebarMenuButton asChild>
-                    <Link
-                      href="/"
-                      className={
-                        pathname === "/" ? "bg-blue-700 hover:bg-blue-600" : ""
-                      }
-                      prefetch={true}
-                    >
-                      <Home />
-                      <span>Home</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
 
@@ -161,6 +161,29 @@ export default function AppSidebar() {
               </SidebarGroupContent>
             </SidebarGroup>
           ))}
+
+          <SidebarGroup>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild>
+                    <Link
+                      href="/contribute-guide"
+                      className={
+                        pathname === "/contribute-guide"
+                          ? "bg-gradient-to-br from-blue-950 to-purple-950"
+                          : "border border-dashed border-gray-700 hover:bg-gray-600"
+                      }
+                      prefetch={true}
+                    >
+                      <PlusSquare />
+                      <span>Add new tool</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
         </div>
       </SidebarContent>
     </Sidebar>
