@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { ProgressLink } from "@/components/ui/progress-link";
 import { useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Home, ToolCase, Search, X, PlusSquare } from "lucide-react";
@@ -78,13 +78,13 @@ export default function AppSidebar() {
   return (
     <Sidebar>
       <SidebarContent className="flex flex-col">
-        <Link
+        <ProgressLink
           href="/"
           className="flex h-16 flex-shrink-0 cursor-pointer items-center justify-center bg-blue-700 text-white"
         >
           <ToolCase className="mr-2 h-8 w-8" />
           <span className="text-lg font-semibold">OpenSource Toolkit</span>
-        </Link>
+        </ProgressLink>
 
         <div className="flex-1 overflow-y-auto pb-4">
           <SidebarGroup>
@@ -92,16 +92,15 @@ export default function AppSidebar() {
               <SidebarMenu>
                 <SidebarMenuItem>
                   <SidebarMenuButton asChild>
-                    <Link
+                    <ProgressLink
                       href="/"
                       className={
                         pathname === "/" ? "bg-blue-700 hover:bg-blue-600" : ""
                       }
-                      prefetch={true}
                     >
                       <Home />
                       <span>Home</span>
-                    </Link>
+                    </ProgressLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               </SidebarMenu>
@@ -142,18 +141,17 @@ export default function AppSidebar() {
                   {tools.map((item) => (
                     <SidebarMenuItem key={item.title}>
                       <SidebarMenuButton asChild>
-                        <Link
+                        <ProgressLink
                           href={item.url}
                           className={
                             item.url === pathname
                               ? "bg-blue-700 hover:bg-blue-600"
                               : ""
                           }
-                          prefetch={true}
                         >
                           <item.icon />
                           <span>{item.title}</span>
-                        </Link>
+                        </ProgressLink>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                   ))}
@@ -167,18 +165,17 @@ export default function AppSidebar() {
               <SidebarMenu>
                 <SidebarMenuItem>
                   <SidebarMenuButton asChild>
-                    <Link
+                    <ProgressLink
                       href="/contribute-guide"
                       className={
                         pathname === "/contribute-guide"
                           ? "bg-gradient-to-br from-blue-950 to-purple-950"
                           : "border border-dashed border-gray-700 hover:bg-gray-600"
                       }
-                      prefetch={true}
                     >
                       <PlusSquare />
                       <span>Add new tool</span>
-                    </Link>
+                    </ProgressLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               </SidebarMenu>

@@ -9,7 +9,7 @@ export interface IRecentTool {
 }
 
 const RECENT_TOOLS_KEY = "opensourcetoolkit_recent_tools";
-const MAX_RECENT_TOOLS = 9;
+const MAX_RECENT_TOOLS = 5;
 
 export const localStorage = {
   // Get recent tools from localStorage

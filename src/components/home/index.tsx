@@ -30,12 +30,14 @@ import QuickActions from "./QuickActions";
 
 import { tools } from "@/config";
 import { useData } from "@/providers/DataProvider";
+import { useNavigation } from "@/providers/NavigationProvider";
 
 import type { ITool } from "@/types";
 
 export default function Home() {
   const router = useRouter();
   const { recentTools, addRecentTool } = useData();
+  const { startNavigation, stopNavigation } = useNavigation();
 
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -71,11 +73,16 @@ export default function Home() {
 
   const handleToolClick = useCallback(
     (tool: ITool) => {
-      // Update recently used
+      startNavigation();
       addRecentTool(tool);
       router.push(tool.href);
+
+      // Stop navigation after a brief delay (the progress bar will complete automatically)
+      setTimeout(() => {
+        stopNavigation();
+      }, 500);
     },
-    [addRecentTool, router],
+    [addRecentTool, router, startNavigation, stopNavigation],
   );
 
   const quickActions = useMemo(() => {
@@ -266,8 +273,12 @@ export default function Home() {
 
             {/* Contribute Card */}
             <Card
-              className="group cursor-pointer border-2 border-dashed border-blue-600 bg-gradient-to-br from-blue-950/30 to-purple-950/20 transition-all duration-300 hover:scale-[1.02] hover:border-blue-500 hover:from-blue-900/40 hover:to-purple-900/40 hover:shadow-lg"
-              onClick={() => router.push("/contribute-guide")}
+              className="group mt-1 cursor-pointer border-2 border-dashed border-blue-600 bg-gradient-to-br from-blue-950/30 to-purple-950/20 transition-all duration-300 hover:scale-[1.02] hover:border-blue-500 hover:from-blue-900/40 hover:to-purple-900/40 hover:shadow-lg md:mt-0"
+              onClick={() => {
+                startNavigation();
+                router.push("/contribute-guide");
+                setTimeout(() => stopNavigation(), 500);
+              }}
             >
               <CardHeader className="pb-4">
                 <div className="flex items-center justify-between">

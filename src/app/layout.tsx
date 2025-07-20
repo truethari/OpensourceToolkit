@@ -7,6 +7,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import MainLayout from "@/components/wrappers/Main";
 import QueryProvider from "@/providers/QueryProvider";
 import DataProvider from "@/providers/DataProvider";
+import { NavigationProvider } from "@/providers/NavigationProvider";
 
 import type { Metadata } from "next";
 
@@ -62,7 +63,9 @@ export default function RootLayout({
       <body className={`${firaSans.className} dark antialiased`}>
         <QueryProvider>
           <DataProvider>
-            <MainLayout>{children}</MainLayout>
+            <NavigationProvider>
+              <MainLayout>{children}</MainLayout>
+            </NavigationProvider>
           </DataProvider>
         </QueryProvider>
       </body>
