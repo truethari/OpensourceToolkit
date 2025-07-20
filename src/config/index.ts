@@ -16,6 +16,7 @@ import {
   Shield,
   Send,
   Activity,
+  Type,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -607,6 +608,51 @@ export const tools: ITool[] = [
         "Monitor website uptime, response times, and availability with real-time status tracking. Features command-line style visualization, historical data, and comprehensive monitoring tools.",
       keywords:
         "uptime monitor, website monitoring, status tracking, response time, availability, performance monitoring, site health, downtime detection, uptime statistics",
+    },
+  },
+  {
+    id: "ascii-generator",
+    title: "ASCII Art Generator",
+    shortTitle: "ASCII Art",
+    description:
+      "Convert text and images to ASCII art with customizable fonts, styles, density controls, and export options",
+    icon: Type,
+    color: "bg-purple-600",
+    category: "Generators",
+    tags: [
+      "ascii",
+      "art",
+      "text",
+      "image",
+      "converter",
+      "generator",
+      "font",
+      "style",
+      "banner",
+      "terminal",
+      "monospace",
+      "characters",
+    ],
+    features: [
+      "Text to ASCII Art Conversion",
+      "Image to ASCII Art Conversion",
+      "Multiple ASCII Fonts",
+      "Adjustable Character Density",
+      "Size and Width Controls",
+      "Invert Colors Option",
+      "Save and Load ASCII Arts",
+      "Export as Text/HTML",
+      "Quick Templates",
+      "Real-time Preview",
+    ],
+    popular: true,
+    href: "/ascii-generator",
+    seo: {
+      title: "ASCII Art Generator - Convert Text and Images to ASCII Art",
+      description:
+        "Create stunning ASCII art from text and images. Features multiple fonts, density controls, export options, and real-time preview. Perfect for terminal art, banners, and creative projects.",
+      keywords:
+        "ascii art generator, text to ascii, image to ascii, ascii converter, ascii fonts, terminal art, ascii banner, text art, ascii characters, monospace art",
     },
   },
 ];
