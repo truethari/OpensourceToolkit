@@ -993,7 +993,7 @@ export const tools: ITool[] = [
       "Transaction History Links",
       "USD Value Tracking",
     ],
-    popular: true,
+    popular: false,
     href: "/blockchain-balance",
     seo: {
       title: "Blockchain Balance - Multi-Chain Wallet Balance Checker",
@@ -1001,6 +1001,45 @@ export const tools: ITool[] = [
         "Scan wallet balances across Ethereum, BSC, Polygon, Arbitrum, Optimism, and more. Check native and ERC20 token balances with real-time portfolio tracking.",
       keywords:
         "blockchain scanner, wallet balance, multi-chain, ethereum balance, polygon scanner, bsc balance, arbitrum, optimism, crypto portfolio, erc20 tokens, defi tracker",
+    },
+  },
+  {
+    id: "eth-converter",
+    title: "ETH / Wei / Gwei Converter",
+    shortTitle: "ETH Converter",
+    description:
+      "Convert between Ethereum units (ETH, Wei, Gwei) with real-time parallel updates and copy functionality",
+    icon: Coins,
+    color: "bg-blue-500",
+    category: "Blockchain & Crypto",
+    tags: [
+      "ethereum",
+      "eth",
+      "wei",
+      "gwei",
+      "converter",
+      "crypto",
+      "blockchain",
+      "gas",
+      "units",
+      "calculator",
+    ],
+    features: [
+      "Real-time Parallel Conversion",
+      "ETH ↔ Wei ↔ Gwei",
+      "Copy to Clipboard",
+      "Conversion Formulas",
+      "Gas Price Calculations",
+      "Precision Handling",
+    ],
+    popular: false,
+    href: "/eth-converter",
+    seo: {
+      title: "ETH Wei Gwei Converter - Ethereum Unit Converter",
+      description:
+        "Convert between Ethereum units (ETH, Wei, Gwei) with real-time updates. Perfect for gas calculations, smart contracts, and DeFi applications.",
+      keywords:
+        "ethereum converter, eth to wei, wei to gwei, gas price converter, ethereum units, crypto converter, blockchain calculator, smart contract units",
     },
   },
 ];
