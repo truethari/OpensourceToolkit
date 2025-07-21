@@ -4,6 +4,10 @@ A modern, comprehensive collection of developer and utility tools built with Nex
 
 ![OpenSource Toolkit](./public/seo/1.png)
 
+## 📸 Screenshot
+
+![Speaker Testing Tool](./public/screenshots/2025-07-19.png)
+
 ## 🚀 Tech Stack
 
 ### Core Technologies
@@ -111,49 +115,70 @@ opensourcetoolkit/
 
 ## 🎯 Available Tools
 
-### **Generators**
+### **Text & Data Generators**
 
-| Tool                      | Description                                    | Route                 | Features                                            |
-| ------------------------- | ---------------------------------------------- | --------------------- | --------------------------------------------------- |
-| **UUID Generator**        | Generate universally unique identifiers        | `/uuid`               | V1 & V4 UUIDs, batch generation                     |
-| **Lorem Ipsum Generator** | Generate placeholder text                      | `/lorem-ipsum`        | Words/sentences/paragraphs, multiple languages      |
-| **Password Generator**    | Advanced password, passphrase & PIN generation | `/password-generator` | Security analysis, batch generation, custom presets |
+| Tool                         | Description                                      | Route                       | Features                                             |
+| ---------------------------- | ------------------------------------------------ | --------------------------- | ---------------------------------------------------- |
+| **UUID Generator**           | Generate universally unique identifiers          | `/uuid`                     | V4 (Random), V1 (Timestamp), batch generation        |
+| **Lorem Ipsum Generator**    | Generate placeholder text                        | `/lorem-ipsum`              | Words/sentences/paragraphs, multiple languages       |
+| **Mock Data Generator**      | Generate realistic fake user data using Faker.js | `/mock-data-generator`      | User profiles, addresses, emails, multiple locales   |
+| **QR Code Generator**        | Generate QR codes for text, URLs, WiFi, and more | `/qr-generator`             | Customizable styling, multiple formats, PNG download |
+| **Privacy Policy Generator** | Generate comprehensive privacy policies          | `/privacy-policy-generator` | GDPR & CCPA compliance, customizable data practices  |
 
-### **Converters**
+### **Format Converters**
 
-| Tool                       | Description                       | Route              | Features                                        |
-| -------------------------- | --------------------------------- | ------------------ | ----------------------------------------------- |
-| **Timestamp Converter**    | Convert between timestamp formats | `/timestamp`       | Live time, batch conversion, multiple formats   |
-| **Image Format Converter** | Convert image formats             | `/image-converter` | PNG/JPEG/GIF/WebP, optimization                 |
-| **Text Case Converter**    | Transform text cases              | `/text-converter`  | 10+ case types, batch processing                |
-| **Base64 Encoder/Decoder** | Encode/decode Base64 format       | `/base64`          | Text/file encoding, URL safe, multiple charsets |
+| Tool                       | Description                       | Route              | Features                                          |
+| -------------------------- | --------------------------------- | ------------------ | ------------------------------------------------- |
+| **Timestamp Converter**    | Convert between timestamp formats | `/timestamp`       | Live time, batch conversion, multiple formats     |
+| **Image Format Converter** | Convert image formats             | `/image-converter` | PNG/JPEG/GIF/WebP, batch processing, optimization |
+| **Text Case Converter**    | Transform text cases              | `/text-converter`  | Uppercase, lowercase, title case, sentence case   |
+| **Base64 Encoder/Decoder** | Encode/decode Base64 format       | `/base64`          | Text/file encoding, URL safe, multiple charsets   |
 
-### **Security**
+### **Security Tools**
 
-| Tool                    | Description                           | Route  | Features                                     |
-| ----------------------- | ------------------------------------- | ------ | -------------------------------------------- |
-| **JWT Decoder/Encoder** | JWT encoding, decoding & verification | `/jwt` | Multi-algorithm support, security validation |
+| Tool                    | Description                                  | Route             | Features                                      |
+| ----------------------- | -------------------------------------------- | ----------------- | --------------------------------------------- |
+| **JWT Decoder/Encoder** | JWT encoding, decoding & verification        | `/jwt`            | Multi-algorithm support, security validation  |
+| **HMAC Generator**      | Generate and verify HMAC codes               | `/hmac-generator` | Multiple algorithms, secure authentication    |
+| **Hash Generator**      | Generate MD5, SHA-1, SHA-256, SHA-512 hashes | `/hash-generator` | Text & file support, security recommendations |
 
-### **Network Tools**
+### **Network & Monitoring**
 
-| Tool                    | Description                    | Route          | Features                                  |
-| ----------------------- | ------------------------------ | -------------- | ----------------------------------------- |
-| **IP Location Checker** | Check IP address geolocation   | `/ip-location` | Geolocation, ISP info, timezone detection |
-| **Internet Speed Test** | Test internet connection speed | `/speed-test`  | Download/upload speed, ping latency       |
-| **DNS Lookup Tool**     | Query DNS records              | `/dns-lookup`  | Multiple record types, batch lookup       |
+| Tool                    | Description                               | Route             | Features                                       |
+| ----------------------- | ----------------------------------------- | ----------------- | ---------------------------------------------- |
+| **IP Location Checker** | Check IP address geolocation              | `/ip-location`    | Geolocation, ISP info, timezone detection      |
+| **Internet Speed Test** | Test internet connection speed            | `/speed-test`     | Download/upload speed, ping latency            |
+| **DNS Lookup Tool**     | Query DNS records                         | `/dns-lookup`     | Multiple record types, batch lookup            |
+| **Uptime Monitor**      | Monitor website uptime and response times | `/uptime-monitor` | Real-time tracking, command-line visualization |
 
-### **Development Tools**
+### **Development & API**
 
-| Tool                       | Description                   | Route             | Features                              |
-| -------------------------- | ----------------------------- | ----------------- | ------------------------------------- |
-| **API Cron Job Scheduler** | Schedule and manage API calls | `/cron-scheduler` | Cron expressions, real-time dashboard |
+| Tool                       | Description                   | Route             | Features                                      |
+| -------------------------- | ----------------------------- | ----------------- | --------------------------------------------- |
+| **API Cron Job Scheduler** | Schedule and manage API calls | `/cron-scheduler` | Cron expressions, real-time dashboard         |
+| **API Testing Tool**       | Professional API testing tool | `/api-tester`     | Request builder, response viewer, collections |
 
-### **File Tools**
+### **File & Document Tools**
 
 | Tool                          | Description                    | Route              | Features                                        |
 | ----------------------------- | ------------------------------ | ------------------ | ----------------------------------------------- |
 | **Folder Structure Analyzer** | Analyze directory structures   | `/folder-analyzer` | Tree visualization, multi-format export         |
 | **PDF Toolkit**               | Comprehensive PDF manipulation | `/pdf-toolkit`     | Split/merge, rotate, watermarks, text insertion |
+
+### **Design & Creative**
+
+| Tool                    | Description                          | Route              | Features                                          |
+| ----------------------- | ------------------------------------ | ------------------ | ------------------------------------------------- |
+| **ASCII Art Generator** | Convert text and images to ASCII art | `/ascii-generator` | Multiple fonts, density controls, export options  |
+| **Colors Toolkit**      | Comprehensive color tools            | `/colors`          | Color picker, format converter, palette generator |
+
+### **Hardware Testing**
+
+| Tool                     | Description                                  | Route                | Features                                                            |
+| ------------------------ | -------------------------------------------- | -------------------- | ------------------------------------------------------------------- |
+| **Keyboard Tester**      | Test keyboard functionality and typing speed | `/keyboard-tester`   | Real-time monitoring, typing speed tests, analytics                 |
+| **Camera & Mic Tester**  | Test camera and microphone devices           | `/camera-mic-tester` | Real-time monitoring, recording, device management                  |
+| **Speaker Testing Tool** | Test speakers and audio systems              | `/speaker-tester`    | Multiple configurations, frequency testing, output device selection |
 
 ## 🔧 Scripts
 
@@ -236,7 +261,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ## 📊 Project Stats
 
-- **15 Tools** currently available
+- **25 Tools** currently available
 - **16 UI Components** in the design system
 - **100% TypeScript** codebase
 - **SEO optimized** for all tools

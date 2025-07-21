@@ -1,9 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import { useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
-import { Home, ToolCase, Search, X } from "lucide-react";
+import { Home, ToolCase, Search, X, PlusSquare } from "lucide-react";
+
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { ProgressLink } from "@/components/ui/progress-link";
 
 import { tools } from "@/config";
 
@@ -78,15 +80,35 @@ export default function AppSidebar() {
   return (
     <Sidebar>
       <SidebarContent className="flex flex-col">
-        <Link
+        <ProgressLink
           href="/"
           className="flex h-16 flex-shrink-0 cursor-pointer items-center justify-center bg-blue-700 text-white"
         >
           <ToolCase className="mr-2 h-8 w-8" />
           <span className="text-lg font-semibold">OpenSource Toolkit</span>
-        </Link>
+        </ProgressLink>
 
-        <div className="flex-1 overflow-y-auto pb-4">
+        <ScrollArea>
+          <SidebarGroup>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild>
+                    <ProgressLink
+                      href="/"
+                      className={
+                        pathname === "/" ? "bg-blue-700 hover:bg-blue-600" : ""
+                      }
+                    >
+                      <Home />
+                      <span>Home</span>
+                    </ProgressLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+
           <SidebarGroup>
             <SidebarGroupLabel>Search Tools</SidebarGroupLabel>
             <SidebarGroupContent>
@@ -98,6 +120,7 @@ export default function AppSidebar() {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-8 pr-8"
                   autoFocus={false}
+                  tabIndex={-1}
                 />
                 {searchQuery && (
                   <Button
@@ -113,27 +136,6 @@ export default function AppSidebar() {
             </SidebarGroupContent>
           </SidebarGroup>
 
-          <SidebarGroup>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                <SidebarMenuItem>
-                  <SidebarMenuButton asChild>
-                    <Link
-                      href="/"
-                      className={
-                        pathname === "/" ? "bg-blue-700 hover:bg-blue-600" : ""
-                      }
-                      prefetch={true}
-                    >
-                      <Home />
-                      <span>Home</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-
           {Object.entries(categorizedTools).map(([category, tools]) => (
             <SidebarGroup key={category}>
               <SidebarGroupLabel>{category}</SidebarGroupLabel>
@@ -142,18 +144,17 @@ export default function AppSidebar() {
                   {tools.map((item) => (
                     <SidebarMenuItem key={item.title}>
                       <SidebarMenuButton asChild>
-                        <Link
+                        <ProgressLink
                           href={item.url}
                           className={
                             item.url === pathname
                               ? "bg-blue-700 hover:bg-blue-600"
                               : ""
                           }
-                          prefetch={true}
                         >
                           <item.icon />
                           <span>{item.title}</span>
-                        </Link>
+                        </ProgressLink>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                   ))}
@@ -161,7 +162,29 @@ export default function AppSidebar() {
               </SidebarGroupContent>
             </SidebarGroup>
           ))}
-        </div>
+
+          <SidebarGroup>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild>
+                    <ProgressLink
+                      href="/contribute-guide"
+                      className={
+                        pathname === "/contribute-guide"
+                          ? "bg-gradient-to-br from-blue-950 to-purple-950"
+                          : "border border-dashed border-gray-700 hover:bg-gray-600"
+                      }
+                    >
+                      <PlusSquare />
+                      <span>Add new tool</span>
+                    </ProgressLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        </ScrollArea>
       </SidebarContent>
     </Sidebar>
   );

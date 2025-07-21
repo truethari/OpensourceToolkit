@@ -2,7 +2,16 @@
 
 import { useRouter } from "next/navigation";
 import React, { useState, useMemo, useCallback } from "react";
-import { Star, Search, Sparkles, Bookmark, ArrowRight } from "lucide-react";
+import {
+  Star,
+  Search,
+  Sparkles,
+  Bookmark,
+  ArrowRight,
+  Plus,
+  Code,
+  Heart,
+} from "lucide-react";
 
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -21,12 +30,14 @@ import QuickActions from "./QuickActions";
 
 import { tools } from "@/config";
 import { useData } from "@/providers/DataProvider";
+import { useNavigation } from "@/providers/NavigationProvider";
 
 import type { ITool } from "@/types";
 
 export default function Home() {
   const router = useRouter();
   const { recentTools, addRecentTool } = useData();
+  const { startNavigation, stopNavigation } = useNavigation();
 
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -62,11 +73,16 @@ export default function Home() {
 
   const handleToolClick = useCallback(
     (tool: ITool) => {
-      // Update recently used
+      startNavigation();
       addRecentTool(tool);
       router.push(tool.href);
+
+      // Stop navigation after a brief delay (the progress bar will complete automatically)
+      setTimeout(() => {
+        stopNavigation();
+      }, 500);
     },
-    [addRecentTool, router],
+    [addRecentTool, router, startNavigation, stopNavigation],
   );
 
   const quickActions = useMemo(() => {
@@ -254,6 +270,100 @@ export default function Home() {
                 </CardContent>
               </Card>
             ))}
+
+            {/* Contribute Card */}
+            <Card
+              className="group mt-1 cursor-pointer border-2 border-dashed border-blue-600 bg-gradient-to-br from-blue-950/30 to-purple-950/20 transition-all duration-300 hover:scale-[1.02] hover:border-blue-500 hover:from-blue-900/40 hover:to-purple-900/40 hover:shadow-lg md:mt-0"
+              onClick={() => {
+                startNavigation();
+                router.push("/contribute-guide");
+                setTimeout(() => stopNavigation(), 500);
+              }}
+            >
+              <CardHeader className="pb-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex w-full space-x-3">
+                    <div className="h-fit rounded-xl border border-blue-400 bg-gradient-to-br from-blue-500 to-purple-600 p-3 shadow-lg">
+                      <Plus className="h-6 w-6 text-white" />
+                    </div>
+
+                    <div className="w-full">
+                      <CardTitle className="flex w-full items-center justify-between space-x-2 md:justify-start">
+                        <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text font-bold leading-normal text-transparent">
+                          Add Your Tool
+                        </span>
+                        <div className="flex flex-col">
+                          <Badge
+                            variant="secondary"
+                            className="w-fit bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300"
+                          >
+                            <Heart className="mr-1 h-3 w-3" />
+                            Contribute
+                          </Badge>
+                          <Badge
+                            variant="outline"
+                            className="mt-1 block w-fit text-nowrap border-blue-300 text-xs text-blue-600 dark:border-blue-600 dark:text-blue-400 md:hidden"
+                          >
+                            Open Source
+                          </Badge>
+                        </div>
+                      </CardTitle>
+
+                      <Badge
+                        variant="outline"
+                        className="mt-1 hidden w-fit border-blue-300 text-xs text-blue-600 dark:border-blue-600 dark:text-blue-400 md:block"
+                      >
+                        Open Source
+                      </Badge>
+                    </div>
+                  </div>
+
+                  <ArrowRight className="hidden h-5 w-5 text-blue-500 transition-transform group-hover:translate-x-1 md:block" />
+                </div>
+              </CardHeader>
+
+              <CardContent className="space-y-4">
+                <CardDescription className="md:text-md text-sm leading-relaxed text-blue-700 dark:text-blue-300">
+                  Have an amazing tool idea? Join our community and help
+                  developers worldwide by contributing your own tool to
+                  OpensourceToolkit!
+                </CardDescription>
+
+                <div className="space-y-3">
+                  <h4 className="flex items-center text-sm font-semibold text-blue-700 dark:text-blue-300">
+                    <Code className="mr-1 h-4 w-4" />
+                    Why Contribute?
+                  </h4>
+                  <ul className="grid list-outside list-disc grid-cols-1 gap-1 pl-4 text-sm text-blue-600 marker:text-blue-500 dark:text-blue-400 md:grid-cols-2">
+                    <li>Help developers globally</li>
+                    <li>Build your portfolio</li>
+                    <li>Learn modern tech</li>
+                    <li>Join the community</li>
+                  </ul>
+                </div>
+
+                <div className="flex flex-wrap gap-1 pt-2">
+                  <Badge
+                    variant="secondary"
+                    className="bg-blue-100 text-xs text-blue-700 dark:bg-blue-900 dark:text-blue-300"
+                  >
+                    TypeScript
+                  </Badge>
+                  <Badge
+                    variant="secondary"
+                    className="bg-purple-100 text-xs text-purple-700 dark:bg-purple-900 dark:text-purple-300"
+                  >
+                    React
+                  </Badge>
+                  <Badge
+                    variant="secondary"
+                    className="bg-green-100 text-xs text-green-700 dark:bg-green-900 dark:text-green-300"
+                  >
+                    Next.js
+                  </Badge>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
 
