@@ -22,6 +22,7 @@ import {
   Camera,
   QrCode,
   ScrollText,
+  Volume2,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -908,6 +909,51 @@ export const tools: ITool[] = [
         "Generate comprehensive privacy policies with GDPR and CCPA compliance. Customize data practices, user rights, and legal requirements for your website or application.",
       keywords:
         "privacy policy generator, gdpr compliance, ccpa compliance, privacy policy template, data protection, legal generator, website privacy policy, privacy rights",
+    },
+  },
+  {
+    id: "speaker-tester",
+    title: "Speaker Testing Tool",
+    shortTitle: "Speaker Tester",
+    description:
+      "Test speakers and audio systems with multiple configurations including mono, stereo, surround sound, and custom frequency testing",
+    icon: Volume2,
+    color: "bg-indigo-600",
+    category: "Hardware Testing",
+    tags: [
+      "speaker",
+      "audio",
+      "sound",
+      "testing",
+      "surround",
+      "stereo",
+      "mono",
+      "frequency",
+      "5.1",
+      "7.1",
+      "channels",
+      "volume",
+      "bass",
+      "treble",
+    ],
+    features: [
+      "Multiple Speaker Configurations",
+      "Mono, Stereo, 2.1, 4.0, 5.1, 7.1 Testing",
+      "Custom Frequency Testing (20Hz-20kHz)",
+      "Channel-specific Audio Testing",
+      "Automatic Test Sequences",
+      "Real-time Volume Control",
+      "Test Result Tracking",
+      "Audio Device Information",
+    ],
+    popular: true,
+    href: "/speaker-tester",
+    seo: {
+      title: "Speaker Testing Tool - Test Audio Systems & Surround Sound",
+      description:
+        "Comprehensive speaker testing tool with support for mono, stereo, 2.1, 4.0, 5.1, 7.1 surround sound configurations. Test frequency response, channel balance, and audio quality.",
+      keywords:
+        "speaker tester, audio testing, surround sound test, 5.1 test, 7.1 test, frequency test, channel test, speaker configuration, audio system test, sound quality",
     },
   },
 ];
