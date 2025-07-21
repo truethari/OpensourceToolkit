@@ -298,7 +298,7 @@ export default function AsciiGenerator() {
       }
 
       setAsciiOutput(result);
-      toast.success("ASCII art generated successfully");
+      // toast.success("ASCII art generated successfully");
     } catch (error) {
       console.error("Generation error:", error);
       toast.error("Failed to generate ASCII art");

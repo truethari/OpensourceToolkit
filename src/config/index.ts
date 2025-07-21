@@ -23,6 +23,7 @@ import {
   QrCode,
   ScrollText,
   Volume2,
+  Coins,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -954,6 +955,52 @@ export const tools: ITool[] = [
         "Comprehensive speaker testing tool with support for mono, stereo, 2.1, 4.0, 5.1, 7.1 surround sound configurations. Test frequency response, channel balance, and audio quality.",
       keywords:
         "speaker tester, audio testing, surround sound test, 5.1 test, 7.1 test, frequency test, channel test, speaker configuration, audio system test, sound quality",
+    },
+  },
+  {
+    id: "blockchain-balance",
+    title: "Blockchain Balances",
+    shortTitle: "Blockchain Balances",
+    description:
+      "Scan wallet balances across multiple blockchain networks including Ethereum, BSC, Polygon, Arbitrum, and more with native and ERC20 token support",
+    icon: Coins,
+    color: "bg-yellow-500",
+    category: "Blockchain & Crypto",
+    tags: [
+      "blockchain",
+      "wallet",
+      "balance",
+      "ethereum",
+      "polygon",
+      "bsc",
+      "arbitrum",
+      "optimism",
+      "avalanche",
+      "multi-chain",
+      "erc20",
+      "tokens",
+      "portfolio",
+      "crypto",
+      "defi",
+    ],
+    features: [
+      "Multi-Chain Balance Scanning",
+      "Native & ERC20 Token Support",
+      "Real-time Balance Updates",
+      "Portfolio Overview",
+      "8+ Supported Networks",
+      "Export Balance Data",
+      "Transaction History Links",
+      "USD Value Tracking",
+    ],
+    popular: true,
+    href: "/blockchain-balance",
+    seo: {
+      title: "Blockchain Balance - Multi-Chain Wallet Balance Checker",
+      description:
+        "Scan wallet balances across Ethereum, BSC, Polygon, Arbitrum, Optimism, and more. Check native and ERC20 token balances with real-time portfolio tracking.",
+      keywords:
+        "blockchain scanner, wallet balance, multi-chain, ethereum balance, polygon scanner, bsc balance, arbitrum, optimism, crypto portfolio, erc20 tokens, defi tracker",
     },
   },
 ];
