@@ -24,6 +24,7 @@ import {
   ScrollText,
   Volume2,
   Coins,
+  AudioLines,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -1040,6 +1041,51 @@ export const tools: ITool[] = [
         "Convert between Ethereum units (ETH, Wei, Gwei) with real-time updates. Perfect for gas calculations, smart contracts, and DeFi applications.",
       keywords:
         "ethereum converter, eth to wei, wei to gwei, gas price converter, ethereum units, crypto converter, blockchain calculator, smart contract units",
+    },
+  },
+  {
+    id: "audio-noise-reduction",
+    title: "Audio Noise Reduction",
+    shortTitle: "Audio Noise Reduction",
+    description:
+      "Remove background noise, enhance audio quality with advanced filtering, compression, EQ, and real-time processing",
+    icon: AudioLines,
+    color: "bg-teal-600",
+    category: "Hardware Testing",
+    tags: [
+      "audio",
+      "noise reduction",
+      "recording",
+      "processing",
+      "filters",
+      "compression",
+      "equalizer",
+      "enhancement",
+      "professional",
+      "real-time",
+      "microphone",
+      "sound",
+      "quality",
+      "visualization",
+    ],
+    features: [
+      "Real-time Audio Recording",
+      "Noise Reduction",
+      "Multi-band EQ & Compression",
+      "High/Low Pass Filters",
+      "Real-time Visualization",
+      "File Upload Support",
+      "WAV Export",
+      "Browser-based Processing",
+    ],
+    popular: false,
+    href: "/audio-noise-reduction",
+    seo: {
+      title: "Audio Noise Reduction - Remove Background Noise",
+      description:
+        "Audio noise reduction tool with advanced filtering, compression, EQ, and real-time processing. Record, enhance, and export high-quality audio directly in your browser.",
+      keywords:
+        "audio noise reduction, noise removal, audio enhancement, sound processing, audio filters, microphone recording, audio editing, noise gate, audio compression, equalizer, sound quality",
     },
   },
 ];
