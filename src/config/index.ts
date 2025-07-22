@@ -27,6 +27,7 @@ import {
   AudioLines,
   Timer,
   Contact,
+  Calculator,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -1177,6 +1178,54 @@ export const tools: ITool[] = [
         "Parse, create, and manage vCard contact files with comprehensive features. Support for multiple contacts, validation, batch operations, and export functionality.",
       keywords:
         "vcf parser, vcard generator, contact file, address book, phone contacts, email contacts, contact export, contact import, vcard editor, batch contacts",
+    },
+  },
+  {
+    id: "ip-calculator",
+    title: "IP Address Calculator",
+    shortTitle: "IP Calculator",
+    description:
+      "Comprehensive IP address calculator with subnet calculations, CIDR conversions, binary/hex format conversions, and network analysis",
+    icon: Calculator,
+    color: "bg-blue-500",
+    category: "Network & Monitoring",
+    tags: [
+      "ip",
+      "subnet",
+      "cidr",
+      "calculator",
+      "network",
+      "binary",
+      "hex",
+      "subnetting",
+      "mask",
+      "wildcard",
+      "broadcast",
+      "hosts",
+      "analysis",
+      "ipv4",
+      "conversion",
+    ],
+    features: [
+      "Subnet Calculations",
+      "CIDR ↔ Subnet Mask Conversion",
+      "Binary & Hex Conversions",
+      "Custom Subnet Division",
+      "Network Class Detection",
+      "Private/Public IP Detection",
+      "Wildcard Mask Calculation",
+      "Host Range Calculation",
+      "Export Results",
+      "Real-time Validation",
+    ],
+    popular: true,
+    href: "/ip-calculator",
+    seo: {
+      title: "IP Address Calculator - Subnet Calculator & Network Tools",
+      description:
+        "Comprehensive IP address calculator with subnet calculations, CIDR conversions, binary/hex format conversions, custom subnetting, and network analysis. Perfect for network engineers and IT professionals.",
+      keywords:
+        "ip calculator, subnet calculator, cidr calculator, ip subnet, network calculator, binary conversion, hex conversion, wildcard mask, broadcast address, network analysis, subnetting tool, ipv4 calculator",
     },
   },
 ];

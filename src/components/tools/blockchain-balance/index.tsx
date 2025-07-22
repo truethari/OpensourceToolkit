@@ -368,7 +368,7 @@ export default function BlockchainBalance() {
   );
 
   return (
-    <div className="container mx-auto space-y-8 p-6">
+    <div className="mx-auto max-w-7xl space-y-6 p-6">
       <div className="space-y-4 text-center">
         <div className="flex items-center justify-center gap-1 text-center text-3xl font-bold md:gap-3 md:text-4xl">
           <Coins className="h-10 w-10" />
