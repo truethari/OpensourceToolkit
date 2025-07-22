@@ -37,6 +37,8 @@ import {
   SelectContent,
 } from "@/components/ui/select";
 
+import ToolsWrapper from "@/components/wrappers/ToolsWrapper";
+
 import { FIGLET_FONTS } from "./utils";
 
 interface AsciiSettings {
@@ -460,7 +462,7 @@ export default function AsciiGenerator() {
   };
 
   return (
-    <div className="container mx-auto max-w-7xl px-4 py-8">
+    <ToolsWrapper>
       <div className="mb-8">
         <h1 className="mb-2 flex items-center gap-3 text-3xl font-bold">
           <Type className="h-8 w-8 text-purple-500" />
@@ -1013,6 +1015,6 @@ export default function AsciiGenerator() {
 
       {/* Hidden canvas for image processing */}
       <canvas ref={canvasRef} style={{ display: "none" }} />
-    </div>
+    </ToolsWrapper>
   );
 }

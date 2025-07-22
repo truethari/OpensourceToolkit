@@ -21,6 +21,8 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
+import ToolsWrapper from "@/components/wrappers/ToolsWrapper";
+
 interface SubnetInfo {
   networkAddress: string;
   broadcastAddress: string;
@@ -350,7 +352,7 @@ export default function IPCalculator() {
   const validation = validateIP(ipAddress);
 
   return (
-    <div className="mx-auto max-w-7xl space-y-6 p-6">
+    <ToolsWrapper>
       <div className="mb-8 text-center">
         <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-600 text-white">
           <Network className="h-8 w-8" />
@@ -937,6 +939,6 @@ export default function IPCalculator() {
           </Tabs>
         </div>
       </div>
-    </div>
+    </ToolsWrapper>
   );
 }

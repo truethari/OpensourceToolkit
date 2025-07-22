@@ -2,6 +2,7 @@
 
 import React, { useState, useRef } from "react";
 import {
+  Zap,
   Copy,
   Type,
   Info,
@@ -12,23 +13,22 @@ import {
   FileText,
   Scissors,
   RotateCw,
-  Zap,
 } from "lucide-react";
 import {
-  PDFDocument,
   rgb,
-  StandardFonts,
   degrees,
+  PDFDocument,
+  StandardFonts,
   type PDFName,
 } from "pdf-lib";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Slider } from "@/components/ui/slider";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Card,
@@ -44,6 +44,8 @@ import {
   SelectTrigger,
   SelectContent,
 } from "@/components/ui/select";
+
+import ToolsWrapper from "@/components/wrappers/ToolsWrapper";
 
 interface PDFFile {
   id: string;
@@ -574,7 +576,7 @@ export default function PDFToolkit() {
   };
 
   return (
-    <div className="mx-auto max-w-7xl space-y-6 p-6">
+    <ToolsWrapper>
       <div className="space-y-2 text-center">
         <h1 className="text-3xl font-bold">PDF Toolkit</h1>
         <p className="text-muted-foreground">
@@ -1342,6 +1344,6 @@ export default function PDFToolkit() {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </ToolsWrapper>
   );
 }

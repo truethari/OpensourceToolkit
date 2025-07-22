@@ -21,6 +21,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Card,
   CardTitle,
@@ -35,7 +36,8 @@ import {
   SelectTrigger,
   SelectContent,
 } from "@/components/ui/select";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+import ToolsWrapper from "@/components/wrappers/ToolsWrapper";
 
 interface CronJob {
   id: string;
@@ -506,7 +508,7 @@ export default function CronScheduler() {
   };
 
   return (
-    <div className="mx-auto max-w-7xl space-y-4 p-4 sm:space-y-6 sm:p-6">
+    <ToolsWrapper>
       <div className="space-y-2 text-center">
         <h1 className="text-3xl font-bold">Cron Job Scheduler</h1>
         <p className="text-muted-foreground">
@@ -1104,6 +1106,6 @@ export default function CronScheduler() {
           )}
         </TabsContent>
       </Tabs>
-    </div>
+    </ToolsWrapper>
   );
 }

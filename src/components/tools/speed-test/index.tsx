@@ -14,6 +14,8 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
+import ToolsWrapper from "@/components/wrappers/ToolsWrapper";
+
 export default function SpeedTest() {
   interface ISpeedTestResult {
     download: number;
@@ -212,7 +214,7 @@ export default function SpeedTest() {
   };
 
   return (
-    <div className="mx-auto max-w-7xl space-y-6 p-6">
+    <ToolsWrapper>
       <div className="space-y-2 text-center">
         <h1 className="text-3xl font-bold">Internet Speed Test</h1>
         <p className="text-muted-foreground">
@@ -453,6 +455,6 @@ export default function SpeedTest() {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </ToolsWrapper>
   );
 }

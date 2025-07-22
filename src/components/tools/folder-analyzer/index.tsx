@@ -1,6 +1,28 @@
 "use client";
 
 import React, { useState, useRef, useCallback } from "react";
+import {
+  Eye,
+  File,
+  Code,
+  Info,
+  Copy,
+  Check,
+  Music,
+  Video,
+  Folder,
+  Search,
+  Filter,
+  Archive,
+  Settings,
+  FileText,
+  Download,
+  TreePine,
+  Database,
+  BarChart3,
+  FolderOpen,
+  Image as ImageIco,
+} from "lucide-react";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -22,28 +44,8 @@ import {
   SelectTrigger,
   SelectContent,
 } from "@/components/ui/select";
-import {
-  Folder,
-  File,
-  Download,
-  Search,
-  Filter,
-  Eye,
-  FolderOpen,
-  FileText,
-  Image as ImageIco,
-  Music,
-  Video,
-  Archive,
-  Code,
-  Database,
-  Settings,
-  Info,
-  BarChart3,
-  TreePine,
-  Copy,
-  Check,
-} from "lucide-react";
+
+import ToolsWrapper from "@/components/wrappers/ToolsWrapper";
 
 interface FileItem {
   name: string;
@@ -570,7 +572,7 @@ export default function FolderStructureAnalyzer() {
   };
 
   return (
-    <div className="mx-auto max-w-7xl space-y-6 p-6">
+    <ToolsWrapper>
       <div className="space-y-2 text-center">
         <h1 className="text-3xl font-bold">Folder Structure Analyzer</h1>
         <p className="text-muted-foreground">
@@ -1105,7 +1107,7 @@ export default function FolderStructureAnalyzer() {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </ToolsWrapper>
   );
 }
 

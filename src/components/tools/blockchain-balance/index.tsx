@@ -24,6 +24,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
+import ToolsWrapper from "@/components/wrappers/ToolsWrapper";
+
 import { DEFAULT_CHAINS, DEFAULT_TOKENS } from "./utils";
 
 import type { Chain, Balance, TokenBalance, CustomToken } from "./types";
@@ -368,7 +370,7 @@ export default function BlockchainBalance() {
   );
 
   return (
-    <div className="mx-auto max-w-7xl space-y-6 p-6">
+    <ToolsWrapper>
       <div className="space-y-4 text-center">
         <div className="flex items-center justify-center gap-1 text-center text-3xl font-bold md:gap-3 md:text-4xl">
           <Coins className="h-10 w-10" />
@@ -1059,6 +1061,6 @@ export default function BlockchainBalance() {
           </TabsContent>
         </Tabs>
       )}
-    </div>
+    </ToolsWrapper>
   );
 }

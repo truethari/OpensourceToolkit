@@ -25,6 +25,8 @@ import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
+import ToolsWrapper from "@/components/wrappers/ToolsWrapper";
+
 interface MonitoredSite {
   id: string;
   url: string;
@@ -425,7 +427,7 @@ export default function UptimeMonitor() {
     : null;
 
   return (
-    <div className="container mx-auto max-w-7xl px-4 py-8">
+    <ToolsWrapper>
       <div className="mb-8">
         <h1 className="mb-2 flex items-center gap-3 text-3xl font-bold">
           <Activity className="h-8 w-8 text-blue-500" />
@@ -868,6 +870,6 @@ export default function UptimeMonitor() {
           )}
         </div>
       </div>
-    </div>
+    </ToolsWrapper>
   );
 }

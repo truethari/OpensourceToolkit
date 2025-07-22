@@ -32,6 +32,8 @@ import {
   SelectContent,
 } from "@/components/ui/select";
 
+import ToolsWrapper from "@/components/wrappers/ToolsWrapper";
+
 // Classic Lorem Ipsum text
 const loremWords = [
   "lorem",
@@ -434,7 +436,7 @@ export default function LoremIpsumGenerator() {
   const stats = getTextStats(generatedText);
 
   return (
-    <div className="mx-auto max-w-7xl space-y-6 p-6">
+    <ToolsWrapper>
       <div className="space-y-2 text-center">
         <h1 className="text-3xl font-bold">Lorem Ipsum Generator</h1>
         <p className="text-muted-foreground">
@@ -803,6 +805,6 @@ export default function LoremIpsumGenerator() {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </ToolsWrapper>
   );
 }

@@ -28,7 +28,6 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
 import {
   Card,
   CardTitle,
@@ -43,6 +42,8 @@ import {
   SelectTrigger,
   SelectContent,
 } from "@/components/ui/select";
+
+import ToolsWrapper from "@/components/wrappers/ToolsWrapper";
 
 interface IUser {
   id: string;
@@ -243,7 +244,7 @@ export default function MockDataGenerator() {
   };
 
   return (
-    <div className="mx-auto max-w-7xl space-y-6 p-6">
+    <ToolsWrapper>
       <div className="space-y-2 text-center">
         <h1 className="text-3xl font-bold">Mock Data Generator</h1>
         <p className="text-muted-foreground">
@@ -614,6 +615,6 @@ export default function MockDataGenerator() {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </ToolsWrapper>
   );
 }

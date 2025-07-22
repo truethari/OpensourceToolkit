@@ -25,8 +25,8 @@ import {
 } from "@/components/ui/card";
 
 import Hero from "./Hero";
-import Footer from "./Footer";
 import QuickActions from "./QuickActions";
+import Footer from "@/components/general/Footer";
 
 import { tools } from "@/config";
 import { useData } from "@/providers/DataProvider";
@@ -367,7 +367,7 @@ export default function Home() {
           </div>
         </div>
 
-        <Footer />
+        <Footer showDonations={true} />
       </div>
     </div>
   );

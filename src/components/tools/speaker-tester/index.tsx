@@ -38,6 +38,8 @@ import {
   SelectContent,
 } from "@/components/ui/select";
 
+import ToolsWrapper from "@/components/wrappers/ToolsWrapper";
+
 interface AudioTestResult {
   id: string;
   channel: string;
@@ -499,7 +501,7 @@ export default function SpeakerTester() {
   );
 
   return (
-    <div className="mx-auto max-w-7xl space-y-6 p-6">
+    <ToolsWrapper>
       <div className="space-y-2 text-center">
         <h1 className="text-3xl font-bold">Speaker Testing Tool</h1>
         <p className="text-muted-foreground">
@@ -1053,6 +1055,6 @@ export default function SpeakerTester() {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </ToolsWrapper>
   );
 }

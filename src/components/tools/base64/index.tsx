@@ -33,6 +33,8 @@ import {
 } from "@/components/ui/select";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
+import ToolsWrapper from "@/components/wrappers/ToolsWrapper";
+
 export default function Base64Tool() {
   const [inputText, setInputText] = useState("");
   const [encodedText, setEncodedText] = useState("");
@@ -191,7 +193,7 @@ export default function Base64Tool() {
   };
 
   return (
-    <div className="mx-auto max-w-7xl space-y-6 p-6">
+    <ToolsWrapper>
       <div className="space-y-2 text-center">
         <h1 className="text-3xl font-bold">Base64 Encoder/Decoder</h1>
         <p className="text-muted-foreground">
@@ -589,6 +591,6 @@ export default function Base64Tool() {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </ToolsWrapper>
   );
 }

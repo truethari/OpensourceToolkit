@@ -24,24 +24,26 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
-  Shield,
-  RefreshCw,
-  Copy,
-  Check,
   Eye,
-  EyeOff,
-  AlertTriangle,
-  CheckCircle,
-  XCircle,
   Key,
-  Dice6,
   Zap,
-  Download,
-  History,
+  Copy,
   Info,
   Lock,
+  Check,
+  Dice6,
+  EyeOff,
+  History,
   Shuffle,
+  Shield,
+  XCircle,
+  Download,
+  RefreshCw,
+  CheckCircle,
+  AlertTriangle,
 } from "lucide-react";
+
+import ToolsWrapper from "@/components/wrappers/ToolsWrapper";
 
 interface PasswordOptions {
   length: number;
@@ -548,7 +550,7 @@ export default function PasswordGenerator() {
   };
 
   return (
-    <div className="mx-auto max-w-7xl space-y-6 p-6">
+    <ToolsWrapper>
       <div className="space-y-2 text-center">
         <h1 className="text-3xl font-bold">Advanced Password Generator</h1>
         <p className="text-muted-foreground">
@@ -1462,6 +1464,6 @@ export default function PasswordGenerator() {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </ToolsWrapper>
   );
 }

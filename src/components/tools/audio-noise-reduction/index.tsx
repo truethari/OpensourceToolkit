@@ -34,6 +34,8 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 
+import ToolsWrapper from "@/components/wrappers/ToolsWrapper";
+
 export default function AudioNoiseReduction() {
   interface AudioProcessingSettings {
     noiseReduction: number;
@@ -682,7 +684,7 @@ export default function AudioNoiseReduction() {
   };
 
   return (
-    <div className="mx-auto max-w-7xl space-y-6 p-6">
+    <ToolsWrapper>
       <div className="space-y-2 text-center">
         <h1 className="text-3xl font-bold">
           Professional Audio Noise Reduction
@@ -1160,6 +1162,6 @@ export default function AudioNoiseReduction() {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </ToolsWrapper>
   );
 }

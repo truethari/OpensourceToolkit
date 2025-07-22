@@ -23,6 +23,8 @@ import {
   SelectContent,
 } from "@/components/ui/select";
 
+import ToolsWrapper from "@/components/wrappers/ToolsWrapper";
+
 export default function TextCaseConverter() {
   const [inputText, setInputText] = useState("");
   const [copiedItem, setCopiedItem] = useState<string | null>(null);
@@ -277,7 +279,7 @@ export default function TextCaseConverter() {
   const stats = getTextStats(inputText);
 
   return (
-    <div className="mx-auto max-w-7xl space-y-6 p-6">
+    <ToolsWrapper>
       <div className="space-y-2 text-center">
         <h1 className="text-3xl font-bold">Text Case Converter & Formatter</h1>
         <p className="text-muted-foreground">
@@ -720,6 +722,6 @@ export default function TextCaseConverter() {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </ToolsWrapper>
   );
 }

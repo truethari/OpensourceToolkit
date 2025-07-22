@@ -20,18 +20,20 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Card,
+  CardTitle,
+  CardHeader,
   CardContent,
   CardDescription,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import {
   Select,
-  SelectContent,
   SelectItem,
-  SelectTrigger,
   SelectValue,
+  SelectTrigger,
+  SelectContent,
 } from "@/components/ui/select";
+
+import ToolsWrapper from "@/components/wrappers/ToolsWrapper";
 
 export default function ImageConverter() {
   interface IFile {
@@ -359,7 +361,7 @@ export default function ImageConverter() {
   };
 
   return (
-    <div className="mx-auto max-w-7xl space-y-6 p-6">
+    <ToolsWrapper>
       <div className="space-y-2 text-center">
         <h1 className="text-3xl font-bold">Image Format Converter</h1>
         <p className="text-muted-foreground">
@@ -886,6 +888,6 @@ export default function ImageConverter() {
       )}
 
       <canvas ref={canvasRef} className="hidden" />
-    </div>
+    </ToolsWrapper>
   );
 }

@@ -35,6 +35,8 @@ import {
   SelectContent,
 } from "@/components/ui/select";
 
+import ToolsWrapper from "@/components/wrappers/ToolsWrapper";
+
 interface CompanyInfo {
   name: string;
   email: string;
@@ -306,7 +308,7 @@ If you have any questions about this Privacy Policy, please contact us:
   };
 
   return (
-    <div className="mx-auto max-w-7xl space-y-6 p-6">
+    <ToolsWrapper>
       <div className="space-y-2 text-center">
         <h1 className="text-3xl font-bold">Privacy Policy Generator</h1>
         <p className="text-muted-foreground">
@@ -806,6 +808,6 @@ If you have any questions about this Privacy Policy, please contact us:
           </div>
         </CardContent>
       </Card>
-    </div>
+    </ToolsWrapper>
   );
 }

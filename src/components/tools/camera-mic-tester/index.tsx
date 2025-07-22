@@ -42,6 +42,8 @@ import {
   SelectContent,
 } from "@/components/ui/select";
 
+import ToolsWrapper from "@/components/wrappers/ToolsWrapper";
+
 interface MediaDeviceInfo {
   deviceId: string;
   label: string;
@@ -891,7 +893,7 @@ export default function CameraMicTester() {
   }, [cameraStream, micStream, recordings]);
 
   return (
-    <div className="mx-auto max-w-7xl space-y-6 p-4 sm:p-6">
+    <ToolsWrapper>
       <div className="space-y-2 text-center">
         <h1 className="text-3xl font-bold">Camera & Microphone Tester</h1>
         <p className="text-muted-foreground">
@@ -1671,6 +1673,6 @@ export default function CameraMicTester() {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </ToolsWrapper>
   );
 }

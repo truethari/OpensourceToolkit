@@ -24,6 +24,8 @@ import {
   SelectContent,
 } from "@/components/ui/select";
 
+import ToolsWrapper from "@/components/wrappers/ToolsWrapper";
+
 interface ColorValue {
   hex: string;
   rgb: { r: number; g: number; b: number };
@@ -450,7 +452,7 @@ export default function ColorsToolkit() {
   }, [currentColor, harmonyType, generateColorHarmony]);
 
   return (
-    <div className="mx-auto max-w-7xl space-y-6 p-4 sm:p-6">
+    <ToolsWrapper>
       <div className="space-y-2 text-center">
         <h1 className="text-3xl font-bold">Colors Toolkit</h1>
         <p className="text-muted-foreground">
@@ -1265,6 +1267,6 @@ export default function ColorsToolkit() {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </ToolsWrapper>
   );
 }

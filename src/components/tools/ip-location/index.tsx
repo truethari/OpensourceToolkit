@@ -1,9 +1,10 @@
 "use client";
 
-import { MapPin, Globe, Building, Copy, Check, Search } from "lucide-react";
 import React, { useState, useEffect } from "react";
+import { MapPin, Globe, Building, Copy, Check, Search } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -14,7 +15,8 @@ import {
   CardContent,
   CardDescription,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+
+import ToolsWrapper from "@/components/wrappers/ToolsWrapper";
 
 export default function IPLocation() {
   interface IIPLocation {
@@ -154,7 +156,7 @@ export default function IPLocation() {
   }, []);
 
   return (
-    <div className="mx-auto max-w-7xl space-y-4 p-4 sm:space-y-6 sm:p-6">
+    <ToolsWrapper>
       <div className="space-y-2 text-center">
         <h1 className="text-3xl font-bold">IP Location Checker</h1>
         <p className="text-muted-foreground">
@@ -472,6 +474,6 @@ export default function IPLocation() {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </ToolsWrapper>
   );
 }

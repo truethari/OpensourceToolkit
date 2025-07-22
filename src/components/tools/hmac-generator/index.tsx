@@ -1,6 +1,19 @@
 "use client";
 
 import React, { useState } from "react";
+import {
+  Eye,
+  Key,
+  Copy,
+  Hash,
+  Check,
+  EyeOff,
+  Shield,
+  XCircle,
+  CheckCircle,
+  AlertTriangle,
+} from "lucide-react";
+
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,30 +23,20 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Card,
+  CardTitle,
+  CardHeader,
   CardContent,
   CardDescription,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import {
   Select,
-  SelectContent,
   SelectItem,
-  SelectTrigger,
   SelectValue,
+  SelectTrigger,
+  SelectContent,
 } from "@/components/ui/select";
-import {
-  Copy,
-  Check,
-  Shield,
-  Eye,
-  EyeOff,
-  Hash,
-  Key,
-  AlertTriangle,
-  CheckCircle,
-  XCircle,
-} from "lucide-react";
+
+import ToolsWrapper from "@/components/wrappers/ToolsWrapper";
 
 export default function HMACGeneratorComponent() {
   const [copiedItem, setCopiedItem] = useState<string | null>(null);
@@ -219,7 +222,7 @@ export default function HMACGeneratorComponent() {
   };
 
   return (
-    <div className="mx-auto max-w-7xl space-y-6 p-6">
+    <ToolsWrapper>
       <div className="space-y-2 text-center">
         <h1 className="text-3xl font-bold">HMAC Generator & Verifier</h1>
         <p className="text-muted-foreground">
@@ -578,6 +581,6 @@ export default function HMACGeneratorComponent() {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </ToolsWrapper>
   );
 }

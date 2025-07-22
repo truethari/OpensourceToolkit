@@ -44,6 +44,8 @@ import {
   SelectContent,
 } from "@/components/ui/select";
 
+import ToolsWrapper from "@/components/wrappers/ToolsWrapper";
+
 interface LapTime {
   id: number;
   time: number;
@@ -541,7 +543,7 @@ export default function StopwatchTimer() {
   }, []);
 
   return (
-    <div className="mx-auto max-w-7xl space-y-4 p-3 sm:space-y-6 sm:p-6">
+    <ToolsWrapper>
       <div className="mb-6 text-center sm:mb-8">
         <h1 className="mb-2 text-2xl font-bold text-white sm:text-4xl">
           Stopwatch & Timer
@@ -1278,6 +1280,6 @@ export default function StopwatchTimer() {
           )}
         </div>
       </Tabs>
-    </div>
+    </ToolsWrapper>
   );
 }

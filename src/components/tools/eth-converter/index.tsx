@@ -15,6 +15,8 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 
+import ToolsWrapper from "@/components/wrappers/ToolsWrapper";
+
 export default function EthConverter() {
   const [ethValue, setEthValue] = useState("");
   const [weiValue, setWeiValue] = useState("");
@@ -86,7 +88,7 @@ export default function EthConverter() {
   };
 
   return (
-    <div className="mx-auto max-w-7xl space-y-6 p-4 sm:p-6">
+    <ToolsWrapper>
       <div className="mb-8 text-center">
         <h1 className="mb-2 flex items-center justify-center gap-2 text-3xl font-bold">
           <Zap className="h-8 w-8" />
@@ -306,6 +308,6 @@ export default function EthConverter() {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </ToolsWrapper>
   );
 }
