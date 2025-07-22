@@ -26,6 +26,7 @@ import {
   Coins,
   AudioLines,
   Timer,
+  Contact,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -1132,6 +1133,50 @@ export const tools: ITool[] = [
         "Professional stopwatch with lap time recording and customizable timer with notifications. Features sound alerts, settings persistence, and comprehensive time tracking capabilities.",
       keywords:
         "stopwatch, timer, lap times, countdown timer, time measurement, chrono, notification timer, precision timing, professional stopwatch, time tracking, interval timer, time management",
+    },
+  },
+  {
+    id: "vcf",
+    title: "VCF (vCard File) Reader & Writer",
+    shortTitle: "VCF Tool",
+    description:
+      "Parse, create, edit, and manage vCard contact files with advanced features including multiple contact support, field validation, and batch operations",
+    icon: Contact,
+    color: "bg-indigo-500",
+    category: "File & Document Tools",
+    tags: [
+      "vcf",
+      "vcard",
+      "contacts",
+      "address book",
+      "phone",
+      "email",
+      "parsing",
+      "generator",
+      "export",
+      "import",
+      "batch",
+      "validation",
+    ],
+    features: [
+      "Parse VCF/vCard Files",
+      "Generate vCard Contacts",
+      "Multiple Contact Support",
+      "Field Validation & Error Reporting",
+      "Export Individual/Batch Files",
+      "Contact Editor Interface",
+      "Phone, Email, Address Management",
+      "Copy to Clipboard",
+    ],
+    popular: true,
+    href: "/vcf",
+    seo: {
+      title:
+        "VCF vCard File Reader & Writer - Parse and Generate Contact Files",
+      description:
+        "Parse, create, and manage vCard contact files with comprehensive features. Support for multiple contacts, validation, batch operations, and export functionality.",
+      keywords:
+        "vcf parser, vcard generator, contact file, address book, phone contacts, email contacts, contact export, contact import, vcard editor, batch contacts",
     },
   },
 ];
