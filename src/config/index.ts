@@ -25,6 +25,7 @@ import {
   Volume2,
   Coins,
   AudioLines,
+  Timer,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -1086,6 +1087,51 @@ export const tools: ITool[] = [
         "Audio noise reduction tool with advanced filtering, compression, EQ, and real-time processing. Record, enhance, and export high-quality audio directly in your browser.",
       keywords:
         "audio noise reduction, noise removal, audio enhancement, sound processing, audio filters, microphone recording, audio editing, noise gate, audio compression, equalizer, sound quality",
+    },
+  },
+  {
+    id: "stopwatch-timer",
+    title: "Stopwatch & Timer",
+    shortTitle: "Stopwatch & Timer",
+    description:
+      "Professional stopwatch with lap times, customizable timer with notifications, and comprehensive time management features",
+    icon: Timer,
+    color: "bg-blue-600",
+    category: "Hardware Testing",
+    tags: [
+      "stopwatch",
+      "timer",
+      "time",
+      "lap",
+      "countdown",
+      "notification",
+      "alert",
+      "precision",
+      "management",
+      "professional",
+      "chrono",
+      "measurement",
+      "tracking",
+      "interval",
+    ],
+    features: [
+      "High-Precision Stopwatch",
+      "Lap Time Recording",
+      "Customizable Timer",
+      "Sound Notifications",
+      "Settings Persistence",
+      "Export Lap Times",
+      "Auto-Restart Timer",
+      "Real-time Progress",
+    ],
+    popular: true,
+    href: "/stopwatch-timer",
+    seo: {
+      title: "Stopwatch & Timer - Professional Time Management Tools",
+      description:
+        "Professional stopwatch with lap time recording and customizable timer with notifications. Features sound alerts, settings persistence, and comprehensive time tracking capabilities.",
+      keywords:
+        "stopwatch, timer, lap times, countdown timer, time measurement, chrono, notification timer, precision timing, professional stopwatch, time tracking, interval timer, time management",
     },
   },
 ];
