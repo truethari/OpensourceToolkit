@@ -28,6 +28,7 @@ import {
   Timer,
   Contact,
   Calculator,
+  Wallet2,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -1226,6 +1227,55 @@ export const tools: ITool[] = [
         "Comprehensive IP address calculator with subnet calculations, CIDR conversions, binary/hex format conversions, custom subnetting, and network analysis. Perfect for network engineers and IT professionals.",
       keywords:
         "ip calculator, subnet calculator, cidr calculator, ip subnet, network calculator, binary conversion, hex conversion, wildcard mask, broadcast address, network analysis, subnetting tool, ipv4 calculator",
+    },
+  },
+  {
+    id: "evm-vanity",
+    title: "EVM Vanity Address Generator",
+    shortTitle: "EVM Vanity",
+    description:
+      "Generate custom Ethereum vanity addresses with specific patterns, prefix/suffix matching, and comprehensive statistics",
+    icon: Wallet2,
+    color: "bg-purple-500",
+    category: "Blockchain & Crypto",
+    tags: [
+      "ethereum",
+      "vanity",
+      "address",
+      "generator",
+      "evm",
+      "blockchain",
+      "crypto",
+      "wallet",
+      "private key",
+      "custom",
+      "pattern",
+      "prefix",
+      "suffix",
+      "hex",
+      "client-side",
+    ],
+    features: [
+      "Pattern-based Address Generation",
+      "Prefix, Suffix & Contains Matching",
+      "Real-time Generation Statistics",
+      "Difficulty Level Controls",
+      "Private Key Management",
+      "Export Results (JSON)",
+      "Client-side Processing",
+      "Security Best Practices",
+      "Estimated Time Calculations",
+      "Batch Result Management",
+    ],
+    popular: true,
+    href: "/evm-vanity",
+    seo: {
+      title:
+        "EVM Vanity Address Generator - Generate Custom Ethereum Addresses",
+      description:
+        "Generate custom Ethereum vanity addresses with specific patterns. Features prefix/suffix matching, real-time statistics, difficulty controls, and secure client-side processing. Perfect for creating memorable wallet addresses.",
+      keywords:
+        "evm vanity address generator, ethereum vanity address, custom wallet address, blockchain address generator, vanity ethereum address, crypto address generator, ethereum wallet generator, custom evm address, vanity address tool, blockchain vanity generator",
     },
   },
 ];
