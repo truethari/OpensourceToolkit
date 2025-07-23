@@ -29,6 +29,7 @@ import {
   Contact,
   Calculator,
   Wallet2,
+  Code,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -1276,6 +1277,49 @@ export const tools: ITool[] = [
         "Generate custom Ethereum vanity addresses with specific patterns. Features prefix/suffix matching, real-time statistics, difficulty controls, and secure client-side processing. Perfect for creating memorable wallet addresses.",
       keywords:
         "evm vanity address generator, ethereum vanity address, custom wallet address, blockchain address generator, vanity ethereum address, crypto address generator, ethereum wallet generator, custom evm address, vanity address tool, blockchain vanity generator",
+    },
+  },
+  {
+    id: "json-formatter",
+    title: "JSON/XML/YAML Formatter & Validator",
+    shortTitle: "Data Formatter",
+    description:
+      "Format, validate, and convert between JSON, XML, YAML, and TOML formats with syntax highlighting and error detection",
+    icon: Code,
+    color: "bg-orange-500",
+    category: "Format Converters",
+    tags: [
+      "json",
+      "xml",
+      "yaml",
+      "toml",
+      "formatter",
+      "validator",
+      "converter",
+      "parser",
+      "syntax",
+      "beautify",
+      "minify",
+      "lint",
+    ],
+    features: [
+      "Format & Beautify JSON/XML/YAML/TOML",
+      "Syntax Validation & Error Detection",
+      "Convert Between Formats",
+      "Minify & Compress Data",
+      "Real-time Syntax Highlighting",
+      "Error Line Highlighting",
+      "Copy & Download Results",
+      "Multiple Format Support",
+    ],
+    popular: true,
+    href: "/json-formatter",
+    seo: {
+      title: "JSON XML YAML Formatter - Format, Validate & Convert Data",
+      description:
+        "Format, validate, and convert between JSON, XML, YAML, and TOML formats. Features syntax highlighting, error detection, minification, and format conversion.",
+      keywords:
+        "json formatter, xml formatter, yaml formatter, toml formatter, json validator, data formatter, json beautifier, xml validator, yaml validator, format converter, json minifier, data converter",
     },
   },
 ];
