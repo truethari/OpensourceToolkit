@@ -133,10 +133,13 @@ Create `src/components/tools/your-tool-name/index.tsx`:
 ```typescript
 "use client";
 
+import { Copy } from "lucide-react";
 import React, { useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Copy } from "lucide-react";
+
+import ToolsWrapper from "@/components/wrappers/ToolsWrapper";
 
 export default function YourToolName() {
   const [result, setResult] = useState("");
@@ -147,7 +150,7 @@ export default function YourToolName() {
   };
 
   return (
-    <div className="mx-auto max-w-4xl space-y-6 p-6">
+    <ToolsWrapper>
       <div className="space-y-2 text-center">
         <h1 className="text-3xl font-bold">Your Tool Name</h1>
         <p className="text-muted-foreground">
@@ -181,7 +184,7 @@ export default function YourToolName() {
           )}
         </CardContent>
       </Card>
-    </div>
+    </ToolsWrapper>
   );
 }
 ```
