@@ -1406,4 +1406,46 @@ export const tools: ITool[] = [
         "markdown editor, md editor, markdown preview, github markdown, documentation editor, readme editor, markdown to html, technical writing, markdown table, live preview",
     },
   },
+  {
+    id: "sql-formatter",
+    title: "SQL Query Formatter & Validator",
+    shortTitle: "SQL Formatter",
+    description:
+      "Format, validate, and optimize SQL queries with support for multiple database dialects and syntax highlighting",
+    icon: Database,
+    color: "bg-indigo-500",
+    category: "Development & API",
+    tags: [
+      "sql",
+      "query",
+      "formatter",
+      "validator",
+      "database",
+      "mysql",
+      "postgresql",
+      "sqlite",
+      "oracle",
+      "syntax",
+      "optimize",
+    ],
+    features: [
+      "Format & Beautify SQL",
+      "Syntax Validation",
+      "Multiple Database Dialects",
+      "Query Optimization Tips",
+      "Minify SQL Queries",
+      "Real-time Error Detection",
+      "Copy & Download Results",
+      "Common Query Templates",
+    ],
+    popular: true,
+    href: "/sql-formatter",
+    seo: {
+      title: "SQL Formatter - Format and Validate SQL Queries",
+      description:
+        "Format, validate, and optimize SQL queries with support for MySQL, PostgreSQL, SQLite, and Oracle. Features syntax highlighting, error detection, and query optimization tips.",
+      keywords:
+        "sql formatter, sql validator, query formatter, sql beautifier, database query, mysql formatter, postgresql formatter, sql syntax, query optimizer, sql minifier",
+    },
+  },
 ];
