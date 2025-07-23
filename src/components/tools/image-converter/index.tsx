@@ -34,6 +34,7 @@ import {
 } from "@/components/ui/select";
 
 import ToolsWrapper from "@/components/wrappers/ToolsWrapper";
+import { PDFDocument } from "pdf-lib";
 
 export default function ImageConverter() {
   interface IFile {
@@ -68,6 +69,10 @@ export default function ImageConverter() {
   const [convertedImages, setConvertedImages] = useState<IResult[]>([]);
   const [previewImage, setPreviewImage] = useState<IFile | null>(null);
 
+  const [pdfPageSize, setPdfPageSize] = useState("a4");
+  const [pdfOrientation, setPdfOrientation] = useState("portrait");
+  const [pdfMargin, setPdfMargin] = useState(20);
+
   const fileInputRef = useRef<HTMLInputElement>(null);
   const canvasRef = useRef(null);
 
@@ -92,7 +97,23 @@ export default function ImageConverter() {
       mimeType: "image/x-icon",
       hasQuality: false,
     },
+    {
+      value: "pdf",
+      label: "PDF",
+      mimeType: "application/pdf",
+      hasQuality: false,
+    },
   ];
+
+  type PageSizeKey = "a4" | "a3" | "a5" | "letter" | "legal";
+
+  const pdfPageSizes: Record<PageSizeKey, { width: number; height: number }> = {
+    a4: { width: 595, height: 842 },
+    a3: { width: 842, height: 1191 },
+    a5: { width: 420, height: 595 },
+    letter: { width: 612, height: 792 },
+    legal: { width: 612, height: 1008 },
+  };
 
   const selectedOutputFormat = useMemo(() => {
     return outputFormats.find((f) => f.value === outputFormat);
@@ -101,6 +122,10 @@ export default function ImageConverter() {
   const showQualitySlider = useMemo(() => {
     return selectedOutputFormat?.hasQuality;
   }, [selectedOutputFormat]);
+
+  const showPdfSettings = useMemo(() => {
+    return outputFormat === "pdf";
+  }, [outputFormat]);
 
   const handleFileSelect = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -204,6 +229,71 @@ export default function ImageConverter() {
     return { width: Math.round(width), height: Math.round(height) };
   };
 
+  const createPDF = async (
+    images: { canvas: HTMLCanvasElement; name: string }[],
+  ) => {
+    try {
+      const pdfDoc = await PDFDocument.create();
+
+      const pageSize = pdfPageSizes[pdfPageSize as PageSizeKey];
+      const isLandscape = pdfOrientation === "landscape";
+      const pageWidth = isLandscape ? pageSize.height : pageSize.width;
+      const pageHeight = isLandscape ? pageSize.width : pageSize.height;
+
+      for (const imageData of images) {
+        const page = pdfDoc.addPage([pageWidth, pageHeight]);
+
+        const canvas = imageData.canvas;
+        const pngImageBytes = await new Promise<Uint8Array>((resolve) => {
+          canvas.toBlob(async (blob) => {
+            if (blob) {
+              const arrayBuffer = await blob.arrayBuffer();
+              resolve(new Uint8Array(arrayBuffer));
+            }
+          }, "image/png");
+        });
+
+        // Embed the PNG image
+        const pngImage = await pdfDoc.embedPng(pngImageBytes);
+        const pngDims = pngImage.scale(1);
+
+        // Calculate dimensions to fit page with margins
+        const availableWidth = pageWidth - pdfMargin * 2;
+        const availableHeight = pageHeight - pdfMargin * 2;
+
+        // Scale image to fit page while maintaining aspect ratio
+        const scaleX = availableWidth / pngDims.width;
+        const scaleY = availableHeight / pngDims.height;
+        const scale = Math.min(scaleX, scaleY);
+
+        const scaledWidth = pngDims.width * scale;
+        const scaledHeight = pngDims.height * scale;
+
+        // Center image on page
+        const x = (pageWidth - scaledWidth) / 2;
+        const y = (pageHeight - scaledHeight) / 2;
+
+        // Draw the image
+        page.drawImage(pngImage, {
+          x: x,
+          y: y,
+          width: scaledWidth,
+          height: scaledHeight,
+        });
+      }
+
+      // Serialize the PDF
+      const pdfBytes = await pdfDoc.save();
+      return new Blob([pdfBytes], { type: "application/pdf" });
+    } catch (error) {
+      console.error("Error creating PDF:", error);
+      throw new Error(
+        "Failed to create PDF: " +
+          (error instanceof Error ? error.message : "Unknown error"),
+      );
+    }
+  };
+
   const convertImage = async (fileData: IFile) => {
     try {
       const img = (await loadImage(fileData.preview)) as HTMLImageElement;
@@ -230,7 +320,12 @@ export default function ImageConverter() {
       // Draw image
       ctx.drawImage(img, 0, 0, width, height);
 
-      // Convert to blob
+      // Handle PDF conversion
+      if (outputFormat === "pdf") {
+        return await createPDF([{ canvas, name: fileData.name }]);
+      }
+
+      // Convert to blob for other formats
       return new Promise((resolve) => {
         const qualityValue = showQualitySlider ? quality[0] / 100 : undefined;
         canvas.toBlob(resolve, selectedOutputFormat?.mimeType, qualityValue);
@@ -252,46 +347,100 @@ export default function ImageConverter() {
     const results: IResult[] = [];
 
     try {
-      for (const fileData of selectedFiles) {
-        try {
+      // For PDF, combine all images into one PDF
+      if (outputFormat === "pdf" && selectedFiles.length > 1) {
+        const images = [];
+
+        for (const fileData of selectedFiles) {
           setSelectedFiles((prev) =>
             prev.map((f) =>
               f.id === fileData.id ? { ...f, status: "processing" } : f,
             ),
           );
 
-          const convertedBlob = (await convertImage(fileData)) as Blob;
-          const convertedUrl = URL.createObjectURL(convertedBlob);
+          const img = (await loadImage(fileData.preview)) as HTMLImageElement;
+          const canvas = document.createElement("canvas");
+          const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
 
-          const result: IResult = {
-            id: fileData.id,
-            originalName: fileData.name,
-            convertedName: `${fileData.name.split(".")[0]}.${outputFormat}`,
-            originalSize: fileData.size,
-            convertedSize: convertedBlob.size,
-            convertedUrl,
-            blob: convertedBlob,
-            status: "success",
-          };
-
-          results.push(result);
-
-          setSelectedFiles((prev) =>
-            prev.map((f) =>
-              f.id === fileData.id ? { ...f, status: "success" } : f,
-            ),
+          const { width, height } = calculateDimensions(
+            img.naturalWidth,
+            img.naturalHeight,
+            resizeWidth,
+            resizeHeight,
           );
-        } catch (error) {
-          console.error("Error converting file:", fileData.name, error);
-          const errorMessage =
-            error instanceof Error ? error.message : "Unknown error";
-          setSelectedFiles((prev) =>
-            prev.map((f) =>
-              f.id === fileData.id
-                ? { ...f, status: "error", error: errorMessage }
-                : f,
-            ),
-          );
+
+          canvas.width = width;
+          canvas.height = height;
+          ctx.fillStyle = "#FFFFFF";
+          ctx.fillRect(0, 0, width, height);
+          ctx.drawImage(img, 0, 0, width, height);
+
+          images.push({ canvas, name: fileData.name });
+        }
+
+        const pdfBlob = await createPDF(images);
+        const convertedUrl = URL.createObjectURL(pdfBlob);
+
+        const result: IResult = {
+          id: Date.now(),
+          originalName: "Multiple Images",
+          convertedName: `converted_images.pdf`,
+          originalSize: selectedFiles.reduce((sum, f) => sum + f.size, 0),
+          convertedSize: pdfBlob.size,
+          convertedUrl,
+          blob: pdfBlob,
+          status: "success",
+        };
+
+        results.push(result);
+
+        // Mark all files as success
+        setSelectedFiles((prev) =>
+          prev.map((f) => ({ ...f, status: "success" })),
+        );
+      } else {
+        // Convert each file individually
+        for (const fileData of selectedFiles) {
+          try {
+            setSelectedFiles((prev) =>
+              prev.map((f) =>
+                f.id === fileData.id ? { ...f, status: "processing" } : f,
+              ),
+            );
+
+            const convertedBlob = (await convertImage(fileData)) as Blob;
+            const convertedUrl = URL.createObjectURL(convertedBlob);
+
+            const result: IResult = {
+              id: fileData.id,
+              originalName: fileData.name,
+              convertedName: `${fileData.name.split(".")[0]}.${outputFormat}`,
+              originalSize: fileData.size,
+              convertedSize: convertedBlob.size,
+              convertedUrl,
+              blob: convertedBlob,
+              status: "success",
+            };
+
+            results.push(result);
+
+            setSelectedFiles((prev) =>
+              prev.map((f) =>
+                f.id === fileData.id ? { ...f, status: "success" } : f,
+              ),
+            );
+          } catch (error) {
+            console.error("Error converting file:", fileData.name, error);
+            const errorMessage =
+              error instanceof Error ? error.message : "Unknown error";
+            setSelectedFiles((prev) =>
+              prev.map((f) =>
+                f.id === fileData.id
+                  ? { ...f, status: "error", error: errorMessage }
+                  : f,
+              ),
+            );
+          }
         }
       }
 
@@ -531,6 +680,70 @@ export default function ImageConverter() {
                 )}
               </div>
 
+              {/* PDF Settings */}
+              {showPdfSettings && (
+                <div className="space-y-4 rounded-lg border bg-slate-50 p-4 dark:bg-slate-800">
+                  <h4 className="font-semibold">PDF Settings</h4>
+                  <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                    <div className="space-y-2">
+                      <Label htmlFor="pdf-page-size">Page Size</Label>
+                      <Select
+                        value={pdfPageSize}
+                        onValueChange={setPdfPageSize}
+                      >
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="a4">A4</SelectItem>
+                          <SelectItem value="a3">A3</SelectItem>
+                          <SelectItem value="a5">A5</SelectItem>
+                          <SelectItem value="letter">Letter</SelectItem>
+                          <SelectItem value="legal">Legal</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="pdf-orientation">Orientation</Label>
+                      <Select
+                        value={pdfOrientation}
+                        onValueChange={setPdfOrientation}
+                      >
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="portrait">Portrait</SelectItem>
+                          <SelectItem value="landscape">Landscape</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label>Margin: {pdfMargin}px</Label>
+                      <Slider
+                        value={[pdfMargin]}
+                        onValueChange={(value) => setPdfMargin(value[0])}
+                        max={50}
+                        min={0}
+                        step={5}
+                        className="w-full"
+                      />
+                    </div>
+                  </div>
+
+                  {selectedFiles.length > 1 && (
+                    <Alert>
+                      <AlertDescription>
+                        Multiple images will be combined into a single PDF with
+                        each image on a separate page.
+                      </AlertDescription>
+                    </Alert>
+                  )}
+                </div>
+              )}
+
               {/* Resize Options */}
               <div className="space-y-4">
                 <div className="flex items-center space-x-2">
@@ -596,7 +809,7 @@ export default function ImageConverter() {
               >
                 {processing
                   ? "Converting..."
-                  : `Convert ${selectedFiles.length} Image${selectedFiles.length !== 1 ? "s" : ""}`}
+                  : `Convert ${selectedFiles.length} Image${selectedFiles.length !== 1 ? "s" : ""} to ${outputFormat.toUpperCase()}`}
               </Button>
             </CardContent>
           </Card>
@@ -654,19 +867,21 @@ export default function ImageConverter() {
                           </p>
                         </div>
                         <div className="flex space-x-2">
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() =>
-                              setPreviewImage({
-                                ...result,
-                                preview: result.convertedUrl,
-                                name: result.convertedName,
-                              } as unknown as IFile)
-                            }
-                          >
-                            <Eye className="h-4 w-4" />
-                          </Button>
+                          {result.convertedName.endsWith(".pdf") ? null : (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() =>
+                                setPreviewImage({
+                                  ...result,
+                                  preview: result.convertedUrl,
+                                  name: result.convertedName,
+                                } as unknown as IFile)
+                              }
+                            >
+                              <Eye className="h-4 w-4" />
+                            </Button>
+                          )}
                           <Button
                             variant="outline"
                             size="sm"
@@ -707,9 +922,22 @@ export default function ImageConverter() {
                   <p>
                     • JPEG and WebP formats support quality adjustment (1-100%)
                   </p>
-                  <p>• PNG and BMP are lossless formats (no quality setting)</p>
+                  <p>
+                    • PNG, BMP, and PDF are lossless formats (no quality
+                    setting)
+                  </p>
                   <p>• Higher quality = larger file size</p>
                   <p>• Recommended: 80-90% for photos, 100% for graphics</p>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <h4 className="font-semibold">PDF Settings</h4>
+                <div className="space-y-2 text-sm text-muted-foreground">
+                  <p>• Multiple images will be combined into a single PDF</p>
+                  <p>• Each image appears on a separate page</p>
+                  <p>• Images are automatically scaled to fit the page</p>
+                  <p>• Choose page size and orientation for best results</p>
                 </div>
               </div>
 
@@ -832,6 +1060,15 @@ export default function ImageConverter() {
                         Windows icons, favicons
                       </p>
                     </div>
+                    <div>
+                      <div className="mb-1 flex items-center justify-between">
+                        <span className="font-medium">PDF</span>
+                        <Badge variant="outline">Document</Badge>
+                      </div>
+                      <p className="text-xs text-muted-foreground">
+                        Professional documents
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -856,6 +1093,7 @@ export default function ImageConverter() {
                       <li>• High quality: PNG or BMP</li>
                       <li>• Photos: JPEG (95-100% quality)</li>
                       <li>• Logos: PNG with transparency</li>
+                      <li>• Documents: PDF</li>
                       <li>• Archive: Original format</li>
                     </ul>
                   </div>
