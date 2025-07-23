@@ -30,6 +30,8 @@ import {
   Calculator,
   Wallet2,
   Code,
+  Regex,
+  Eye,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -1320,6 +1322,88 @@ export const tools: ITool[] = [
         "Format, validate, and convert between JSON, XML, YAML, and TOML formats. Features syntax highlighting, error detection, minification, and format conversion.",
       keywords:
         "json formatter, xml formatter, yaml formatter, toml formatter, json validator, data formatter, json beautifier, xml validator, yaml validator, format converter, json minifier, data converter",
+    },
+  },
+  {
+    id: "regex-tester",
+    title: "Regular Expression Tester & Builder",
+    shortTitle: "Regex Tester",
+    description:
+      "Test, build, and debug regular expressions with real-time matching, explanations, and common pattern library",
+    icon: Regex,
+    color: "bg-green-500",
+    category: "Development & API",
+    tags: [
+      "regex",
+      "regexp",
+      "pattern",
+      "matching",
+      "testing",
+      "validation",
+      "search",
+      "replace",
+      "javascript",
+      "programming",
+    ],
+    features: [
+      "Real-time Pattern Testing",
+      "Match Highlighting",
+      "Pattern Explanation",
+      "Common Regex Library",
+      "Replace Functionality",
+      "Flags Support (g, i, m, s)",
+      "Test String Generator",
+      "Export Results",
+    ],
+    popular: true,
+    href: "/regex-tester",
+    seo: {
+      title: "Regex Tester - Test and Debug Regular Expressions",
+      description:
+        "Test regular expressions with real-time matching, pattern explanations, and common regex library. Perfect for developers debugging patterns and learning regex.",
+      keywords:
+        "regex tester, regular expression, pattern matching, regex debugger, regex validator, javascript regex, regex tutorial, pattern testing, regex builder, regex generator",
+    },
+  },
+  {
+    id: "markdown-editor",
+    title: "Markdown Editor & Preview",
+    shortTitle: "Markdown Editor",
+    description:
+      "Write and preview Markdown with live rendering, syntax highlighting, table editor, and export options",
+    icon: Eye,
+    color: "bg-blue-500",
+    category: "Format Converters",
+    tags: [
+      "markdown",
+      "md",
+      "editor",
+      "preview",
+      "github",
+      "documentation",
+      "writing",
+      "formatting",
+      "html",
+      "export",
+    ],
+    features: [
+      "Live Preview",
+      "Syntax Highlighting",
+      "GitHub Flavored Markdown",
+      "Table Editor",
+      "Export to HTML/PDF",
+      "Custom CSS Themes",
+      "Math Support (LaTeX)",
+      "Mermaid Diagrams",
+    ],
+    popular: true,
+    href: "/markdown-editor",
+    seo: {
+      title: "Markdown Editor - Write and Preview Markdown",
+      description:
+        "Online markdown editor with live preview, GitHub flavored markdown, table editor, and export options. Perfect for documentation, README files, and technical writing.",
+      keywords:
+        "markdown editor, md editor, markdown preview, github markdown, documentation editor, readme editor, markdown to html, technical writing, markdown table, live preview",
     },
   },
 ];
