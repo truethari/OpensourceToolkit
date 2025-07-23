@@ -38,7 +38,7 @@ export default function Timestamp() {
     error?: string;
   }
 
-  const [currentTime, setCurrentTime] = useState(new Date());
+  const [currentTime, setCurrentTime] = useState<Date | null>(null);
   const [copiedItem, setCopiedItem] = useState<string | null>(null);
   const [customDate, setCustomDate] = useState("");
   const [customTime, setCustomTime] = useState("");
@@ -48,8 +48,9 @@ export default function Timestamp() {
   const [batchTimestamps, setBatchTimestamps] = useState("");
   const [batchResults, setBatchResults] = useState<ITimestampResult[]>([]);
 
-  // Update current time every second
+  // Initialize and update current time every second
   useEffect(() => {
+    setCurrentTime(new Date());
     const interval = setInterval(() => {
       setCurrentTime(new Date());
     }, 1000);
@@ -176,14 +177,16 @@ export default function Timestamp() {
     setBatchResults(results);
   };
 
-  const currentTimestamp = {
-    seconds: Math.floor(currentTime.getTime() / 1000),
-    milliseconds: currentTime.getTime(),
-    microseconds: currentTime.getTime() * 1000,
-    iso: currentTime.toISOString(),
-    utc: currentTime.toUTCString(),
-    local: currentTime.toLocaleString(),
-  };
+  const currentTimestamp = currentTime
+    ? {
+        seconds: Math.floor(currentTime.getTime() / 1000),
+        milliseconds: currentTime.getTime(),
+        microseconds: currentTime.getTime() * 1000,
+        iso: currentTime.toISOString(),
+        utc: currentTime.toUTCString(),
+        local: currentTime.toLocaleString(),
+      }
+    : null;
 
   const customTimestamp = getCustomTimestamp();
   const solvedTimestamp = getSolvedTimestamp();
@@ -369,12 +372,20 @@ export default function Timestamp() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="mb-4 rounded-lg bg-muted p-4">
-                <div className="text-center font-mono text-2xl">
-                  {currentTime.toLocaleString()}
+              {currentTime && currentTimestamp ? (
+                <>
+                  <div className="mb-4 rounded-lg bg-muted p-4">
+                    <div className="text-center font-mono text-2xl">
+                      {currentTime.toLocaleString()}
+                    </div>
+                  </div>
+                  <TimestampDisplay data={currentTimestamp} prefix="current-" />
+                </>
+              ) : (
+                <div className="text-center text-muted-foreground">
+                  Loading current time...
                 </div>
-              </div>
-              <TimestampDisplay data={currentTimestamp} prefix="current-" />
+              )}
             </CardContent>
           </Card>
         </TabsContent>

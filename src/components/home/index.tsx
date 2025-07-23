@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback, useEffect } from "react";
 import {
   Star,
   Search,
@@ -40,6 +40,9 @@ export default function Home() {
   const { startNavigation, stopNavigation } = useNavigation();
 
   const [searchQuery, setSearchQuery] = useState("");
+  const [randomizedPopularTools, setRandomizedPopularTools] = useState<ITool[]>(
+    [],
+  );
 
   interface ICategory {
     name: string;
@@ -85,20 +88,24 @@ export default function Home() {
     [addRecentTool, router, startNavigation, stopNavigation],
   );
 
-  const quickActions = useMemo(() => {
+  // Initialize randomized popular tools on client side only
+  useEffect(() => {
     const allPopularTools = tools.filter((tool) => tool.popular);
-    // get random 4 popular tools
     const randomPopularTools = allPopularTools
       .sort(() => 0.5 - Math.random())
       .slice(0, 4);
-    return randomPopularTools.map((tool) => ({
+    setRandomizedPopularTools(randomPopularTools);
+  }, []);
+
+  const quickActions = useMemo(() => {
+    return randomizedPopularTools.map((tool) => ({
       title: tool.title,
       description: tool.description,
       action: () => handleToolClick(tool),
       icon: tool.icon,
       iconColor: tool.color,
     }));
-  }, [handleToolClick]);
+  }, [randomizedPopularTools, handleToolClick]);
 
   return (
     <div className="mx-auto max-w-7xl p-2 md:space-y-6 md:p-6">

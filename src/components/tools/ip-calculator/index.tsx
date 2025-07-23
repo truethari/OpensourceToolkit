@@ -638,7 +638,7 @@ export default function IPCalculator() {
                           Total Hosts
                         </div>
                         <div className="text-2xl font-bold text-blue-700 dark:text-blue-300">
-                          {calculateSubnet.totalHosts.toLocaleString()}
+                          {calculateSubnet.totalHosts.toLocaleString("en-US")}
                         </div>
                       </div>
                       <div className="rounded-lg bg-green-50 p-4 dark:bg-green-900/20">
@@ -646,7 +646,7 @@ export default function IPCalculator() {
                           Usable Hosts
                         </div>
                         <div className="text-2xl font-bold text-green-700 dark:text-green-300">
-                          {calculateSubnet.usableHosts.toLocaleString()}
+                          {calculateSubnet.usableHosts.toLocaleString("en-US")}
                         </div>
                       </div>
                     </div>
@@ -718,7 +718,7 @@ export default function IPCalculator() {
                           <Label>Integer</Label>
                           <div className="flex items-center gap-2">
                             <code className="flex-1 rounded bg-gray-100 p-2 dark:bg-gray-800">
-                              {ipToInteger(ipAddress).toLocaleString()}
+                              {ipToInteger(ipAddress).toLocaleString("en-US")}
                             </code>
                             <Button
                               size="sm"
