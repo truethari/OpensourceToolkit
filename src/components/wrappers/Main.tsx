@@ -21,7 +21,7 @@ export default function MainLayout({
       <Sidebar />
       <main className="w-full">
         <SidebarTrigger className="md:hidden" />
-        <div className="container w-full pt-2 md:pt-10">{children}</div>
+        <div className="container mx-auto w-full pt-2 md:pt-10">{children}</div>
       </main>
     </SidebarProvider>
   );
