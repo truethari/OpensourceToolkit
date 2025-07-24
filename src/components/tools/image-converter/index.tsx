@@ -47,6 +47,7 @@ export default function ImageConverter() {
     status: "pending" | "processing" | "success" | "error";
     error?: string; // Optional error message for failed conversions
   }
+
   interface IResult {
     id: number;
     originalName: string;
@@ -229,8 +230,48 @@ export default function ImageConverter() {
     return { width: Math.round(width), height: Math.round(height) };
   };
 
+  const getOptimalImageData = async (
+    canvas: HTMLCanvasElement,
+    originalFileType: string,
+  ): Promise<{ bytes: Uint8Array; format: "jpeg" | "png" }> => {
+    const useJpeg =
+      originalFileType === "image/jpeg" ||
+      originalFileType === "image/jpg" ||
+      originalFileType === "image/bmp";
+
+    if (useJpeg) {
+      const jpegBytes = await new Promise<Uint8Array>((resolve) => {
+        canvas.toBlob(
+          async (blob) => {
+            if (blob) {
+              const arrayBuffer = await blob.arrayBuffer();
+              resolve(new Uint8Array(arrayBuffer));
+            }
+          },
+          "image/jpeg",
+          1,
+        );
+      });
+      return { bytes: jpegBytes, format: "jpeg" };
+    } else {
+      const pngBytes = await new Promise<Uint8Array>((resolve) => {
+        canvas.toBlob(async (blob) => {
+          if (blob) {
+            const arrayBuffer = await blob.arrayBuffer();
+            resolve(new Uint8Array(arrayBuffer));
+          }
+        }, "image/png");
+      });
+      return { bytes: pngBytes, format: "png" };
+    }
+  };
+
   const createPDF = async (
-    images: { canvas: HTMLCanvasElement; name: string }[],
+    images: {
+      canvas: HTMLCanvasElement;
+      name: string;
+      originalType?: string;
+    }[],
   ) => {
     try {
       const pdfDoc = await PDFDocument.create();
@@ -243,38 +284,36 @@ export default function ImageConverter() {
       for (const imageData of images) {
         const page = pdfDoc.addPage([pageWidth, pageHeight]);
 
-        const canvas = imageData.canvas;
-        const pngImageBytes = await new Promise<Uint8Array>((resolve) => {
-          canvas.toBlob(async (blob) => {
-            if (blob) {
-              const arrayBuffer = await blob.arrayBuffer();
-              resolve(new Uint8Array(arrayBuffer));
-            }
-          }, "image/png");
-        });
+        const { bytes: imageBytes, format } = await getOptimalImageData(
+          imageData.canvas,
+          imageData.originalType || "image/png",
+        );
 
-        // Embed the PNG image
-        const pngImage = await pdfDoc.embedPng(pngImageBytes);
-        const pngDims = pngImage.scale(1);
+        const image =
+          format === "jpeg"
+            ? await pdfDoc.embedJpg(imageBytes)
+            : await pdfDoc.embedPng(imageBytes);
+
+        const imageDims = image.scale(1);
 
         // Calculate dimensions to fit page with margins
         const availableWidth = pageWidth - pdfMargin * 2;
         const availableHeight = pageHeight - pdfMargin * 2;
 
         // Scale image to fit page while maintaining aspect ratio
-        const scaleX = availableWidth / pngDims.width;
-        const scaleY = availableHeight / pngDims.height;
+        const scaleX = availableWidth / imageDims.width;
+        const scaleY = availableHeight / imageDims.height;
         const scale = Math.min(scaleX, scaleY);
 
-        const scaledWidth = pngDims.width * scale;
-        const scaledHeight = pngDims.height * scale;
+        const scaledWidth = imageDims.width * scale;
+        const scaledHeight = imageDims.height * scale;
 
         // Center image on page
         const x = (pageWidth - scaledWidth) / 2;
         const y = (pageHeight - scaledHeight) / 2;
 
         // Draw the image
-        page.drawImage(pngImage, {
+        page.drawImage(image, {
           x: x,
           y: y,
           width: scaledWidth,
@@ -322,7 +361,9 @@ export default function ImageConverter() {
 
       // Handle PDF conversion
       if (outputFormat === "pdf") {
-        return await createPDF([{ canvas, name: fileData.name }]);
+        return await createPDF([
+          { canvas, name: fileData.name, originalType: fileData.type },
+        ]);
       }
 
       // Convert to blob for other formats
