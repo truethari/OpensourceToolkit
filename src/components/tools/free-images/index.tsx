@@ -750,6 +750,143 @@ export default function FreeImages() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Copyright & Attribution Card */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Copyright & Attribution</CardTitle>
+          <CardDescription>
+            These images are sourced from copyright-free websites
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="rounded-lg bg-muted p-4">
+            <h4 className="mb-2 font-semibold text-foreground">
+              📝 Important Note
+            </h4>
+            <p className="text-sm text-muted-foreground">
+              All images in this collection are sourced from reputable
+              copyright-free websites that provide images under Creative Commons
+              licenses or are in the public domain. These images are free to use
+              for personal and commercial projects without attribution
+              requirements, though attribution is always appreciated.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div>
+              <h4 className="mb-3 font-semibold">
+                🌟 Recommended Free Image Sources
+              </h4>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <a
+                    href="https://unsplash.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-medium text-primary hover:underline"
+                  >
+                    • Unsplash
+                  </a>
+                  <span className="text-muted-foreground">
+                    {" "}
+                    - Beautiful free photos
+                  </span>
+                </li>
+                <li>
+                  <a
+                    href="https://pixabay.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-medium text-primary hover:underline"
+                  >
+                    • Pixabay
+                  </a>
+                  <span className="text-muted-foreground">
+                    {" "}
+                    - Free images & vectors
+                  </span>
+                </li>
+                <li>
+                  <a
+                    href="https://pexels.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-medium text-primary hover:underline"
+                  >
+                    • Pexels
+                  </a>
+                  <span className="text-muted-foreground">
+                    {" "}
+                    - Free stock photos
+                  </span>
+                </li>
+                <li>
+                  <a
+                    href="https://freepik.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-medium text-primary hover:underline"
+                  >
+                    • Freepik
+                  </a>
+                  <span className="text-muted-foreground">
+                    {" "}
+                    - Graphics & templates
+                  </span>
+                </li>
+                <li>
+                  <a
+                    href="https://burst.shopify.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-medium text-primary hover:underline"
+                  >
+                    • Burst by Shopify
+                  </a>
+                  <span className="text-muted-foreground">
+                    {" "}
+                    - Free stock photos
+                  </span>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="mb-3 font-semibold">🙏 Special Thanks</h4>
+              <div className="space-y-3 text-sm text-muted-foreground">
+                <p>
+                  We extend our heartfelt gratitude to the amazing photographers
+                  and creators who contribute their work to the public domain
+                  and Creative Commons. Their generous contributions make
+                  projects like this possible.
+                </p>
+                <p>Special thanks to:</p>
+                <ul className="ml-1 space-y-1">
+                  <li>• All photographers on Unsplash, Pexels, and Pixabay</li>
+                  <li>• Creative Commons contributors worldwide</li>
+                  <li>• Open source image communities</li>
+                  <li>• Organizations promoting free visual content</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t pt-4">
+            <div className="rounded-lg bg-blue-50 p-4 dark:bg-blue-950/20">
+              <h4 className="mb-2 font-semibold text-blue-900 dark:text-blue-100">
+                💡 For Developers & Designers
+              </h4>
+              <p className="text-sm text-blue-800 dark:text-blue-200">
+                Always verify the license of images before use in commercial
+                projects. While these sources provide free images, some may
+                require attribution or have specific usage restrictions. When in
+                doubt, check the individual image license or contact the
+                original photographer.
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </ToolsWrapper>
   );
 }
