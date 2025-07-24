@@ -12,6 +12,14 @@ const nextConfig: NextConfig = {
   // Optimize images for better performance
   images: {
     formats: ["image/webp", "image/avif"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "storage.opensourcetoolkit.com",
+        port: "",
+        pathname: "/free-images/**",
+      },
+    ],
   },
 
   // Enable compression

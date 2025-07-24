@@ -1494,4 +1494,47 @@ export const tools: ITool[] = [
         "diff checker, text comparison, file comparison, diff tool, merge conflicts, patch generator, version control, code comparison, text diff, file diff, git diff, unified diff",
     },
   },
+  {
+    id: "free-images",
+    title: "Free Images Collection",
+    shortTitle: "Free Images",
+    description:
+      "Browse, download, and use high-quality free images with advanced search, filtering, and preview features",
+    icon: Image,
+    color: "bg-green-600",
+    category: "Design & Creative",
+    tags: [
+      "images",
+      "free",
+      "photos",
+      "gallery",
+      "download",
+      "preview",
+      "search",
+      "filter",
+      "creative",
+      "resources",
+      "stock",
+      "photography",
+    ],
+    features: [
+      "High-Quality Image Collection",
+      "Advanced Search & Filtering",
+      "Grid & List View Modes",
+      "Image Preview & Details",
+      "One-Click URL Copying",
+      "Direct Download",
+      "Favorites Management",
+      "Share Functionality",
+    ],
+    popular: true,
+    href: "/free-images",
+    seo: {
+      title: "Free Images Collection - High-Quality Stock Photos",
+      description:
+        "Browse and download high-quality free images with advanced search, filtering, and preview features. Perfect for designers, developers, and content creators.",
+      keywords:
+        "free images, stock photos, high quality images, image gallery, free photography, creative resources, image download, stock images, free photos, image collection",
+    },
+  },
 ];
