@@ -59,6 +59,7 @@ interface TimerSettings {
   soundEnabled: boolean;
   autoRestart: boolean;
   customMessage: string;
+  hideMilliseconds: boolean;
 }
 
 interface StopwatchSettings {
@@ -140,6 +141,7 @@ export default function StopwatchTimer() {
     soundEnabled: true,
     autoRestart: false,
     customMessage: "Timer finished!",
+    hideMilliseconds: true,
   });
 
   const [stopwatchSettings, setStopwatchSettings] = useState<StopwatchSettings>(
@@ -262,24 +264,46 @@ export default function StopwatchTimer() {
       time: number,
       precision: "centiseconds" | "milliseconds" = "centiseconds",
     ): string => {
-      const totalMs = Math.floor(time / 10);
-      const hours = Math.floor(totalMs / 3600000);
-      const minutes = Math.floor((totalMs % 3600000) / 60000);
-      const seconds = Math.floor((totalMs % 60000) / 1000);
+      const totalSeconds = Math.floor(time / 100);
+      const hours = Math.floor(totalSeconds / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
 
       if (precision === "milliseconds") {
-        const ms = totalMs % 1000;
+        const ms = (time % 100) * 10;
         if (hours > 0)
           return `${hours}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}.${ms.toString().padStart(3, "0")}`;
         return `${minutes}:${seconds.toString().padStart(2, "0")}.${ms.toString().padStart(3, "0")}`;
       } else {
-        const centiseconds = Math.floor((totalMs % 1000) / 10);
+        const centiseconds = time % 100;
         if (hours > 0)
           return `${hours}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}.${centiseconds.toString().padStart(2, "0")}`;
         return `${minutes}:${seconds.toString().padStart(2, "0")}.${centiseconds.toString().padStart(2, "0")}`;
       }
     },
     [],
+  );
+
+  // Format time for timer (with hideMilliseconds option)
+  const formatTimerTime = useCallback(
+    (time: number): string => {
+      const totalSeconds = Math.floor(time / 100);
+      const hours = Math.floor(totalSeconds / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+
+      if (timerSettings.hideMilliseconds) {
+        if (hours > 0)
+          return `${hours}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+        return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+      } else {
+        const centiseconds = time % 100;
+        if (hours > 0)
+          return `${hours}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}.${centiseconds.toString().padStart(2, "0")}`;
+        return `${minutes}:${seconds.toString().padStart(2, "0")}.${centiseconds.toString().padStart(2, "0")}`;
+      }
+    },
+    [timerSettings.hideMilliseconds],
   );
 
   // Stopwatch functions
@@ -780,7 +804,7 @@ export default function StopwatchTimer() {
 
                 <div className="text-center">
                   <div className="mb-4 font-mono text-4xl font-bold leading-none text-white sm:text-6xl md:text-8xl">
-                    {formatTime(timerTime)}
+                    {formatTimerTime(timerTime)}
                   </div>
 
                   {timerInitialTime > 0 && (
@@ -1230,6 +1254,21 @@ export default function StopwatchTimer() {
                       />
                     </div>
 
+                    <div className="flex items-center justify-between">
+                      <Label className="text-sm sm:text-base">
+                        Hide Milliseconds
+                      </Label>
+                      <Switch
+                        checked={timerSettings.hideMilliseconds}
+                        onCheckedChange={(checked) =>
+                          setTimerSettings((prev) => ({
+                            ...prev,
+                            hideMilliseconds: checked,
+                          }))
+                        }
+                      />
+                    </div>
+
                     <div>
                       <Label className="text-sm sm:text-base">
                         Custom Message
@@ -1263,6 +1302,7 @@ export default function StopwatchTimer() {
                       soundEnabled: true,
                       autoRestart: false,
                       customMessage: "Timer finished!",
+                      hideMilliseconds: true,
                     });
                     setStopwatchSettings({
                       soundEnabled: true,
