@@ -32,6 +32,7 @@ import {
   Code,
   Regex,
   Eye,
+  GitCompare,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -1446,6 +1447,51 @@ export const tools: ITool[] = [
         "Format, validate, and optimize SQL queries with support for MySQL, PostgreSQL, SQLite, and Oracle. Features syntax highlighting, error detection, and query optimization tips.",
       keywords:
         "sql formatter, sql validator, query formatter, sql beautifier, database query, mysql formatter, postgresql formatter, sql syntax, query optimizer, sql minifier",
+    },
+  },
+  {
+    id: "diff-checker",
+    title: "Diff Checker & Text Comparison",
+    shortTitle: "Diff Checker",
+    description:
+      "Advanced text and file comparison tool with side-by-side diff visualization, merge conflict resolution, and multiple export formats",
+    icon: GitCompare,
+    color: "bg-purple-500",
+    category: "Development & API",
+    tags: [
+      "diff",
+      "comparison",
+      "text",
+      "file",
+      "merge",
+      "git",
+      "patch",
+      "version control",
+      "code",
+      "changes",
+      "unified",
+      "split",
+    ],
+    features: [
+      "Side-by-Side & Unified Views",
+      "Advanced Diff Algorithms",
+      "Ignore Whitespace & Case Options",
+      "Line-by-Line Comparison",
+      "Character-Level Inline Changes",
+      "Export to Patch/HTML/JSON",
+      "File Upload Support",
+      "Merge Conflict Resolution",
+      "Context Line Controls",
+      "Statistics & Analytics",
+    ],
+    popular: true,
+    href: "/diff-checker",
+    seo: {
+      title: "Diff Checker - Advanced Text and File Comparison Tool",
+      description:
+        "Compare texts and files with advanced diff algorithms, side-by-side visualization, and export options. Perfect for developers, writers, and version control workflows.",
+      keywords:
+        "diff checker, text comparison, file comparison, diff tool, merge conflicts, patch generator, version control, code comparison, text diff, file diff, git diff, unified diff",
     },
   },
 ];
