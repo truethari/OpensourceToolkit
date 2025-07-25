@@ -119,35 +119,19 @@ export default function FreeImages() {
     };
   }, []);
 
-  const copyToClipboard = async (
-    text: string,
-    item: string,
-    e?: React.MouseEvent,
-  ) => {
-    e?.stopPropagation();
-    e?.preventDefault();
-
+  const copyToClipboard = async (text: string, item: string) => {
     try {
       await navigator.clipboard.writeText(text);
       setCopiedItem(item);
-      toast.success("URL copied to clipboard!", {
-        description: text,
-        duration: 2000,
-      });
+      toast.success("URL copied to clipboard!");
       setTimeout(() => setCopiedItem(null), 2000);
     } catch (err) {
       console.error("Failed to copy: ", err);
-      toast.error("Failed to copy URL", {
-        description: "Please try again",
-        duration: 3000,
-      });
+      toast.error("Failed to copy URL");
     }
   };
 
-  const downloadImage = async (image: ImageInfo, e?: React.MouseEvent) => {
-    e?.stopPropagation();
-    e?.preventDefault();
-
+  const downloadImage = async (image: ImageInfo) => {
     try {
       toast.loading("Downloading image...", { id: `download-${image.id}` });
       const response = await fetch(image.url);
@@ -165,10 +149,7 @@ export default function FreeImages() {
       });
     } catch (err) {
       console.error("Failed to download image: ", err);
-      toast.error("Failed to download image", {
-        description: "Please try again",
-        id: `download-${image.id}`,
-      });
+      toast.error("Failed to download image");
     }
   };
 
@@ -287,7 +268,12 @@ export default function FreeImages() {
       <Card className="overflow-hidden">
         <div
           className="relative aspect-video cursor-pointer overflow-hidden"
-          onClick={() => setSelectedImage(image)}
+          onClick={(e) => {
+            // Only trigger if not clicking on buttons
+            if (!(e.target as HTMLElement).closest("button")) {
+              setSelectedImage(image);
+            }
+          }}
         >
           <div ref={(node) => imageRef(node, image.id)}>
             {visibleImages.has(image.id) ? (
@@ -334,13 +320,12 @@ export default function FreeImages() {
             </Badge>
           </div>
 
-          <div className="flex flex-wrap gap-2">
+          <div className="relative z-10 flex flex-wrap gap-2">
             <Button
               size="sm"
               variant="outline"
-              onClick={(e) => {
-                console.log("Copy button clicked");
-                copyToClipboard(image.url, `url-${image.id}`, e);
+              onClick={() => {
+                copyToClipboard(image.url, `url-${image.id}`);
               }}
               className="flex items-center gap-2"
             >
@@ -354,10 +339,7 @@ export default function FreeImages() {
             <Button
               size="sm"
               variant="outline"
-              onClick={(e) => {
-                console.log("Open button clicked");
-                e.stopPropagation();
-                e.preventDefault();
+              onClick={() => {
                 window.open(image.url, "_blank");
                 toast.success("Image opened in new tab!");
               }}
@@ -369,9 +351,8 @@ export default function FreeImages() {
             <Button
               size="sm"
               variant="outline"
-              onClick={(e) => {
-                console.log("Download button clicked");
-                downloadImage(image, e);
+              onClick={() => {
+                downloadImage(image);
               }}
               className="flex items-center gap-2"
             >
@@ -388,7 +369,15 @@ export default function FreeImages() {
     const { ratio, megapixels, sizeInMB } = getImageInfo(image);
 
     return (
-      <Card className="group relative overflow-hidden transition-all duration-300 hover:shadow-lg">
+      <Card
+        className="group relative cursor-pointer overflow-hidden transition-all duration-300 hover:shadow-lg"
+        onClick={(e) => {
+          // Only trigger if not clicking on buttons
+          if (!(e.target as HTMLElement).closest("button")) {
+            setSelectedImage(image);
+          }
+        }}
+      >
         <CardContent className="flex items-center gap-4 p-4">
           <div className="relative h-20 w-20 overflow-hidden rounded-lg">
             <div ref={(node) => imageRef(node, `list-${image.id}`)}>
@@ -428,13 +417,13 @@ export default function FreeImages() {
               <span>Ratio: {ratio}:1</span>
             </div>
 
-            <div className="flex gap-2">
+            <div className="relative z-10 flex gap-2">
               <Button
                 size="sm"
                 variant="outline"
-                onClick={(e) =>
-                  copyToClipboard(image.url, `url-${image.id}`, e)
-                }
+                onClick={() => {
+                  copyToClipboard(image.url, `url-${image.id}`);
+                }}
                 className="flex items-center gap-2"
               >
                 {copiedItem === `url-${image.id}` ? (
@@ -447,19 +436,20 @@ export default function FreeImages() {
               <Button
                 size="sm"
                 variant="outline"
-                onClick={(e) => downloadImage(image, e)}
+                onClick={() => {
+                  downloadImage(image);
+                }}
               >
                 <Download className="h-3 w-3" />
               </Button>
               <Button
                 size="sm"
                 variant="outline"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  e.preventDefault();
+                onClick={() => {
                   window.open(image.url, "_blank");
                   toast.success("Image opened in new tab!");
                 }}
+                className="flex items-center gap-2"
               >
                 <ExternalLink className="h-3 w-3" />
               </Button>
@@ -633,8 +623,6 @@ export default function FreeImages() {
                     height={selectedImage.height}
                     className="h-auto max-h-96 w-full object-contain"
                     placeholder="blur"
-                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
-                    priority
                   />
                 </div>
 
@@ -669,15 +657,14 @@ export default function FreeImages() {
                   </div>
                 </div>
 
-                <div className="flex gap-2">
+                <div className="relative z-10 flex gap-2">
                   <Button
-                    onClick={(e) =>
+                    onClick={() => {
                       copyToClipboard(
                         selectedImage.url,
                         `preview-${selectedImage.id}`,
-                        e,
-                      )
-                    }
+                      );
+                    }}
                     className="flex items-center gap-2"
                   >
                     {copiedItem === `preview-${selectedImage.id}` ? (
@@ -689,7 +676,9 @@ export default function FreeImages() {
                   </Button>
                   <Button
                     variant="outline"
-                    onClick={(e) => downloadImage(selectedImage, e)}
+                    onClick={() => {
+                      downloadImage(selectedImage);
+                    }}
                     className="flex items-center gap-2"
                   >
                     <Download className="h-4 w-4" />
@@ -697,9 +686,7 @@ export default function FreeImages() {
                   </Button>
                   <Button
                     variant="outline"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
+                    onClick={() => {
                       window.open(selectedImage.url, "_blank");
                       toast.success("Image opened in new tab!");
                     }}
