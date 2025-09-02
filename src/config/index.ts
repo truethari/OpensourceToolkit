@@ -33,6 +33,7 @@ import {
   Regex,
   Eye,
   GitCompare,
+  PiggyBank,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -1535,6 +1536,49 @@ export const tools: ITool[] = [
         "Browse and download high-quality free images with advanced search, filtering, and preview features. Perfect for designers, developers, and content creators.",
       keywords:
         "free images, stock photos, high quality images, image gallery, free photography, creative resources, image download, stock images, free photos, image collection",
+    },
+  },
+  {
+    id: "financial-calculator",
+    title: "Financial Calculator",
+    shortTitle: "Financial Calc",
+    description:
+      "Calculate interest, APR, loans, mortgages, investments, and other financial calculations with compound interest support",
+    icon: PiggyBank,
+    color: "bg-emerald-500",
+    category: "Text & Data Generators",
+    tags: [
+      "finance",
+      "calculator",
+      "interest",
+      "apr",
+      "loan",
+      "mortgage",
+      "investment",
+      "compound",
+      "savings",
+      "commercial",
+      "business",
+      "money",
+    ],
+    features: [
+      "Compound Interest Calculator",
+      "Loan & Mortgage Calculator",
+      "Investment Growth Projections",
+      "APR & APY Conversions",
+      "Payment Schedule Generator",
+      "Multiple Calculation Types",
+      "Export Results",
+      "Real-time Calculations",
+    ],
+    popular: true,
+    href: "/financial-calculator",
+    seo: {
+      title: "Financial Calculator - Interest, Loan, Investment Calculator",
+      description:
+        "Calculate compound interest, loan payments, mortgage calculations, investment growth, APR/APY conversions. Professional financial calculator for business and personal use.",
+      keywords:
+        "financial calculator, compound interest calculator, loan calculator, mortgage calculator, investment calculator, apr calculator, apy calculator, interest calculator, savings calculator, business calculator",
     },
   },
 ];
