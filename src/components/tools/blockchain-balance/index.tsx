@@ -383,55 +383,6 @@ export default function BlockchainBalance() {
         </p>
       </div>
 
-      {/* Contribution Notice */}
-      <Card className="border-2 border-blue-600 bg-blue-600/5">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-blue-900 dark:text-blue-100">
-            <Github className="h-5 w-5" />
-            Want to Add More Chains or Tokens?
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-3">
-            <p className="text-blue-800 dark:text-blue-200">
-              🚀 Help make this tool even better! You can add custom chains and
-              tokens using the forms above, or contribute to make them available
-              for everyone.
-            </p>
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-              <Button
-                variant="outline"
-                size="sm"
-                className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
-                onClick={() =>
-                  window.open(
-                    "https://github.com/truethari/OpensourceToolkit/issues",
-                    "_blank",
-                  )
-                }
-              >
-                <Github className="mr-2 h-4 w-4" />
-                Open Issue
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
-                onClick={() =>
-                  window.open(
-                    "https://github.com/truethari/OpensourceToolkit",
-                    "_blank",
-                  )
-                }
-              >
-                <ExternalLink className="mr-2 h-4 w-4" />
-                View Repository
-              </Button>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
       <Card className="border-2">
         <CardHeader className="pb-4">
           <CardTitle className="flex items-center gap-2 text-xl">
@@ -480,6 +431,55 @@ export default function BlockchainBalance() {
               Available Networks ({chains.length})
             </h3>
             <ChainList />
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Contribution Notice */}
+      <Card className="border-2 border-blue-900/50 bg-blue-600/5">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-blue-900 dark:text-blue-100">
+            <Github className="h-5 w-5" />
+            Want to Add More Chains or Tokens?
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-3">
+            <p className="text-blue-800 dark:text-blue-200">
+              🚀 Help make this tool even better! You can add custom chains and
+              tokens using the forms above, or contribute to make them available
+              for everyone.
+            </p>
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+                onClick={() =>
+                  window.open(
+                    "https://github.com/truethari/OpensourceToolkit/issues",
+                    "_blank",
+                  )
+                }
+              >
+                <Github className="mr-2 h-4 w-4" />
+                Open Issue
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+                onClick={() =>
+                  window.open(
+                    "https://github.com/truethari/OpensourceToolkit",
+                    "_blank",
+                  )
+                }
+              >
+                <ExternalLink className="mr-2 h-4 w-4" />
+                View Repository
+              </Button>
+            </div>
           </div>
         </CardContent>
       </Card>
