@@ -1581,4 +1581,45 @@ export const tools: ITool[] = [
         "financial calculator, compound interest calculator, loan calculator, mortgage calculator, investment calculator, apr calculator, apy calculator, interest calculator, savings calculator, business calculator",
     },
   },
+  {
+    id: "tailwind-colors",
+    title: "Tailwind Color Picker",
+    shortTitle: "Tailwind Colors",
+    description:
+      "Browse and copy all Tailwind CSS colors with multiple format options including HEX, RGB, HSL, CSS classes, and OKLCH",
+    icon: Palette,
+    color: "bg-cyan-500",
+    category: "Design & Creative",
+    tags: [
+      "tailwind",
+      "colors",
+      "css",
+      "palette",
+      "picker",
+      "hex",
+      "rgb",
+      "hsl",
+      "oklch",
+      "classes",
+      "design",
+      "development",
+    ],
+    features: [
+      "Complete Tailwind CSS Color Palette",
+      "Multiple Format Support",
+      "One-Click Copy to Clipboard",
+      "Search & Filter Colors",
+      "Visual Feedback",
+      "Responsive Design",
+    ],
+    popular: true,
+    href: "/tailwind-colors",
+    seo: {
+      title: "Tailwind Color Picker - Browse and Copy Tailwind CSS Colors",
+      description:
+        "Browse the complete Tailwind CSS color palette and copy colors in HEX, RGB, HSL, CSS classes, and OKLCH formats. Perfect for developers using Tailwind CSS.",
+      keywords:
+        "tailwind colors, tailwind css, color picker, css colors, hex colors, rgb colors, hsl colors, oklch colors, tailwind classes, design tools, web development",
+    },
+  },
 ];
