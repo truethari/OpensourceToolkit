@@ -34,6 +34,7 @@ import {
   Eye,
   GitCompare,
   PiggyBank,
+  Clipboard,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -1620,6 +1621,47 @@ export const tools: ITool[] = [
         "Browse the complete Tailwind CSS color palette and copy colors in HEX, RGB, HSL, CSS classes, and OKLCH formats. Perfect for developers using Tailwind CSS.",
       keywords:
         "tailwind colors, tailwind css, color picker, css colors, hex colors, rgb colors, hsl colors, oklch colors, tailwind classes, design tools, web development",
+    },
+  },
+  {
+    id: "clipboard-image-saver",
+    title: "Clipboard Image Saver",
+    shortTitle: "Clipboard Image",
+    description:
+      "Paste images from clipboard, convert formats, resize, and save with clipboard history management",
+    icon: Clipboard,
+    color: "bg-rose-500",
+    category: "Design & Creative",
+    tags: [
+      "clipboard",
+      "image",
+      "paste",
+      "screenshot",
+      "save",
+      "convert",
+      "download",
+      "format",
+      "resize",
+      "history",
+    ],
+    features: [
+      "Paste Images from Clipboard (Ctrl+V)",
+      "Clipboard History Management",
+      "Format Conversion (PNG, JPEG, WebP, BMP)",
+      "Quality & Resize Controls",
+      "Batch Download Support",
+      "Copy Back to Clipboard",
+      "Session-based Privacy",
+      "Real-time Preview",
+    ],
+    popular: true,
+    href: "/clipboard-image-saver",
+    seo: {
+      title: "Clipboard Image Saver - Paste & Save Clipboard Images",
+      description:
+        "Paste images from clipboard, convert formats, resize, and save. Perfect for screenshots, web images, and quick image saving with clipboard history management.",
+      keywords:
+        "clipboard image saver, paste image, screenshot tool, clipboard manager, save clipboard image, image format converter, clipboard history, image paste tool, screenshot saver, web image saver",
     },
   },
 ];
