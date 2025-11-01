@@ -214,6 +214,50 @@ export const tools: ITool[] = [
     },
   },
   {
+    id: "nextjs-image-decoder",
+    title: "Next.js Image URL Decoder",
+    shortTitle: "Next.js Image",
+    description:
+      "Decode and encode Next.js optimized image URLs with bulk processing, multi-size generation, and parameter extraction",
+    icon: Image,
+    color: "bg-emerald-500",
+    category: "Format Converters",
+    tags: [
+      "nextjs",
+      "next.js",
+      "image",
+      "url",
+      "decoder",
+      "encoder",
+      "optimization",
+      "converter",
+      "decode",
+      "encode",
+      "parameters",
+      "bulk",
+    ],
+    features: [
+      "Decode Next.js Image URLs",
+      "Generate Optimized URLs",
+      "Bulk URL Processing",
+      "Multi-Size Generation",
+      "Extract Original Sources",
+      "Custom Width & Quality",
+      "JSON Export",
+      "Copy to Clipboard",
+    ],
+    popular: false,
+    href: "/nextjs-image-decoder",
+    seo: {
+      title:
+        "Next.js Image URL Decoder - Extract & Generate Optimized Image URLs",
+      description:
+        "Decode Next.js image optimization URLs to extract original sources, generate optimized URLs with custom parameters, and bulk process multiple image links.",
+      keywords:
+        "nextjs image decoder, next.js image url, image optimization, url decoder, image url encoder, decode image url, extract image url, responsive images",
+    },
+  },
+  {
     id: "folder-analyzer",
     title: "Folder Structure Analyzer",
     shortTitle: "Folder Analyzer",
