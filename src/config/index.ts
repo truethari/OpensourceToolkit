@@ -1287,7 +1287,7 @@ export const tools: ITool[] = [
       "Calculate BMI, BMR, TDEE, body composition, ideal weight, and weight goals with comprehensive health metrics and analysis",
     icon: Activity,
     color: "bg-green-500",
-    category: "Hardware Testing",
+    category: "Health & Fitness",
     tags: [
       "bmi",
       "body mass index",
