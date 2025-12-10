@@ -35,6 +35,7 @@ import {
   GitCompare,
   PiggyBank,
   Clipboard,
+  FileJson,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -1586,6 +1587,57 @@ export const tools: ITool[] = [
         "Compare texts and files with advanced diff algorithms, side-by-side visualization, and export options. Perfect for developers, writers, and version control workflows.",
       keywords:
         "diff checker, text comparison, file comparison, diff tool, merge conflicts, patch generator, version control, code comparison, text diff, file diff, git diff, unified diff",
+    },
+  },
+  {
+    id: "json-tree-viewer",
+    title: "JSON Tree Viewer",
+    shortTitle: "JSON Tree",
+    description:
+      "Visualize JSON structure as an interactive tree or node graph with collapsible nodes, search, statistics, and file upload support",
+    icon: FileJson,
+    color: "bg-cyan-500",
+    category: "Development & API",
+    tags: [
+      "json",
+      "tree",
+      "viewer",
+      "parser",
+      "structure",
+      "visualize",
+      "explorer",
+      "navigator",
+      "file",
+      "upload",
+      "search",
+      "statistics",
+      "graph",
+      "node",
+    ],
+    features: [
+      "Interactive Tree Visualization",
+      "Node Graph Visualization with SVG",
+      "Zoom In/Out & Pan Controls",
+      "Mouse Wheel Zoom Support",
+      "Collapsible Nodes with Depth Control",
+      "JSON File Upload Support",
+      "Paste JSON Directly",
+      "Search Keys and Values",
+      "Type Distribution Statistics",
+      "Node Count and Depth Analysis",
+      "Copy and Export Functionality",
+      "Interactive Node Selection",
+      "Color-Coded Data Types",
+      "Error Validation",
+    ],
+    popular: true,
+    href: "/json-tree-viewer",
+    seo: {
+      title: "JSON Tree Viewer - Visualize and Explore JSON Structure",
+      description:
+        "Interactive JSON tree and node graph viewer with collapsible nodes, search, statistics, and file upload. Perfect for developers working with complex JSON data structures.",
+      keywords:
+        "json viewer, json tree, json explorer, json parser, json visualizer, json navigator, json file viewer, json structure, json formatter, json validator, json graph, node viewer",
     },
   },
   {
