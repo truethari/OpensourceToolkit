@@ -37,6 +37,7 @@ import {
   Clipboard,
   FileJson,
   SearchIcon,
+  ScanText,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -1855,6 +1856,51 @@ export const tools: ITool[] = [
         "Build powerful Google and YouTube search queries with operators like site:, filetype:, intitle:, before:, after:. Generate direct search links instantly.",
       keywords:
         "advanced google search, google search operators, youtube search filters, site: operator, filetype: search, intitle: search, inurl: search, before: after: date filter, google dork, search query builder, boolean search, advanced search tool",
+    },
+  },
+  {
+    id: "text-analyzer",
+    title: "Text Analyzer",
+    shortTitle: "Text Analyzer",
+    description:
+      "Analyze text with live word count, character stats, case conversion, word frequency, special character detection, reading time, and powerful text transformation tools",
+    icon: ScanText,
+    color: "bg-violet-600",
+    category: "Text & Data Generators",
+    tags: [
+      "text analyzer",
+      "word count",
+      "character count",
+      "case converter",
+      "text statistics",
+      "word frequency",
+      "reading time",
+      "text tools",
+      "find replace",
+      "sentence count",
+      "special characters",
+      "text transform",
+    ],
+    features: [
+      "Live Word, Character & Sentence Count",
+      "12 Case Transformations (camelCase, snake_case, etc.)",
+      "Word Frequency Analysis (top 20)",
+      "Character Frequency Chart (top 15)",
+      "Special Characters Detection",
+      "Reading & Speaking Time Estimates",
+      "Find & Replace with Regex Support",
+      "Text Transformations (reverse, sort lines, strip spaces…)",
+      "Prefix & Suffix per Line",
+      "Unique Word Count & Word Extremes",
+    ],
+    popular: true,
+    href: "/text-analyzer",
+    seo: {
+      title: "Text Analyzer - Word Count, Case Converter & Text Statistics",
+      description:
+        "Analyze text instantly: word count, character stats, reading time, word frequency, case conversion (camelCase, snake_case, etc.), find & replace, and more.",
+      keywords:
+        "text analyzer, word counter, character counter, case converter, camelcase, snake_case, kebab-case, word frequency, reading time, text statistics, find replace, text tools",
     },
   },
 ];
