@@ -36,6 +36,7 @@ import {
   PiggyBank,
   Clipboard,
   FileJson,
+  SearchIcon,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -1806,6 +1807,54 @@ export const tools: ITool[] = [
         "Paste images from clipboard, convert formats, resize, and save. Perfect for screenshots, web images, and quick image saving with clipboard history management.",
       keywords:
         "clipboard image saver, paste image, screenshot tool, clipboard manager, save clipboard image, image format converter, clipboard history, image paste tool, screenshot saver, web image saver",
+    },
+  },
+  {
+    id: "advanced-search",
+    title: "Advanced Search Builder",
+    shortTitle: "Search Builder",
+    description:
+      "Build powerful Google and YouTube search queries using advanced operators like site:, before:, filetype:, intitle: and more — generate direct search links instantly",
+    icon: SearchIcon,
+    color: "bg-blue-600",
+    category: "Internet & Web Tools",
+    tags: [
+      "google",
+      "youtube",
+      "search",
+      "advanced search",
+      "search operators",
+      "site:",
+      "filetype:",
+      "intitle:",
+      "inurl:",
+      "before:",
+      "after:",
+      "query builder",
+      "dork",
+      "google dork",
+      "search link",
+    ],
+    features: [
+      "Google Advanced Search with All Operators",
+      "YouTube Search with Filters",
+      "Manual Query Builder with Operator Chips",
+      "Date Range Filters (before:/after:)",
+      "Site, File Type & Language Filters",
+      "One-click Search Link Generation",
+      "Open in Google, Bing, DuckDuckGo, YouTube",
+      "Copy Query or URL to Clipboard",
+      "Operator Reference Guide",
+      "Common Search Examples",
+    ],
+    popular: false,
+    href: "/advanced-search",
+    seo: {
+      title: "Advanced Search Builder - Google & YouTube Search Operators",
+      description:
+        "Build powerful Google and YouTube search queries with operators like site:, filetype:, intitle:, before:, after:. Generate direct search links instantly.",
+      keywords:
+        "advanced google search, google search operators, youtube search filters, site: operator, filetype: search, intitle: search, inurl: search, before: after: date filter, google dork, search query builder, boolean search, advanced search tool",
     },
   },
 ];
