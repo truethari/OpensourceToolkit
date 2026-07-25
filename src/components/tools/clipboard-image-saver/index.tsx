@@ -1,6 +1,13 @@
 "use client";
 
-import React, { useState, useCallback, useRef, useEffect } from "react";
+import { toast } from "sonner";
+import React, {
+  useState,
+  useCallback,
+  useRef,
+  useEffect,
+  useMemo,
+} from "react";
 import {
   Clipboard,
   Download,
@@ -60,24 +67,58 @@ export default function ClipboardImageSaver() {
 
   const pasteAreaRef = useRef<HTMLDivElement>(null);
 
-  const outputFormats = [
-    { value: "png", label: "PNG", mimeType: "image/png", hasQuality: false },
-    {
-      value: "jpeg",
-      label: "JPEG",
-      mimeType: "image/jpeg",
-      hasQuality: true,
-    },
-    {
-      value: "webp",
-      label: "WebP",
-      mimeType: "image/webp",
-      hasQuality: true,
-    },
-    { value: "bmp", label: "BMP", mimeType: "image/bmp", hasQuality: false },
-  ];
+  // BMP is deliberately absent: no major browser can encode it via
+  // canvas.toBlob, and asking for it silently yields a PNG with a .bmp
+  // extension. Only formats the canvas API can actually produce are listed,
+  // and support is re-checked at runtime below.
+  const outputFormats = useMemo(
+    () => [
+      { value: "png", label: "PNG", mimeType: "image/png", hasQuality: false },
+      {
+        value: "jpeg",
+        label: "JPEG",
+        mimeType: "image/jpeg",
+        hasQuality: true,
+      },
+      {
+        value: "webp",
+        label: "WebP",
+        mimeType: "image/webp",
+        hasQuality: true,
+      },
+      {
+        value: "avif",
+        label: "AVIF",
+        mimeType: "image/avif",
+        hasQuality: true,
+      },
+    ],
+    [],
+  );
 
-  const selectedOutputFormat = outputFormats.find(
+  // canvas.toDataURL returns a PNG data URL when the requested type is
+  // unsupported, which is how we detect what this browser can really encode.
+  const [supportedFormats, setSupportedFormats] = useState(outputFormats);
+
+  useEffect(() => {
+    const probe = document.createElement("canvas");
+    probe.width = 1;
+    probe.height = 1;
+    const available = outputFormats.filter((f) => {
+      if (f.value === "png") return true;
+      try {
+        return probe.toDataURL(f.mimeType).startsWith(`data:${f.mimeType}`);
+      } catch {
+        return false;
+      }
+    });
+    setSupportedFormats(available);
+    setOutputFormat((current) =>
+      available.some((f) => f.value === current) ? current : "png",
+    );
+  }, [outputFormats]);
+
+  const selectedOutputFormat = supportedFormats.find(
     (f) => f.value === outputFormat,
   );
   const showQualitySlider = selectedOutputFormat?.hasQuality;
@@ -88,41 +129,54 @@ export default function ClipboardImageSaver() {
   }, []);
 
   const handlePaste = useCallback(
-    async (e: ClipboardEvent | React.ClipboardEvent) => {
-      e.preventDefault();
+    (e: ClipboardEvent | React.ClipboardEvent) => {
       const items = e.clipboardData?.items;
-
       if (!items) return;
 
-      for (let i = 0; i < items.length; i++) {
-        const item = items[i];
+      const imageItems = Array.from(items).filter((item) =>
+        item.type.startsWith("image/"),
+      );
 
-        if (item.type.startsWith("image/")) {
-          const blob = item.getAsFile();
-          if (!blob) continue;
+      // Let non-image pastes behave normally (e.g. typing into the search box)
+      // instead of swallowing every paste on the page.
+      if (imageItems.length === 0) return;
 
-          const url = URL.createObjectURL(blob);
-          const img = new Image();
+      e.preventDefault();
 
-          img.onload = () => {
-            const newImage: ClipboardImage = {
-              id: Date.now().toString() + Math.random(),
-              url,
-              blob,
-              width: img.naturalWidth,
-              height: img.naturalHeight,
-              format: item.type.split("/")[1],
-              size: blob.size,
-              timestamp: new Date(),
-            };
+      for (const item of imageItems) {
+        const blob = item.getAsFile();
+        if (!blob) continue;
 
-            setImages((prev) => [newImage, ...prev]);
-            setCurrentImage(newImage);
-            setPastePrompt(false);
+        const url = URL.createObjectURL(blob);
+        const img = new Image();
+
+        img.onload = () => {
+          const newImage: ClipboardImage = {
+            id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+            url,
+            blob,
+            width: img.naturalWidth,
+            height: img.naturalHeight,
+            format: item.type.split("/")[1],
+            size: blob.size,
+            timestamp: new Date(),
           };
 
-          img.src = url;
-        }
+          setImages((prev) => [newImage, ...prev]);
+          setCurrentImage(newImage);
+          setPastePrompt(false);
+          toast.success(
+            `Pasted ${img.naturalWidth} × ${img.naturalHeight} image`,
+          );
+        };
+
+        img.onerror = () => {
+          // Nothing decoded, so this URL would otherwise leak.
+          URL.revokeObjectURL(url);
+          toast.error("Could not read the pasted image");
+        };
+
+        img.src = url;
       }
     },
     [],
@@ -135,47 +189,61 @@ export default function ClipboardImageSaver() {
     return () => window.removeEventListener("paste", handleGlobalPaste);
   }, [handlePaste]);
 
+  // Release every outstanding object URL when the tool unmounts, so navigating
+  // away doesn't leak the pasted images for the lifetime of the tab.
+  const imagesRef = useRef<ClipboardImage[]>([]);
+  useEffect(() => {
+    imagesRef.current = images;
+  }, [images]);
+  useEffect(() => {
+    return () => {
+      imagesRef.current.forEach((image) => URL.revokeObjectURL(image.url));
+    };
+  }, []);
+
   const processImage = useCallback(
     (img: HTMLImageElement): HTMLCanvasElement => {
       const canvas = document.createElement("canvas");
       const ctx = canvas.getContext("2d")!;
 
-      // Calculate dimensions
-      const targetWidth = resizeWidth
-        ? parseInt(resizeWidth)
-        : img.naturalWidth;
-      const targetHeight = resizeHeight
-        ? parseInt(resizeHeight)
-        : img.naturalHeight;
+      // Only treat a resize field as set when it parses to a usable number —
+      // "0", "-5" and "abc" must fall back to the original dimension rather
+      // than producing a zero-sized canvas (which encodes to a null blob).
+      const parsedWidth = parseInt(resizeWidth, 10);
+      const parsedHeight = parseInt(resizeHeight, 10);
+      const hasWidth = Number.isFinite(parsedWidth) && parsedWidth > 0;
+      const hasHeight = Number.isFinite(parsedHeight) && parsedHeight > 0;
 
-      let width = targetWidth;
-      let height = targetHeight;
+      let width = hasWidth ? parsedWidth : img.naturalWidth;
+      let height = hasHeight ? parsedHeight : img.naturalHeight;
 
-      if (maintainAspectRatio && (resizeWidth || resizeHeight)) {
+      if (maintainAspectRatio && (hasWidth || hasHeight)) {
         const aspectRatio = img.naturalWidth / img.naturalHeight;
-        if (resizeWidth && !resizeHeight) {
+        if (hasWidth && !hasHeight) {
           height = width / aspectRatio;
-        } else if (resizeHeight && !resizeWidth) {
+        } else if (hasHeight && !hasWidth) {
           width = height * aspectRatio;
-        } else if (resizeWidth && resizeHeight) {
-          if (aspectRatio > width / height) {
-            height = width / aspectRatio;
-          } else {
-            width = height * aspectRatio;
-          }
+        } else if (aspectRatio > width / height) {
+          // Fit inside the requested box without distorting.
+          height = width / aspectRatio;
+        } else {
+          width = height * aspectRatio;
         }
       }
 
-      canvas.width = width;
-      canvas.height = height;
+      // Canvas dimensions must be positive integers; fractional values are
+      // truncated by the browser and 0 would yield an unusable canvas.
+      canvas.width = Math.max(1, Math.round(width));
+      canvas.height = Math.max(1, Math.round(height));
 
-      // Fill background for JPEG/BMP
-      if (outputFormat === "jpeg" || outputFormat === "bmp") {
+      // Formats without an alpha channel need an opaque backdrop, otherwise
+      // transparent pixels render as black.
+      if (outputFormat === "jpeg") {
         ctx.fillStyle = "#FFFFFF";
-        ctx.fillRect(0, 0, width, height);
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
       }
 
-      ctx.drawImage(img, 0, 0, width, height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
       return canvas;
     },
@@ -183,17 +251,42 @@ export default function ClipboardImageSaver() {
   );
 
   const downloadImage = useCallback(
-    async (image: ClipboardImage) => {
+    (image: ClipboardImage) => {
+      // Decode from the original blob rather than the object URL, so a
+      // download still works if the URL was revoked elsewhere.
+      const objectUrl = URL.createObjectURL(image.blob);
       const img = new Image();
-      img.crossOrigin = "anonymous";
+
+      const cleanup = () => URL.revokeObjectURL(objectUrl);
+
+      img.onerror = () => {
+        cleanup();
+        toast.error("Could not read that image — it may be corrupted");
+      };
 
       img.onload = () => {
-        const canvas = processImage(img);
+        let canvas: HTMLCanvasElement;
+        try {
+          canvas = processImage(img);
+        } catch (error) {
+          console.error("Failed to process image:", error);
+          cleanup();
+          toast.error("Failed to process image");
+          return;
+        }
+
         const qualityValue = showQualitySlider ? quality[0] / 100 : undefined;
 
         canvas.toBlob(
           (blob) => {
-            if (!blob) return;
+            cleanup();
+
+            if (!blob) {
+              toast.error(
+                `Could not encode this image as ${outputFormat.toUpperCase()}`,
+              );
+              return;
+            }
 
             const url = URL.createObjectURL(blob);
             const link = document.createElement("a");
@@ -202,14 +295,16 @@ export default function ClipboardImageSaver() {
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-            URL.revokeObjectURL(url);
+            // Revoking synchronously can cancel the download in some browsers.
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+            toast.success(`Downloaded as ${outputFormat.toUpperCase()}`);
           },
           selectedOutputFormat?.mimeType,
           qualityValue,
         );
       };
 
-      img.src = image.url;
+      img.src = objectUrl;
     },
     [
       processImage,
@@ -221,42 +316,83 @@ export default function ClipboardImageSaver() {
   );
 
   const downloadAllImages = useCallback(() => {
+    if (images.length === 0) return;
+    // Browsers throttle or block rapid successive downloads, so space them out.
     images.forEach((image, index) => {
-      setTimeout(() => downloadImage(image), index * 100);
+      setTimeout(() => downloadImage(image), index * 400);
     });
+    toast.success(
+      `Downloading ${images.length} image${images.length !== 1 ? "s" : ""}…`,
+    );
   }, [images, downloadImage]);
 
   const copyToClipboard = useCallback(async (image: ClipboardImage) => {
+    if (typeof ClipboardItem === "undefined" || !navigator.clipboard?.write) {
+      toast.error("Your browser does not support copying images");
+      return;
+    }
+
     try {
-      const response = await fetch(image.url);
-      const blob = await response.blob();
+      // Copy the stored blob directly — image.url may already be revoked.
+      // Browsers only reliably accept image/png on the clipboard, so convert
+      // anything else rather than failing.
+      let blob = image.blob;
+      if (blob.type !== "image/png") {
+        blob = await new Promise<Blob>((resolve, reject) => {
+          const objectUrl = URL.createObjectURL(image.blob);
+          const img = new Image();
+          img.onload = () => {
+            const canvas = document.createElement("canvas");
+            canvas.width = img.naturalWidth;
+            canvas.height = img.naturalHeight;
+            canvas.getContext("2d")!.drawImage(img, 0, 0);
+            URL.revokeObjectURL(objectUrl);
+            canvas.toBlob(
+              (b) => (b ? resolve(b) : reject(new Error("encode failed"))),
+              "image/png",
+            );
+          };
+          img.onerror = () => {
+            URL.revokeObjectURL(objectUrl);
+            reject(new Error("decode failed"));
+          };
+          img.src = objectUrl;
+        });
+      }
+
       await navigator.clipboard.write([
         new ClipboardItem({ [blob.type]: blob }),
       ]);
       setCopied(true);
+      toast.success("Image copied to clipboard");
       setTimeout(() => setCopied(false), 2000);
     } catch (error) {
       console.error("Failed to copy image:", error);
-      alert("Failed to copy image to clipboard");
+      toast.error("Failed to copy image to clipboard");
     }
   }, []);
 
-  const deleteImage = useCallback(
-    (id: string) => {
-      setImages((prev) => {
-        const image = prev.find((img) => img.id === id);
-        if (image) {
-          URL.revokeObjectURL(image.url);
-        }
-        return prev.filter((img) => img.id !== id);
+  const deleteImage = useCallback((id: string) => {
+    setImages((prev) => {
+      const image = prev.find((img) => img.id === id);
+      if (image) {
+        URL.revokeObjectURL(image.url);
+      }
+      const remaining = prev.filter((img) => img.id !== id);
+
+      // Advance the selection from the up-to-date list. Reading the outer
+      // `images` here would use a stale array and could re-select the very
+      // image being deleted.
+      setCurrentImage((current) => {
+        if (current?.id !== id) return current;
+        const next = remaining[0] ?? null;
+        setPastePrompt(!next);
+        return next;
       });
 
-      if (currentImage?.id === id) {
-        setCurrentImage(images[0] || null);
-      }
-    },
-    [currentImage, images],
-  );
+      return remaining;
+    });
+  }, []);
 
   const clearAllImages = useCallback(() => {
     images.forEach((image) => URL.revokeObjectURL(image.url));
@@ -405,7 +541,7 @@ export default function ClipboardImageSaver() {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        {outputFormats.map((format) => (
+                        {supportedFormats.map((format) => (
                           <SelectItem key={format.value} value={format.value}>
                             {format.label}
                           </SelectItem>
