@@ -39,6 +39,7 @@ import {
   SearchIcon,
   ScanText,
   Globe2,
+  Search,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -1949,6 +1950,54 @@ export const tools: ITool[] = [
         "Convert times across multiple timezones at once. Daylight saving warnings, meeting planner with overlap heatmap, cross-day alerts, UTC offsets, and CSV/JSON export.",
       keywords:
         "timezone converter, time zone converter, world clock, daylight saving time, dst converter, meeting planner across timezones, utc offset calculator, time difference calculator, world time buddy alternative, iana timezone, convert time between timezones",
+    },
+  },
+  {
+    id: "seo-analyzer",
+    title: "Website SEO Analyzer",
+    shortTitle: "SEO Analyzer",
+    description:
+      "Audit any URL's SEO with a weighted score, actionable fixes, and live previews of how the page looks on Google, Facebook, X and Slack",
+    icon: Search,
+    color: "bg-emerald-600",
+    category: "Development & API",
+    tags: [
+      "seo",
+      "seo analyzer",
+      "seo checker",
+      "meta tags",
+      "open graph",
+      "og preview",
+      "twitter card",
+      "serp preview",
+      "social preview",
+      "structured data",
+      "schema markup",
+      "site audit",
+      "meta description",
+    ],
+    features: [
+      "Weighted SEO Score with Category Breakdown",
+      "Google Search Result (SERP) Preview",
+      "Facebook, X/Twitter & Slack Share Previews",
+      "18 Automated Checks with Concrete Fixes",
+      "Open Graph & Twitter Card Inspection",
+      "JSON-LD Structured Data Validation",
+      "Heading Outline & Hierarchy Warnings",
+      "Image Alt Text Audit",
+      "Internal / External / Nofollow Link Analysis",
+      "Keyword Frequency & Density",
+      "Response Time, Size & Security Headers",
+      "Export Full Report as JSON",
+    ],
+    popular: true,
+    href: "/seo-analyzer",
+    seo: {
+      title: "Website SEO Analyzer - Audit Meta Tags & Social Previews",
+      description:
+        "Analyze any URL's SEO instantly: weighted score, meta tag audit, Google SERP preview, Open Graph and Twitter Card previews, structured data validation, and fixes.",
+      keywords:
+        "seo analyzer, seo checker, meta tag analyzer, open graph preview, twitter card validator, serp preview tool, social media preview, structured data testing, website seo audit, on page seo checker, meta description checker",
     },
   },
 ];
