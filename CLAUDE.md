@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-OpenSource Toolkit is a modern Next.js 15 application providing 32+ developer and utility tools. It's built with React 19, TypeScript, Tailwind CSS, and uses shadcn/ui components with Radix UI primitives.
+OpenSource Toolkit is a modern Next.js 15 application providing 48+ developer and utility tools. It's built with React 19, TypeScript, Tailwind CSS, and uses shadcn/ui components with Radix UI primitives.
 
 ## Development Commands
 
@@ -293,6 +293,12 @@ import { YourIcon } from "lucide-react";
 - `Design & Creative` - Colors Toolkit, ASCII Generator, QR Code, etc.
 - `Hardware Testing` - Keyboard Tester, Camera/Mic Tester, Speaker Tester, etc.
 - `Blockchain & Crypto` - ETH Converter, EVM Vanity, Blockchain Balance, etc.
+- `Health & Fitness` - BMI Calculator, etc.
+- `Internet & Web Tools` - Advanced Search Builder, etc.
+
+> Keep this list in sync with the `category` values actually used in
+> `src/config/index.ts`. Adding a brand-new category creates a new filter group
+> on the homepage, so reuse an existing one unless the tool genuinely doesn't fit.
 
 **Icon Selection Tips:**
 
@@ -309,6 +315,22 @@ import { YourIcon } from "lucide-react";
 - Orange: `bg-orange-500`, `bg-amber-500`
 - Others: `bg-cyan-500`, `bg-indigo-500`, `bg-pink-500`, `bg-teal-500`
 
+#### 4. Multi-file Tools
+
+Small tools live in a single `index.tsx`. When a tool grows past roughly 500
+lines, split it inside its own folder rather than adding files elsewhere:
+
+```
+src/components/tools/your-tool-name/
+├── index.tsx          # Main component (state, layout, tabs)
+├── SubComponent.tsx   # Large self-contained pieces of UI
+├── utils.ts           # Pure logic — no React, easy to test standalone
+└── data.ts            # Static lookup tables / presets
+```
+
+Keeping pure logic in a separate `utils.ts` matters: it can be exercised
+directly with `npx tsx` (see "Verifying Logic" below) without rendering React.
+
 ### Testing Checklist
 
 After adding your tool, verify:
@@ -322,12 +344,56 @@ After adding your tool, verify:
 - [ ] Copy to clipboard functionality works
 - [ ] Export functionality works (if applicable)
 - [ ] Responsive design works on mobile/tablet/desktop
+- [ ] No horizontal page scroll at 375px (wide tables scroll in their own container)
 - [ ] Dark mode styling looks correct
 - [ ] All inputs have proper validation
 - [ ] Error states are handled gracefully
 - [ ] Success/error toasts appear correctly
 - [ ] SEO metadata is correct (check page source)
 - [ ] Tool route is accessible at `/your-tool-name`
+- [ ] No hydration mismatch warnings in the browser console
+
+### Verifying Logic Without a Test Framework
+
+The repo has no test runner, but `tsx` ships with the toolchain and pure logic
+in a `utils.ts` can be verified directly before wiring up any UI:
+
+```bash
+npx tsx ./scratch-test.mts
+```
+
+Two gotchas: `tsconfig.json` targets **ES2017** (so BigInt literals like `1n`
+will not compile), and ESM-only dependencies must be imported from a `.mts`
+file. Write assertions for known-correct values, run them, then delete the
+scratch file — this catches logic bugs far faster than clicking through the UI.
+
+### Avoiding Hydration Mismatches
+
+Tools that render time, randomness, or anything read from `localStorage` /
+`Intl` produce different output on the server than in the browser, which throws
+a hydration error. Gate that rendering behind a mount flag:
+
+```typescript
+const [mounted, setMounted] = useState(false);
+useEffect(() => setMounted(true), []);
+
+if (!mounted) {
+  return <ToolsWrapper>{/* skeleton or spinner */}</ToolsWrapper>;
+}
+```
+
+### Mobile Responsiveness
+
+`ToolsWrapper` handles page padding, but each tool must keep its own content
+from forcing the page sideways:
+
+- Wrap wide tables in `<div className="overflow-x-auto">` and put `min-w-[Nrem]`
+  on the `<table>` — the table then scrolls inside its own box.
+- Scale headings with breakpoints: `text-3xl sm:text-4xl`.
+- Stack the sidebar/content grid with `grid gap-6 lg:grid-cols-3`.
+- Hide button labels on small screens (`<span className="hidden sm:inline">`)
+  while keeping the icon visible.
+- Use `truncate` / `min-w-0` on flex children so long names don't blow out a row.
 
 ### Common Patterns & Best Practices
 
@@ -484,6 +550,7 @@ This example demonstrates:
 - Zustand for state management
 - TanStack Query for data fetching
 - Faker.js for mock data
+- temporal-polyfill for timezone/DST-correct date math
 - Various crypto/utility libraries
 
 ## Testing Approach

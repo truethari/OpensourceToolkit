@@ -38,6 +38,7 @@ import {
   FileJson,
   SearchIcon,
   ScanText,
+  Globe2,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -1901,6 +1902,53 @@ export const tools: ITool[] = [
         "Analyze text instantly: word count, character stats, reading time, word frequency, case conversion (camelCase, snake_case, etc.), find & replace, and more.",
       keywords:
         "text analyzer, word counter, character counter, case converter, camelcase, snake_case, kebab-case, word frequency, reading time, text statistics, find replace, text tools",
+    },
+  },
+  {
+    id: "timezone-converter",
+    title: "Timezone Converter",
+    shortTitle: "Timezones",
+    description:
+      "Convert a moment across many timezones at once with daylight saving warnings, a meeting planner, cross-day alerts, and shareable comparisons",
+    icon: Globe2,
+    color: "bg-sky-600",
+    category: "Format Converters",
+    tags: [
+      "timezone",
+      "time zone converter",
+      "world clock",
+      "dst",
+      "daylight saving",
+      "meeting planner",
+      "utc offset",
+      "time difference",
+      "world time",
+      "schedule across timezones",
+      "iana timezone",
+      "time converter",
+    ],
+    features: [
+      "Convert One Time Across Unlimited Timezones",
+      "Live World Clock Mode with Per-second Updates",
+      "Daylight Saving Time Banners & Warnings",
+      "Detects Skipped & Repeated Local Times (DST Gaps/Overlaps)",
+      "Upcoming Clock Change Alerts per Zone",
+      "Meeting Planner with 24-hour Overlap Heatmap",
+      "Best Meeting Time Suggestions",
+      "Cross-day and Weekend Warnings",
+      "Searchable Picker with City, Country & Code Aliases",
+      "Team Presets (US Business, APAC, Global Engineering…)",
+      "Flexible Input: Unix Timestamps & ISO 8601",
+      "Export to JSON / CSV plus Shareable Links",
+    ],
+    popular: true,
+    href: "/timezone-converter",
+    seo: {
+      title: "Timezone Converter - Compare Multiple Time Zones with DST Alerts",
+      description:
+        "Convert times across multiple timezones at once. Daylight saving warnings, meeting planner with overlap heatmap, cross-day alerts, UTC offsets, and CSV/JSON export.",
+      keywords:
+        "timezone converter, time zone converter, world clock, daylight saving time, dst converter, meeting planner across timezones, utc offset calculator, time difference calculator, world time buddy alternative, iana timezone, convert time between timezones",
     },
   },
 ];
