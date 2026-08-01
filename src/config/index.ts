@@ -40,6 +40,7 @@ import {
   ScanText,
   Globe2,
   FileCode2,
+  FileSearch,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -1993,6 +1994,49 @@ export const tools: ITool[] = [
         "Convert between YAML, JSON, and TOML instantly with real parsers. Auto-detects input format, reports exact error positions, and runs entirely in your browser.",
       keywords:
         "yaml to json, json to yaml, toml to json, json to toml, yaml to toml, toml to yaml, yaml converter, toml converter, config file converter, yml to json, online yaml parser, convert docker compose to json",
+    },
+  },
+  {
+    id: "media-metadata",
+    title: "Media Metadata Viewer",
+    shortTitle: "Media Metadata",
+    description:
+      "Inspect EXIF, GPS location, codecs, tags, dimensions, and checksums for images, video, audio, and PDFs without uploading anything",
+    icon: FileSearch,
+    color: "bg-teal-600",
+    category: "File & Document Tools",
+    tags: [
+      "exif",
+      "metadata",
+      "gps",
+      "photo",
+      "image",
+      "video",
+      "audio",
+      "id3",
+      "checksum",
+      "hash",
+      "codec",
+      "pdf",
+    ],
+    features: [
+      "Full EXIF, IPTC & XMP Tag Extraction",
+      "GPS Coordinates with Decimal & DMS Display",
+      "Video & Audio Codec, Bitrate and Track Details",
+      "ID3, iTunes & Vorbis Tag Reading",
+      "SHA-256 and SHA-1 Checksums",
+      "Dimensions, Aspect Ratio & Duration",
+      "PDF Document Properties",
+      "Export Full Report as JSON",
+    ],
+    popular: false,
+    href: "/media-metadata",
+    seo: {
+      title: "Media Metadata Viewer - EXIF, GPS & Codec Inspector Online",
+      description:
+        "View all metadata in photos, videos, audio, and PDFs: EXIF, GPS location, camera settings, codecs, ID3 tags, and checksums. Runs fully in your browser — no upload.",
+      keywords:
+        "exif viewer, metadata viewer, photo metadata, exif reader online, gps from photo, image metadata extractor, video metadata viewer, id3 tag reader, file checksum, sha256 file hash, remove exif, media info online",
     },
   },
 ];
