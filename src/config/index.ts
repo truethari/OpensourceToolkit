@@ -39,6 +39,7 @@ import {
   SearchIcon,
   ScanText,
   Globe2,
+  FileCode2,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -1949,6 +1950,49 @@ export const tools: ITool[] = [
         "Convert times across multiple timezones at once. Daylight saving warnings, meeting planner with overlap heatmap, cross-day alerts, UTC offsets, and CSV/JSON export.",
       keywords:
         "timezone converter, time zone converter, world clock, daylight saving time, dst converter, meeting planner across timezones, utc offset calculator, time difference calculator, world time buddy alternative, iana timezone, convert time between timezones",
+    },
+  },
+  {
+    id: "data-format-converter",
+    title: "YAML ⇄ JSON ⇄ TOML Converter",
+    shortTitle: "YAML/JSON/TOML",
+    description:
+      "Convert config files between YAML, JSON, and TOML using real parsers, with format auto-detection and precise syntax error positions",
+    icon: FileCode2,
+    color: "bg-amber-500",
+    category: "Format Converters",
+    tags: [
+      "yaml",
+      "json",
+      "toml",
+      "converter",
+      "config",
+      "yml",
+      "parser",
+      "validator",
+      "docker-compose",
+      "kubernetes",
+      "cargo",
+      "pyproject",
+    ],
+    features: [
+      "Convert Any Direction Between YAML, JSON & TOML",
+      "Automatic Input Format Detection",
+      "Live Conversion with Validation",
+      "Exact Line & Column Error Reporting",
+      "Multi-document YAML Support",
+      "Warns on Values TOML Cannot Represent",
+      "Configurable Indentation & Key Sorting",
+      "File Upload, Copy & Download",
+    ],
+    popular: false,
+    href: "/data-format-converter",
+    seo: {
+      title: "YAML to JSON to TOML Converter - Free Online Config Converter",
+      description:
+        "Convert between YAML, JSON, and TOML instantly with real parsers. Auto-detects input format, reports exact error positions, and runs entirely in your browser.",
+      keywords:
+        "yaml to json, json to yaml, toml to json, json to toml, yaml to toml, toml to yaml, yaml converter, toml converter, config file converter, yml to json, online yaml parser, convert docker compose to json",
     },
   },
 ];
