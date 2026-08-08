@@ -12,15 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
-interface Props {
-  showDonations?: boolean;
-}
-
-import Donations from "./Donations";
-
-export default function Footer(props: Props) {
-  const { showDonations } = props;
-
+export default function Footer() {
   return (
     <>
       {/* Open Source Section */}
@@ -158,8 +150,6 @@ export default function Footer(props: Props) {
           </CardContent>
         </Card>
       </div>
-
-      {showDonations && <Donations />}
 
       {/* Footer */}
       <div className="rounded-lg border-t pb-4 pt-8 text-center md:pb-0">

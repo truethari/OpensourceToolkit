@@ -374,7 +374,7 @@ export default function Home() {
           </div>
         </div>
 
-        <Footer showDonations={true} />
+        <Footer />
       </div>
     </div>
   );
