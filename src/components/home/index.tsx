@@ -25,8 +25,10 @@ import {
 } from "@/components/ui/card";
 
 import Hero from "./Hero";
+import Favorites from "./Favorites";
 import QuickActions from "./QuickActions";
 import Footer from "@/components/general/Footer";
+import FavoriteButton from "@/components/general/FavoriteButton";
 
 import { tools } from "@/config";
 import { useData } from "@/providers/DataProvider";
@@ -36,7 +38,7 @@ import type { ITool } from "@/types";
 
 export default function Home() {
   const router = useRouter();
-  const { recentTools, addRecentTool } = useData();
+  const { recentTools, addRecentTool, favoriteTools } = useData();
   const { startNavigation, stopNavigation } = useNavigation();
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -126,7 +128,13 @@ export default function Home() {
 
         {searchQuery.length === 0 && (
           <>
-            <QuickActions quickActions={quickActions} />
+            {favoriteTools.length > 0 ? (
+              <Favorites onToolClick={handleToolClick} />
+            ) : (
+              quickActions.length > 0 && (
+                <QuickActions quickActions={quickActions} />
+              )
+            )}
 
             {/* Recently Used */}
             {recentTools.length > 0 && (
@@ -234,7 +242,10 @@ export default function Home() {
                       </div>
                     </div>
 
-                    <ArrowRight className="hidden h-5 w-5 text-muted-foreground transition-transform group-hover:translate-x-1 md:block" />
+                    <div className="flex items-center space-x-1">
+                      <FavoriteButton tool={tool} />
+                      <ArrowRight className="hidden h-5 w-5 text-muted-foreground transition-transform group-hover:translate-x-1 md:block" />
+                    </div>
                   </div>
                 </CardHeader>
 

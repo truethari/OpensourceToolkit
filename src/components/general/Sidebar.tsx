@@ -2,12 +2,16 @@
 
 import { useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
-import { Home, ToolCase, Search, X, PlusSquare } from "lucide-react";
+import { Home, ToolCase, Search, X, PlusSquare, Star } from "lucide-react";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ProgressLink } from "@/components/ui/progress-link";
 
+import { cn } from "@/lib/utils";
 import { tools } from "@/config";
+import { useData } from "@/providers/DataProvider";
+
+import type { ITool } from "@/types";
 
 import {
   Sidebar,
@@ -15,6 +19,7 @@ import {
   SidebarGroup,
   SidebarContent,
   SidebarMenuItem,
+  SidebarMenuAction,
   SidebarMenuButton,
   SidebarGroupLabel,
   SidebarGroupContent,
@@ -25,6 +30,7 @@ import { Button } from "@/components/ui/button";
 export default function AppSidebar() {
   const pathname = usePathname();
   const [searchQuery, setSearchQuery] = useState("");
+  const { favoriteTools, isFavoriteTool, toggleFavoriteTool } = useData();
 
   const filteredTools = useMemo(() => {
     if (!searchQuery.trim()) return tools;
@@ -45,6 +51,7 @@ export default function AppSidebar() {
     title: string;
     url: string;
     icon: React.ComponentType;
+    tool: ITool;
   }
 
   const categorizedTools: Record<string, IToolItem[]> = useMemo(() => {
@@ -58,6 +65,7 @@ export default function AppSidebar() {
           title: tool.shortTitle,
           url: tool.href,
           icon: tool.icon,
+          tool,
         });
         return acc;
       },
@@ -75,7 +83,63 @@ export default function AppSidebar() {
     );
   }, [filteredTools]);
 
+  const favoriteToolItems: IToolItem[] = useMemo(() => {
+    return favoriteTools
+      .map((favorite) => tools.find((tool) => tool.id === favorite.id))
+      .filter((tool): tool is ITool => Boolean(tool))
+      .map((tool) => ({
+        title: tool.shortTitle,
+        url: tool.href,
+        icon: tool.icon,
+        tool,
+      }));
+  }, [favoriteTools]);
+
   const clearSearch = () => setSearchQuery("");
+
+  const renderToolItem = (item: IToolItem) => {
+    const favorite = isFavoriteTool(item.tool.id);
+
+    return (
+      <SidebarMenuItem key={item.title}>
+        <SidebarMenuButton asChild>
+          <ProgressLink
+            href={item.url}
+            className={cn(
+              "pr-8",
+              item.url === pathname ? "bg-blue-700 hover:bg-blue-600" : "",
+            )}
+          >
+            <item.icon />
+            <span className="truncate">{item.title}</span>
+          </ProgressLink>
+        </SidebarMenuButton>
+        <SidebarMenuAction
+          type="button"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleFavoriteTool(item.tool);
+          }}
+          aria-label={
+            favorite
+              ? `Remove ${item.tool.title} from favorites`
+              : `Add ${item.tool.title} to favorites`
+          }
+          title={favorite ? "Remove from favorites" : "Add to favorites"}
+        >
+          <Star
+            className={cn(
+              "h-4 w-4",
+              favorite
+                ? "fill-yellow-400 text-yellow-400"
+                : "text-muted-foreground hover:text-yellow-400",
+            )}
+          />
+        </SidebarMenuAction>
+      </SidebarMenuItem>
+    );
+  };
 
   return (
     <Sidebar>
@@ -136,29 +200,22 @@ export default function AppSidebar() {
             </SidebarGroupContent>
           </SidebarGroup>
 
+          {favoriteToolItems.length > 0 && !searchQuery.trim() && (
+            <SidebarGroup>
+              <SidebarGroupLabel>Favorites</SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {favoriteToolItems.map(renderToolItem)}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          )}
+
           {Object.entries(categorizedTools).map(([category, tools]) => (
             <SidebarGroup key={category}>
               <SidebarGroupLabel>{category}</SidebarGroupLabel>
               <SidebarGroupContent>
-                <SidebarMenu>
-                  {tools.map((item) => (
-                    <SidebarMenuItem key={item.title}>
-                      <SidebarMenuButton asChild>
-                        <ProgressLink
-                          href={item.url}
-                          className={
-                            item.url === pathname
-                              ? "bg-blue-700 hover:bg-blue-600"
-                              : ""
-                          }
-                        >
-                          <item.icon />
-                          <span>{item.title}</span>
-                        </ProgressLink>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  ))}
-                </SidebarMenu>
+                <SidebarMenu>{tools.map(renderToolItem)}</SidebarMenu>
               </SidebarGroupContent>
             </SidebarGroup>
           ))}
