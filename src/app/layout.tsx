@@ -5,11 +5,12 @@ import { Fira_Sans } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
 import MainLayout from "@/components/wrappers/Main";
+import ServiceWorkerRegistrar from "@/components/general/ServiceWorkerRegistrar";
 import QueryProvider from "@/providers/QueryProvider";
 import DataProvider from "@/providers/DataProvider";
 import { NavigationProvider } from "@/providers/NavigationProvider";
 
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 
 const firaSans = Fira_Sans({
   subsets: ["latin"],
@@ -48,7 +49,18 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",
+    apple: "/icons/apple-touch-icon.png",
   },
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    title: "OS Toolkit",
+    statusBarStyle: "black-translucent",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#1d4ed8",
 };
 
 export default function RootLayout({
@@ -67,6 +79,7 @@ export default function RootLayout({
               <MainLayout>{children}</MainLayout>
             </NavigationProvider>
           </DataProvider>
+          <ServiceWorkerRegistrar />
         </QueryProvider>
       </body>
     </html>
