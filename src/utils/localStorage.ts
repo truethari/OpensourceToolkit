@@ -104,3 +104,114 @@ export const localStorage = {
     }
   },
 };
+
+export interface IFavoriteTool {
+  id: string;
+  title: string;
+  href: string;
+  color: string;
+  addedAt: string;
+}
+
+const FAVORITE_TOOLS_KEY = "opensourcetoolkit_favorite_tools";
+const FAVORITES_NOTICE_KEY = "opensourcetoolkit_favorites_notice_seen";
+
+export const favorites = {
+  // Get favorite tools from localStorage
+  getFavoriteTools: (): IFavoriteTool[] => {
+    try {
+      if (typeof window === "undefined") return [];
+
+      const stored = window.localStorage.getItem(FAVORITE_TOOLS_KEY);
+      if (!stored) return [];
+
+      const parsed = JSON.parse(stored);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (error) {
+      console.error("Error getting favorite tools from localStorage:", error);
+      return [];
+    }
+  },
+
+  // Add a tool to favorites
+  addFavoriteTool: (tool: ITool): void => {
+    try {
+      if (typeof window === "undefined") return;
+
+      const existingTools = favorites.getFavoriteTools();
+      if (existingTools.some((t) => t.id === tool.id)) return;
+
+      const newTool: IFavoriteTool = {
+        id: tool.id,
+        title: tool.title,
+        href: tool.href,
+        color: tool.color,
+        addedAt: new Date().toISOString(),
+      };
+
+      window.localStorage.setItem(
+        FAVORITE_TOOLS_KEY,
+        JSON.stringify([...existingTools, newTool]),
+      );
+    } catch (error) {
+      console.error("Error adding favorite tool to localStorage:", error);
+    }
+  },
+
+  // Remove a specific tool from favorites
+  removeFavoriteTool: (toolId: string): void => {
+    try {
+      if (typeof window === "undefined") return;
+
+      const filteredTools = favorites
+        .getFavoriteTools()
+        .filter((t) => t.id !== toolId);
+
+      window.localStorage.setItem(
+        FAVORITE_TOOLS_KEY,
+        JSON.stringify(filteredTools),
+      );
+    } catch (error) {
+      console.error("Error removing favorite tool from localStorage:", error);
+    }
+  },
+
+  // Clear all favorite tools
+  clearFavoriteTools: (): void => {
+    try {
+      if (typeof window === "undefined") return;
+
+      window.localStorage.removeItem(FAVORITE_TOOLS_KEY);
+    } catch (error) {
+      console.error("Error clearing favorite tools from localStorage:", error);
+    }
+  },
+
+  // Check if a tool is favorited
+  isFavoriteTool: (toolId: string): boolean => {
+    return favorites.getFavoriteTools().some((tool) => tool.id === toolId);
+  },
+
+  // Whether the local-storage notice has already been shown
+  hasSeenNotice: (): boolean => {
+    try {
+      if (typeof window === "undefined") return true;
+
+      return window.localStorage.getItem(FAVORITES_NOTICE_KEY) === "true";
+    } catch (error) {
+      console.error("Error reading favorites notice from localStorage:", error);
+      return true;
+    }
+  },
+
+  // Mark the local-storage notice as shown
+  markNoticeSeen: (): void => {
+    try {
+      if (typeof window === "undefined") return;
+
+      window.localStorage.setItem(FAVORITES_NOTICE_KEY, "true");
+    } catch (error) {
+      console.error("Error saving favorites notice to localStorage:", error);
+    }
+  },
+};

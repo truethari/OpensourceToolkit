@@ -4,9 +4,15 @@ import { usePathname } from "next/navigation";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 import { Toaster } from "@/components/ui/sonner";
+import FavoritesNoticeDialog from "@/components/general/FavoritesNoticeDialog";
 
 import { tools } from "@/config";
-import { localStorage, IRecentTool } from "@/utils/localStorage";
+import {
+  favorites,
+  localStorage,
+  IRecentTool,
+  IFavoriteTool,
+} from "@/utils/localStorage";
 
 import type { ITool } from "@/types";
 
@@ -16,6 +22,10 @@ interface DataContextType {
   clearRecentTools: () => void;
   removeRecentTool: (toolId: string) => void;
   isRecentTool: (toolId: string) => boolean;
+  favoriteTools: IFavoriteTool[];
+  toggleFavoriteTool: (tool: ITool) => void;
+  clearFavoriteTools: () => void;
+  isFavoriteTool: (toolId: string) => boolean;
 }
 
 const DataContext = createContext<DataContextType | undefined>(undefined);
@@ -34,12 +44,19 @@ export default function DataProvider({
   children: React.ReactNode;
 }) {
   const [recentTools, setRecentTools] = useState<IRecentTool[]>([]);
+  const [favoriteTools, setFavoriteTools] = useState<IFavoriteTool[]>([]);
+  const [showFavoritesNotice, setShowFavoritesNotice] = useState(false);
   const pathname = usePathname();
 
   // Initialize recent tools from localStorage
   useEffect(() => {
     const storedRecentTools = localStorage.getRecentTools();
     setRecentTools(storedRecentTools);
+  }, []);
+
+  // Initialize favorite tools from localStorage
+  useEffect(() => {
+    setFavoriteTools(favorites.getFavoriteTools());
   }, []);
 
   // Track path changes and add to recent tools
@@ -80,17 +97,52 @@ export default function DataProvider({
     return recentTools.some((tool) => tool.id === toolId);
   };
 
+  const toggleFavoriteTool = (tool: ITool) => {
+    const alreadyFavorite = favoriteTools.some((t) => t.id === tool.id);
+
+    if (alreadyFavorite) {
+      favorites.removeFavoriteTool(tool.id);
+    } else {
+      favorites.addFavoriteTool(tool);
+
+      // Explain where favorites live the first time one is saved
+      if (!favorites.hasSeenNotice()) {
+        favorites.markNoticeSeen();
+        setShowFavoritesNotice(true);
+      }
+    }
+
+    setFavoriteTools(favorites.getFavoriteTools());
+  };
+
+  const clearFavoriteTools = () => {
+    favorites.clearFavoriteTools();
+    setFavoriteTools([]);
+  };
+
+  const isFavoriteTool = (toolId: string): boolean => {
+    return favoriteTools.some((tool) => tool.id === toolId);
+  };
+
   const contextValue: DataContextType = {
     recentTools,
     addRecentTool,
     clearRecentTools,
     removeRecentTool,
     isRecentTool,
+    favoriteTools,
+    toggleFavoriteTool,
+    clearFavoriteTools,
+    isFavoriteTool,
   };
 
   return (
     <DataContext.Provider value={contextValue}>
       {children}
+      <FavoritesNoticeDialog
+        open={showFavoritesNotice}
+        onOpenChange={setShowFavoritesNotice}
+      />
       <Toaster />
     </DataContext.Provider>
   );

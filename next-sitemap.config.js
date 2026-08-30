@@ -3,7 +3,7 @@ module.exports = {
   siteUrl: "https://opensourcetoolkit.com",
   generateRobotsTxt: true,
   sitemapSize: 7000,
-  exclude: [],
+  exclude: ["/offline.html", "/manifest.webmanifest"],
   robotsTxtOptions: {
     policies: [
       {
