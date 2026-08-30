@@ -41,6 +41,7 @@ import {
   Globe2,
   FileCode2,
   FileSearch,
+  FileSpreadsheet,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -2037,6 +2038,53 @@ export const tools: ITool[] = [
         "View all metadata in photos, videos, audio, and PDFs: EXIF, GPS location, camera settings, codecs, ID3 tags, and checksums. Runs fully in your browser — no upload.",
       keywords:
         "exif viewer, metadata viewer, photo metadata, exif reader online, gps from photo, image metadata extractor, video metadata viewer, id3 tag reader, file checksum, sha256 file hash, remove exif, media info online",
+    },
+  },
+  {
+    id: "csv-json-converter",
+    title: "CSV ⇄ JSON Converter",
+    shortTitle: "CSV/JSON",
+    description:
+      "Convert CSV files to JSON and JSON back to CSV with a full-screen viewer, sortable table preview, type inference and per-column statistics",
+    icon: FileSpreadsheet,
+    color: "bg-emerald-500",
+    category: "Format Converters",
+    tags: [
+      "csv",
+      "json",
+      "converter",
+      "excel",
+      "spreadsheet",
+      "tsv",
+      "ndjson",
+      "jsonlines",
+      "parser",
+      "table",
+      "data",
+      "import",
+      "export",
+    ],
+    features: [
+      "CSV to JSON and JSON to CSV in One Tool",
+      "RFC 4180 Parser Handles Quotes, Commas & Newlines in Cells",
+      "Full-Screen JSON/CSV Viewer with Line Numbers & Search",
+      "Sortable, Searchable Table Preview of Every Row",
+      "Per-Column Type, Fill Rate & Unique Value Statistics",
+      "Automatic Delimiter Detection (Comma, Semicolon, Tab, Pipe)",
+      "Type Inference for Numbers, Booleans and Nulls",
+      "Nested Object Flattening and Dotted-Header Unflattening",
+      "NDJSON, Minified, Pretty and Column-Array Output Shapes",
+      "Drag & Drop Upload, Copy and Download",
+      "Escapes Spreadsheet Formulas to Prevent CSV Injection",
+    ],
+    popular: true,
+    href: "/csv-json-converter",
+    seo: {
+      title: "CSV to JSON Converter - Free Online CSV & JSON Tool",
+      description:
+        "Convert CSV to JSON and JSON to CSV instantly. View results in a full-screen viewer, preview rows in a sortable table, inspect column stats, and copy or download. Runs fully in your browser.",
+      keywords:
+        "csv to json, json to csv, csv json converter, convert csv to json online, csv parser, json to excel, csv viewer, ndjson converter, tsv to json, csv to json array, free csv converter",
     },
   },
 ];
