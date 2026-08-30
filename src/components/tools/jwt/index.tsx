@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
   Key,
   Eye,
@@ -9,6 +9,10 @@ import {
   Check,
   Clock,
   EyeOff,
+  FileJson,
+  KeyRound,
+  ListTree,
+  Timer,
   Shield,
   AlertTriangle,
 } from "lucide-react";
@@ -37,7 +41,15 @@ import {
 
 import ToolsWrapper from "@/components/wrappers/ToolsWrapper";
 
-import { base64UrlEncode, base64UrlDecode, hmacSha256 } from "./utils";
+import ClaimsSection from "./ClaimsSection";
+import {
+  base64UrlEncode,
+  base64UrlDecode,
+  hmacSha256,
+  inspectClaims,
+  inspectHeader,
+  formatDuration,
+} from "./utils";
 
 import type {
   IAnalysis,
@@ -66,6 +78,17 @@ export default function JWTComponent() {
   const [decodedHeader, setDecodedHeader] = useState("");
   const [decodedPayload, setDecodedPayload] = useState("");
   const [decodedSignature, setDecodedSignature] = useState("");
+  const [decodeError, setDecodeError] = useState("");
+  // Recomputed on every render so relative times ("in 2 hours") stay honest
+  // without needing a ticking timer.
+  const [decodedPayloadObject, setDecodedPayloadObject] = useState<Record<
+    string,
+    unknown
+  > | null>(null);
+  const [decodedHeaderObject, setDecodedHeaderObject] = useState<Record<
+    string,
+    unknown
+  > | null>(null);
 
   // Verify JWT State
   const [verifyToken, setVerifyToken] = useState("");
@@ -145,28 +168,86 @@ export default function JWTComponent() {
   };
 
   // Decode JWT Token
-  const decodeJWT = () => {
+  const clearDecoded = () => {
+    setDecodedHeader("");
+    setDecodedPayload("");
+    setDecodedSignature("");
+    setDecodedHeaderObject(null);
+    setDecodedPayloadObject(null);
+  };
+
+  /**
+   * Base64url-decode one segment and parse it as JSON, reporting which part
+   * failed. "not.a.jwt" has three parts but no valid base64 JSON, so without
+   * this the user only sees a raw parser message.
+   */
+  const parseSegment = (segment: string, name: string) => {
+    let json: string;
     try {
-      const parts = decodeToken.split(".");
+      json = base64UrlDecode(segment);
+    } catch {
+      throw new Error(`The ${name} is not valid base64url.`);
+    }
+    try {
+      const parsed = JSON.parse(json);
+      if (parsed === null || typeof parsed !== "object") {
+        throw new Error("not an object");
+      }
+      return parsed as Record<string, unknown>;
+    } catch {
+      throw new Error(`The ${name} does not contain valid JSON.`);
+    }
+  };
+
+  const decodeJWT = (token = decodeToken) => {
+    const trimmed = token.trim();
+
+    if (!trimmed) {
+      clearDecoded();
+      setDecodeError("");
+      return;
+    }
+
+    try {
+      const parts = trimmed.split(".");
       if (parts.length !== 3) {
-        throw new Error("Invalid JWT format");
+        throw new Error(
+          `A JWT has 3 dot-separated parts; this token has ${parts.length}.`,
+        );
       }
 
-      const header = JSON.parse(base64UrlDecode(parts[0]));
-      const payload = JSON.parse(base64UrlDecode(parts[1]));
+      // Decode each segment separately so the error can name the part that is
+      // actually broken, instead of surfacing a bare JSON parser message.
+      const header = parseSegment(parts[0], "header");
+      const payload = parseSegment(parts[1], "payload");
       const signature = parts[2];
 
       setDecodedHeader(JSON.stringify(header, null, 2));
       setDecodedPayload(JSON.stringify(payload, null, 2));
       setDecodedSignature(signature);
+      setDecodedHeaderObject(header);
+      setDecodedPayloadObject(payload);
+      setDecodeError("");
     } catch (error) {
-      console.error("Error decoding JWT:", error);
-      setDecodedHeader("");
-      setDecodedPayload("");
-      setDecodedSignature("");
-      alert("Invalid JWT token format");
+      clearDecoded();
+      // Shown inline rather than via alert(), which blocks the page and loses
+      // the message as soon as it is dismissed.
+      setDecodeError(
+        error instanceof Error ? error.message : "Invalid JWT token format",
+      );
     }
   };
+
+  // Derived claim views. Recomputed on render so relative times stay current.
+  const claims = useMemo(
+    () => (decodedPayloadObject ? inspectClaims(decodedPayloadObject) : null),
+    [decodedPayloadObject],
+  );
+
+  const headerRows = useMemo(
+    () => (decodedHeaderObject ? inspectHeader(decodedHeaderObject) : []),
+    [decodedHeaderObject],
+  );
 
   // Verify JWT Token
   const verifyJWT = async () => {
@@ -334,13 +415,13 @@ export default function JWTComponent() {
         </p>
       </div>
 
-      <Tabs defaultValue="generate" className="w-full">
+      <Tabs defaultValue="decode" className="w-full">
         <TabsList className="grid w-full grid-cols-4 gap-1 md:gap-2">
-          <TabsTrigger value="generate" className="text-xs sm:text-sm">
-            Generate
-          </TabsTrigger>
           <TabsTrigger value="decode" className="text-xs sm:text-sm">
             Decode
+          </TabsTrigger>
+          <TabsTrigger value="generate" className="text-xs sm:text-sm">
+            Generate
           </TabsTrigger>
           <TabsTrigger value="verify" className="text-xs sm:text-sm">
             Verify
@@ -464,67 +545,115 @@ export default function JWTComponent() {
                 Decode JWT Token
               </CardTitle>
               <CardDescription>
-                Decode and inspect JWT token structure (no verification)
+                Decode and inspect JWT token structure (no signature
+                verification)
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-6">
+            <CardContent className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="decode-token">JWT Token</Label>
                 <Textarea
+                  id="decode-token"
                   value={decodeToken}
-                  onChange={(e) => setDecodeToken(e.target.value)}
+                  onChange={(e) => {
+                    setDecodeToken(e.target.value);
+                    // Decode as they type: pasting a token is the whole task,
+                    // so it should not also require pressing a button.
+                    decodeJWT(e.target.value);
+                  }}
                   placeholder="Paste JWT token here..."
                   rows={4}
-                  className="font-mono"
+                  spellCheck={false}
+                  className="font-mono text-xs"
                 />
               </div>
 
-              <Button onClick={decodeJWT} className="w-full">
-                Decode Token
-              </Button>
+              {decodeToken.trim() && decodeError && (
+                <Alert variant="destructive">
+                  <AlertTriangle className="h-4 w-4" />
+                  <AlertDescription>{decodeError}</AlertDescription>
+                </Alert>
+              )}
+            </CardContent>
+          </Card>
 
-              {(decodedHeader || decodedPayload) && (
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          {(decodedHeader || decodedPayload) && (
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="flex items-center gap-2 text-base">
+                  <FileJson className="h-4 w-4" />
+                  Raw JSON
+                </CardTitle>
+                <CardDescription>
+                  The decoded header and payload exactly as encoded
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
                   <div className="space-y-2">
-                    <Label>Header</Label>
-                    <div className="flex items-start gap-2">
-                      <Textarea
-                        value={decodedHeader}
-                        readOnly
-                        rows={8}
-                        className="font-mono text-sm"
-                      />
+                    <div className="flex items-center justify-between">
+                      <Label>Header</Label>
                       <Button
-                        variant="outline"
+                        variant="ghost"
                         size="sm"
+                        className="h-8 px-2"
                         onClick={() => copyToClipboard(decodedHeader, "header")}
                       >
                         {copiedItem === "header" ? (
-                          <Check className="h-4 w-4" />
+                          <Check className="h-3.5 w-3.5" />
                         ) : (
-                          <Copy className="h-4 w-4" />
+                          <Copy className="h-3.5 w-3.5" />
                         )}
                       </Button>
                     </div>
+                    <pre className="max-h-96 min-h-[8rem] overflow-auto rounded-md border bg-muted/30 p-3 font-mono text-xs leading-5">
+                      {decodedHeader}
+                    </pre>
                   </div>
 
                   <div className="space-y-2">
-                    <Label>Payload</Label>
-                    <div className="flex items-start gap-2">
-                      <Textarea
-                        value={decodedPayload}
-                        readOnly
-                        rows={8}
-                        className="font-mono text-sm"
-                      />
+                    <div className="flex items-center justify-between">
+                      <Label>Payload</Label>
                       <Button
-                        variant="outline"
+                        variant="ghost"
                         size="sm"
+                        className="h-8 px-2"
                         onClick={() =>
                           copyToClipboard(decodedPayload, "payload")
                         }
                       >
                         {copiedItem === "payload" ? (
+                          <Check className="h-3.5 w-3.5" />
+                        ) : (
+                          <Copy className="h-3.5 w-3.5" />
+                        )}
+                      </Button>
+                    </div>
+                    {/* Tall, scrollable and monospaced: payloads are the thing
+                        people actually read here, so they get the room. */}
+                    <pre className="max-h-96 min-h-[8rem] overflow-auto rounded-md border bg-muted/30 p-3 font-mono text-xs leading-5">
+                      {decodedPayload}
+                    </pre>
+                  </div>
+                </div>
+
+                {decodedSignature && (
+                  <div className="space-y-2">
+                    <Label>Signature</Label>
+                    <div className="flex items-center gap-2">
+                      <Input
+                        value={decodedSignature}
+                        readOnly
+                        className="font-mono text-xs"
+                      />
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() =>
+                          copyToClipboard(decodedSignature, "signature")
+                        }
+                      >
+                        {copiedItem === "signature" ? (
                           <Check className="h-4 w-4" />
                         ) : (
                           <Copy className="h-4 w-4" />
@@ -532,36 +661,109 @@ export default function JWTComponent() {
                       </Button>
                     </div>
                   </div>
-                </div>
-              )}
+                )}
+              </CardContent>
+            </Card>
+          )}
+          {claims && (
+            <>
+              {/* Token status: the question people actually open this tab for. */}
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardTitle className="flex items-center gap-2 text-base">
+                    <Timer className="h-4 w-4" />
+                    Token status
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="flex flex-wrap items-center gap-2">
+                  {claims.validity.expired ? (
+                    <Badge className="bg-red-500 text-white hover:bg-red-500">
+                      Expired
+                    </Badge>
+                  ) : claims.validity.notYetValid ? (
+                    <Badge className="bg-amber-500 text-white hover:bg-amber-500">
+                      Not yet valid
+                    </Badge>
+                  ) : claims.validity.secondsRemaining !== undefined ? (
+                    <Badge className="bg-emerald-600 text-white hover:bg-emerald-600">
+                      Active
+                    </Badge>
+                  ) : (
+                    <Badge variant="secondary">No expiry claim</Badge>
+                  )}
 
-              {decodedSignature && (
-                <div className="space-y-2">
-                  <Label>Signature</Label>
-                  <div className="flex items-center gap-2">
-                    <Input
-                      value={decodedSignature}
-                      readOnly
-                      className="font-mono text-sm"
-                    />
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() =>
-                        copyToClipboard(decodedSignature, "signature")
-                      }
-                    >
-                      {copiedItem === "signature" ? (
-                        <Check className="h-4 w-4" />
-                      ) : (
-                        <Copy className="h-4 w-4" />
-                      )}
-                    </Button>
-                  </div>
-                </div>
-              )}
-            </CardContent>
-          </Card>
+                  {claims.validity.secondsRemaining !== undefined && (
+                    <Badge variant="outline">
+                      {claims.validity.expired
+                        ? `Expired ${formatDuration(claims.validity.secondsRemaining)} ago`
+                        : `Expires in ${formatDuration(claims.validity.secondsRemaining)}`}
+                    </Badge>
+                  )}
+
+                  {claims.validity.lifetimeSeconds !== undefined && (
+                    <Badge variant="outline">
+                      Lifetime {formatDuration(claims.validity.lifetimeSeconds)}
+                    </Badge>
+                  )}
+
+                  <Badge variant="outline">
+                    Times shown in{" "}
+                    {Intl.DateTimeFormat().resolvedOptions().timeZone}
+                  </Badge>
+                </CardContent>
+              </Card>
+
+              <ClaimsSection
+                title="Registered claims"
+                icon={<Shield className="h-4 w-4" />}
+                rows={claims.standard}
+                copyValue={JSON.stringify(
+                  Object.fromEntries(
+                    claims.standard.map((c) => [
+                      c.key,
+                      decodedPayloadObject?.[c.key],
+                    ]),
+                  ),
+                  null,
+                  2,
+                )}
+                copyId="standard-claims"
+                copiedItem={copiedItem}
+                onCopy={copyToClipboard}
+                emptyMessage="This token has no registered claims."
+              />
+
+              <ClaimsSection
+                title="Header parameters"
+                icon={<KeyRound className="h-4 w-4" />}
+                rows={headerRows}
+                copyValue={decodedHeader}
+                copyId="header-params"
+                copiedItem={copiedItem}
+                onCopy={copyToClipboard}
+              />
+
+              <ClaimsSection
+                title="Custom claims"
+                icon={<ListTree className="h-4 w-4" />}
+                rows={claims.custom}
+                copyValue={JSON.stringify(
+                  Object.fromEntries(
+                    claims.custom.map((c) => [
+                      c.key,
+                      decodedPayloadObject?.[c.key],
+                    ]),
+                  ),
+                  null,
+                  2,
+                )}
+                copyId="custom-claims"
+                copiedItem={copiedItem}
+                onCopy={copyToClipboard}
+                emptyMessage="This token has no application-specific claims."
+              />
+            </>
+          )}
         </TabsContent>
 
         <TabsContent value="verify" className="space-y-4">
