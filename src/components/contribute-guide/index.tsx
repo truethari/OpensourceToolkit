@@ -66,7 +66,7 @@ export default function ContributeGuide() {
     {
       name: "Network Tools",
       color: "bg-purple-500",
-      tools: ["DNS Lookup", "IP Location", "Speed Test", "Uptime Monitor"],
+      tools: ["DNS Lookup", "IP Location", "Uptime Monitor"],
     },
     {
       name: "Development Tools",

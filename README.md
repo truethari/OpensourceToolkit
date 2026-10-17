@@ -147,7 +147,6 @@ opensourcetoolkit/
 | Tool                    | Description                               | Route             | Features                                       |
 | ----------------------- | ----------------------------------------- | ----------------- | ---------------------------------------------- |
 | **IP Location Checker** | Check IP address geolocation              | `/ip-location`    | Geolocation, ISP info, timezone detection      |
-| **Internet Speed Test** | Test internet connection speed            | `/speed-test`     | Download/upload speed, ping latency            |
 | **DNS Lookup Tool**     | Query DNS records                         | `/dns-lookup`     | Multiple record types, batch lookup            |
 | **Uptime Monitor**      | Monitor website uptime and response times | `/uptime-monitor` | Real-time tracking, command-line visualization |
 

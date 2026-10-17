@@ -287,7 +287,7 @@ import { YourIcon } from "lucide-react";
 - `Text & Data Generators` - UUID, Lorem Ipsum, Mock Data, etc.
 - `Format Converters` - Base64, Image Converter, Text Case, etc.
 - `Security Tools` - JWT, Password Generator, Hash Generator, etc.
-- `Network & Monitoring` - IP Location, DNS Lookup, Speed Test, etc.
+- `Network & Monitoring` - IP Location, DNS Lookup, Uptime Monitor, etc.
 - `Development & API` - API Tester, Regex Tester, SQL Formatter, etc.
 - `File & Document Tools` - PDF Toolkit, Folder Analyzer, VCF Reader, etc.
 - `Design & Creative` - Colors Toolkit, ASCII Generator, QR Code, etc.
