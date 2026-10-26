@@ -42,6 +42,7 @@ import {
   FileSearch,
   FileSpreadsheet,
   Signature,
+  FileBadge,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -524,6 +525,52 @@ export const tools: ITool[] = [
         "Sign PDFs online for free. Draw, type or upload your signature, add initials and dates, drag them into place, and download. Runs fully in your browser — no upload.",
       keywords:
         "sign pdf, pdf signature, sign pdf online, electronic signature, esign pdf, add signature to pdf, fill and sign pdf, draw signature, free pdf signer, sign document online",
+    },
+  },
+  {
+    id: "pdf-digital-signature",
+    title: "PDF Digital Signature",
+    shortTitle: "Digital Sign",
+    description:
+      "Certificate-based PDF signing and verification in your browser - create your own signing certificates, sign PDFs (PAdES), and check who signed a PDF and whether it was changed",
+    icon: FileBadge,
+    color: "bg-teal-600",
+    category: "Security Tools",
+    tags: [
+      "pdf",
+      "digital signature",
+      "certificate",
+      "pades",
+      "x509",
+      "p12",
+      "pfx",
+      "pkcs12",
+      "csr",
+      "verify signature",
+      "self-signed",
+      "certificate authority",
+      "esign",
+    ],
+    features: [
+      "Certificate-Based PDF Signing (PAdES / ETSI.CAdES.detached, SHA-256)",
+      "Verify Signed PDFs: Integrity, Signer, Certificate Chain & Time-Stamps",
+      "Multiple Signatures – Earlier Signatures Stay Valid (Incremental Updates)",
+      "Visible or Invisible Signatures with Optional Handwritten Image",
+      "Create Self-Signed Certificates or Your Own Certificate Authority",
+      "Generate CSRs for Real CAs and Combine the Result into a .p12",
+      "Inspect .cer, .pem, .p7b, .csr and .p12 Files",
+      "RSA (2048–4096) and ECDSA (P-256 / P-384) Keys",
+      "Download the Exact Version Each Signer Signed",
+      "Runs 100% in Your Browser – Files and Keys Never Leave Your Device",
+    ],
+    popular: true,
+    href: "/pdf-digital-signature",
+    seo: {
+      title: "PDF Digital Signature - Sign & Verify PDFs with Certificates",
+      description:
+        "Sign PDFs with a digital certificate, verify signatures and create your own signing certificates. PAdES, multi-signature, runs fully in your browser — nothing uploaded.",
+      keywords:
+        "pdf digital signature, sign pdf with certificate, verify pdf signature, pades, create self signed certificate, p12 certificate, pfx, csr generator, certificate based signature, digital signature online free",
     },
   },
   {
