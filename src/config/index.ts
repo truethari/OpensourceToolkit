@@ -41,6 +41,7 @@ import {
   FileCode2,
   FileSearch,
   FileSpreadsheet,
+  Signature,
 } from "lucide-react";
 
 import type { ITool } from "@/types";
@@ -479,6 +480,50 @@ export const tools: ITool[] = [
         "Split, merge, rotate PDFs, add watermarks, insert text, and more. All processing happens in your browser for privacy and security. Perfect for document management.",
       keywords:
         "pdf tools, pdf split, pdf merge, pdf rotate, pdf watermark, pdf text, document manipulation, pdf toolkit, file processing",
+    },
+  },
+  {
+    id: "pdf-signature",
+    title: "PDF Signature",
+    shortTitle: "Sign PDF",
+    description:
+      "Sign PDF documents in your browser - draw, type or upload a signature, drag it into place, add dates and initials, and download the signed PDF",
+    icon: Signature,
+    color: "bg-indigo-600",
+    category: "File & Document Tools",
+    tags: [
+      "pdf",
+      "signature",
+      "sign",
+      "esign",
+      "e-signature",
+      "electronic signature",
+      "initials",
+      "fill and sign",
+      "contract",
+      "document",
+      "handwriting",
+    ],
+    features: [
+      "Draw Signatures with Mouse, Touch or Stylus (Pressure Sensitive)",
+      "Type Your Name in Handwriting-Style Fonts",
+      "Upload a Photo or Scan with Automatic Background Removal",
+      "Separate Signature and Initials",
+      "Drag, Resize and Nudge Placements on a Live Page Preview",
+      "Add Dates and Custom Text Stamps",
+      "Copy Initials to Every Page in One Click",
+      "Handles Rotated and Cropped Pages Correctly",
+      "Choose Ink Color (Black, Blue, Navy, Red)",
+      "100% In-Browser - Your PDF Never Leaves Your Device",
+    ],
+    popular: true,
+    href: "/pdf-signature",
+    seo: {
+      title: "PDF Signature - Sign PDF Documents Online Free",
+      description:
+        "Sign PDFs online for free. Draw, type or upload your signature, add initials and dates, drag them into place, and download. Runs fully in your browser — no upload.",
+      keywords:
+        "sign pdf, pdf signature, sign pdf online, electronic signature, esign pdf, add signature to pdf, fill and sign pdf, draw signature, free pdf signer, sign document online",
     },
   },
   {
